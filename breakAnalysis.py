@@ -1,2 +1,4 @@
-import requests
-from bs4 import BeautifulSoup
+import flashScore
+
+url = flashScore.getDailyGames()
+print(url)
