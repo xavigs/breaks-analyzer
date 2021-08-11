@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import pycurl
 
 def getDailyGames(day):
     # Load FlashScore WS with daily matches
