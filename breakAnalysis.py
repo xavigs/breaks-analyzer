@@ -14,6 +14,4 @@ else:
     print("ERROR: El nombre de paràmetres és incorrecte.")
     exit()
 
-print(day)
-exit()
-url = flashScore.getDailyGames(day)
+print(flashScore.getDailyGames(day))
