@@ -64,4 +64,4 @@ def getDailyGames(day):
     crl.perform()
     crl.close()
 
-    return data.getvalue()
+    return data.getvalue().decode('UTF-8')
