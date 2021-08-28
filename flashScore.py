@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pycurl
 from io import BytesIO
 import certifi
+from utils import *
 
 JS_ROW_END = "~"
 JS_CELL_END = "¬"
@@ -74,10 +75,12 @@ def getDailyGames(day):
 
 def parseGames(content):
     rows = content.split(JS_ROW_END)
+    i = 0 # To delete
 
     for row in rows:
         row = row.split(JS_CELL_END)
-        indexName, indexValue = row[0].split(JS_INDEX)
+        rows[i] = row # To delete
+        '''indexName, indexValue = row[0].split(JS_INDEX)
 
         if indexName == SHAREDINDEXES_TOURNAMENT_NAME:
             if "EXHIBICIÓN" not in indexValue and "DOBLES" not in indexValue:
@@ -109,6 +112,9 @@ def parseGames(content):
                     surface = "?"
                 print(tournament, surface)
         elif indexName == SHAREDINDEXES_EVENT_ID:
-            print("Matx")
+            print("Matx")'''
 
+        i += 1 # To delete
+
+    printCollection(rows)
     return ""
