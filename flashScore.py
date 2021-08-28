@@ -45,6 +45,11 @@ STATS_HOME = "SH"
 STATS_AWAY = "SI"
 POINTS_DETAIL = "HL"
 STATS_ENDGAME = "A1"
+SURFACES = {"dura": "D",
+            "dura (indoor)": "I",
+            "arcilla": "T",
+            "hierba": "H",
+            "arcilla (indoor)": "T"}
 
 def getDailyGames(day):
     # Load FlashScore WS with daily matches
@@ -53,6 +58,7 @@ def getDailyGames(day):
     else:
         url = "https://d.flashscore.es/x/feed/f_2_1_1_es_1"
 
+    # cURL to access to unauthorized page
     data = BytesIO()
     crl = pycurl.Curl()
     crl.setopt(crl.URL, url)
@@ -64,4 +70,45 @@ def getDailyGames(day):
     crl.perform()
     crl.close()
 
-    return data.getvalue().decode('UTF-8')
+    return parseGames(data.getvalue().decode('UTF-8'))
+
+def parseGames(content):
+    rows = content.split(JS_ROW_END)
+
+    for row in rows:
+        row = row.split(JS_CELL_END)
+        indexName, indexValue = row[0].split(JS_INDEX)
+
+        if indexName == SHAREDINDEXES_TOURNAMENT_NAME:
+            if "EXHIBICIÓN" not in indexValue and "DOBLES" not in indexValue:
+                categoryTournament = indexValue.split(" - ")
+                tournamentName = categoryTournament[1].split(":")
+                tournamentNameParts = tournamentName[1].split(", ")
+
+                if categoryTournament[0] == "ATP":
+                    sex = "Masc."
+                    category = "ATP"
+                elif categoryTournament[0] == "CHALLENGER MASCULINO":
+                    sex = "Masc."
+                    category = "Challenger"
+                elif categoryTournament[0] == "ITF MASCULINO":
+                    sex = "Masc."
+                    category = "ITF"
+                elif categoryTournament[0] == "WTA":
+                    sex = "Fem."
+                    category = "WTA"
+                elif categoryTournament[0] == "ITF FEMENINO":
+                    sex = "Fem."
+                    category = "ITF"
+
+                tournament = tournamentNameParts[0].strip()
+
+                if len(tournamentNameParts) > 1:
+                    surface = tournamentNameParts[1]
+                else:
+                    surface = "?"
+                print(tournament, surface)
+        elif indexName == SHAREDINDEXES_EVENT_ID:
+            print("Matx")
+
+    return ""
