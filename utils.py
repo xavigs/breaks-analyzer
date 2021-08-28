@@ -41,5 +41,40 @@ def printCollection(collection, level = 0, keysLength=0):
         print("Tuple\n(")
         print(")")
     elif isinstance(collection, dict):
-        print("Dict\n{")
+        print("Dict")
+
+        for i in range(0, level):
+            print("    ", end="")
+
+            for j in range(0, keysLength):
+                print(" ", end="")
+
+            print("   ", end="")
+
+        print("{")
+
+        for key, value in collection.items():
+            for i in range(0, level):
+                print("    ", end="")
+
+                for j in range(0, keysLength):
+                    print(" ", end="")
+
+                print("   ", end="")
+
+            print("    [" + key + "] => ", end="")
+
+            if not isinstance(value, list) and not isinstance(value, tuple) and not isinstance(value, dict):
+                print(value)
+            else:
+                printCollection(value, level + 1, len(str(index)))
+
+        for i in range(0, level):
+            print("    ", end="")
+
+            for j in range(0, keysLength):
+                print(" ", end="")
+
+            print("   ", end="")
+
         print("}")
