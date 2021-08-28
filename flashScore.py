@@ -148,12 +148,35 @@ def parseGames(content, future):
                             if future and int(itemValue) > 1 or not future and int(itemValue) == 1:
                                 # Finished game or being played: destroy the game variable
                                 del game
+                        elif keyFlashScore == PLAYER1_NAME:
+                            if "game" in locals():
+                                playerName = itemValue.split(" (")
+                                game['player1'] = playerName[0]
+                        elif keyFlashScore == PLAYER2_NAME:
+                            if "game" in locals():
+                                playerName = itemValue.split(" (")
+                                game['player2'] = playerName[0]
+                        elif keyFlashScore == HOME_KEYWORD:
+                            # TODO: This condition will be implemented on played games, to get the winner
+                            x = 1
+                        elif keyFlashScore == AWAY_KEYWORD:
+                            # TODO: This condition will be implemented on played games, to get the winner
+                            x = 1
+                        elif keyFlashScore == SHAREDINDEXES_EVENT_STAGE_TYPE_ID:
+                            # TODO: Implementation has to be understood
+                            x = 1
                     else:
                         if "game" in locals():
                             games.append(game)
 
         #i += 1 # To delete
 
+    if future:
+        games = sorted(games, key = lambda k: k['utime'])
+    else:
+        # TODO: Array slice to get 8 games
+        x = 1
+
     #printCollection(rows)
     printCollection(games)
-    return ""
+    return games
