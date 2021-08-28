@@ -4,6 +4,7 @@ import pycurl
 from io import BytesIO
 import certifi
 from utils import *
+from datetime import datetime
 
 JS_ROW_END = "~"
 JS_CELL_END = "¬"
@@ -71,16 +72,26 @@ def getDailyGames(day):
     crl.perform()
     crl.close()
 
-    return parseGames(data.getvalue().decode('UTF-8'))
+    return parseGames(data.getvalue().decode('UTF-8'), True)
 
-def parseGames(content):
+def parseGames(content, future):
+    games = []
+    tournament = ""
     rows = content.split(JS_ROW_END)
-    i = 0 # To delete
+    #i = 0 # To delete
 
     for row in rows:
         row = row.split(JS_CELL_END)
-        rows[i] = row # To delete
-        '''indexName, indexValue = row[0].split(JS_INDEX)
+        #rows[i] = row # To delete
+        index = row[0].split(JS_INDEX)
+        indexName = ""
+        indexValue = ""
+
+        if len(index) > 0 and index[0] != "":
+            indexName = index[0]
+
+        if len(index) > 1 and index[1] != "":
+            indexValue = index[1]
 
         if indexName == SHAREDINDEXES_TOURNAMENT_NAME:
             if "EXHIBICIÓN" not in indexValue and "DOBLES" not in indexValue:
@@ -110,11 +121,39 @@ def parseGames(content):
                     surface = tournamentNameParts[1]
                 else:
                     surface = "?"
-                print(tournament, surface)
+            else:
+                tournament = ""
         elif indexName == SHAREDINDEXES_EVENT_ID:
-            print("Matx")'''
+            if tournament != "":
+                game = {}
+                game['id'] = indexValue
+                game['category'] = category
+                game['sex'] = sex
+                game['tournament'] = tournament
 
-        i += 1 # To delete
+                if surface != "?":
+                    game['surface'] = SURFACES[surface]
+                else:
+                    game['surface'] = surface
 
-    printCollection(rows)
+                for item in row:
+                    if item != "":
+                        keyFlashScore, itemValue = item.split(JS_INDEX)
+
+                        if keyFlashScore == SHAREDINDEXES_MATCH_START_UTIME:
+                            game['utime'] = int(itemValue)
+                            game['date'] = datetime.fromtimestamp(game['utime']).strftime("%Y-%m-%d")
+                            game['time'] = datetime.fromtimestamp(game['utime']).strftime("%H:%M")
+                        elif keyFlashScore == SHAREDINDEXES_EVENT_STAGE_ID:
+                            if future and int(itemValue) > 1 or not future and int(itemValue) == 1:
+                                # Finished game or being played: destroy the game variable
+                                del game
+                    else:
+                        if "game" in locals():
+                            games.append(game)
+
+        #i += 1 # To delete
+
+    #printCollection(rows)
+    printCollection(games)
     return ""
