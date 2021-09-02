@@ -14,4 +14,5 @@ else:
     print("ERROR: El nombre de paràmetres és incorrecte.")
     exit()
 
-print(flashScore.getDailyGames(day))
+for game in flashScore.getDailyGames(day):
+    precedents = flashScore.getPrecedents(game['id'], game['keyword1'], game['keyword2'])

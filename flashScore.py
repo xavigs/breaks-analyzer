@@ -5,6 +5,8 @@ from io import BytesIO
 import certifi
 from utils import *
 from datetime import datetime
+import json
+import re
 
 JS_ROW_END = "~"
 JS_CELL_END = "¬"
@@ -74,7 +76,26 @@ def getDailyGames(day):
 
     return parseGames(data.getvalue().decode('UTF-8'), True)
 
-def parseGames(content, future):
+def getPrecedents(idGame, homeKeyword, awayKeyword):
+    #url = "https://www.flashscore.es/partido/" + str(idGame) + "/#resumen-del-partido"
+    url = "https://www.flashscore.es/partido/848gxv3a/#resumen-del-partido"
+    print(url)
+    r = requests.get(url)
+    data = r.text
+    soup = BeautifulSoup(data, "lxml")
+    scripts = soup.select("script")
+
+    for script in scripts:
+        scriptContent = str(script.string).strip()
+
+        if "window.environment" in scriptContent:
+            jsonString = scriptContent.replace("window.environment = ", "")
+            jsonString = lreplace(";", "", jsonString)
+            jsonGame = json.loads(jsonString)
+            print(jsonGame['participantsData'])
+    exit()
+
+def parseGames(content, future, playerKeyword = None):
     games = []
     tournament = ""
     rows = content.split(JS_ROW_END)
@@ -157,11 +178,17 @@ def parseGames(content, future):
                                 playerName = itemValue.split(" (")
                                 game['player2'] = playerName[0]
                         elif keyFlashScore == HOME_KEYWORD:
-                            # TODO: This condition will be implemented on played games, to get the winner
-                            x = 1
+                            if "game" in locals():
+                                game['keyword1'] = itemValue
+
+                                if not future and game['keyword1'] == playerKeyword:
+                                    game['player'] = 1
                         elif keyFlashScore == AWAY_KEYWORD:
-                            # TODO: This condition will be implemented on played games, to get the winner
-                            x = 1
+                            if "game" in locals():
+                                game['keyword2'] = itemValue
+
+                                if not future and game['keyword2'] == playerKeyword:
+                                    game['player'] = 2
                         elif keyFlashScore == SHAREDINDEXES_EVENT_STAGE_TYPE_ID:
                             # TODO: Implementation has to be understood
                             x = 1
@@ -178,5 +205,6 @@ def parseGames(content, future):
         x = 1
 
     #printCollection(rows)
-    printCollection(games)
+    #printCollection(games)
+    #print(json.dumps(games, sort_keys=False, indent=4))
     return games
