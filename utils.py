@@ -78,3 +78,8 @@ def printCollection(collection, level = 0, keysLength=0):
             print("   ", end="")
 
         print("}")
+
+def lreplace(oldText, newText, subject):
+    lastSubstringIndex = subject.rfind(oldText)
+    newString = subject[:lastSubstringIndex] + subject[lastSubstringIndex+len(oldText):]
+    return newString
