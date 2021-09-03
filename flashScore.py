@@ -92,7 +92,8 @@ def getPrecedents(idGame, homeKeyword, awayKeyword):
             jsonString = scriptContent.replace("window.environment = ", "")
             jsonString = lreplace(";", "", jsonString)
             jsonGame = json.loads(jsonString)
-            print(jsonGame['participantsData'])
+            idHomePlayer = jsonGame['participantsData']['home'][0]['id']
+            idAwayPlayer = jsonGame['participantsData']['away'][0]['id']
     exit()
 
 def parseGames(content, future, playerKeyword = None):
