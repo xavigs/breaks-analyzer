@@ -115,7 +115,7 @@ def parseGames(content, future, playerKeyword = None):
             indexValue = index[1]
 
         if indexName == SHAREDINDEXES_TOURNAMENT_NAME:
-            if "EXHIBICIÓN" not in indexValue and "DOBLES" not in indexValue:
+            if "EXHIBICIÓN" not in indexValue and "DOBLES" not in indexValue and "JÚNIOR" not in indexValue:
                 categoryTournament = indexValue.split(" - ")
                 tournamentName = categoryTournament[1].split(":")
                 tournamentNameParts = tournamentName[1].split(", ")
