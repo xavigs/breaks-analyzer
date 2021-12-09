@@ -3,25 +3,25 @@ def printCollection(collection, level = 0, keysLength=0):
         print("List")
 
         for i in range(0, level):
-            print("    ", end="")
+            print "    ",
 
             for j in range(0, keysLength):
-                print(" ", end="")
+                print " ",
 
-            print("   ", end="")
+            print "   ",
 
         print("[")
 
         for index, item in enumerate(collection):
             for i in range(0, level):
-                print("    ", end="")
+                print "    ",
 
                 for j in range(0, keysLength):
-                    print(" ", end="")
+                    print " ",
 
-                print("   ", end="")
+                print "   ",
 
-            print("    [" + str(index) + "] => ", end="")
+            print "    [" + str(index) + "] => ",
 
             if not isinstance(item, list) and not isinstance(item, tuple) and not isinstance(item, dict):
                 print(item)
@@ -29,12 +29,12 @@ def printCollection(collection, level = 0, keysLength=0):
                 printCollection(item, level + 1, len(str(index)))
 
         for i in range(0, level):
-            print("    ", end="")
+            print "    ",
 
             for j in range(0, keysLength):
-                print(" ", end="")
+                print " ",
 
-            print("   ", end="")
+            print "   ",
 
         print("]")
     elif isinstance(collection, tuple):
@@ -44,25 +44,25 @@ def printCollection(collection, level = 0, keysLength=0):
         print("Dict")
 
         for i in range(0, level):
-            print("    ", end="")
+            print "    ",
 
             for j in range(0, keysLength):
-                print(" ", end="")
+                print " ",
 
-            print("   ", end="")
+            print "   ",
 
         print("{")
 
         for key, value in collection.items():
             for i in range(0, level):
-                print("    ", end="")
+                print "    ",
 
                 for j in range(0, keysLength):
-                    print(" ", end="")
+                    print " ",
 
-                print("   ", end="")
+                print "   ",
 
-            print("    [" + key + "] => ", end="")
+            print "    [" + key + "] => ",
 
             if not isinstance(value, list) and not isinstance(value, tuple) and not isinstance(value, dict):
                 print(value)
@@ -70,12 +70,12 @@ def printCollection(collection, level = 0, keysLength=0):
                 printCollection(value, level + 1, len(str(index)))
 
         for i in range(0, level):
-            print("    ", end="")
+            print "    ",
 
             for j in range(0, keysLength):
-                print(" ", end="")
+                print " ",
 
-            print("   ", end="")
+            print "   ",
 
         print("}")
 
