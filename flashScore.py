@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import requests
 from bs4 import BeautifulSoup
 import pycurl
@@ -206,6 +207,6 @@ def parseGames(content, future, playerKeyword = None):
         x = 1
 
     #printCollection(rows)
-    #printCollection(games)
+    printCollection(games)
     #print(json.dumps(games, sort_keys=False, indent=4))
     return games
