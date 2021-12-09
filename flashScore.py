@@ -75,7 +75,7 @@ def getDailyGames(day):
     crl.perform()
     crl.close()
 
-    return parseGames(data.getvalue().decode('UTF-8'), True)
+    return parseGames(data.getvalue(), True)
 
 def getPrecedents(idGame, homeKeyword, awayKeyword):
     #url = "https://www.flashscore.es/partido/" + str(idGame) + "/#resumen-del-partido"
