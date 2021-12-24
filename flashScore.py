@@ -101,11 +101,9 @@ def parseGames(content, future, playerKeyword = None):
     games = []
     tournament = ""
     rows = content.split(JS_ROW_END)
-    #i = 0 # To delete
 
     for row in rows:
         row = row.split(JS_CELL_END)
-        #rows[i] = row # To delete
         index = row[0].split(JS_INDEX)
         indexName = ""
         indexValue = ""
@@ -198,10 +196,9 @@ def parseGames(content, future, playerKeyword = None):
                         if "game" in locals():
                             games.append(game)
 
-        #i += 1 # To delete
-
     if future:
-        games = sorted(games, key = lambda k: k['utime'])
+        #games = sorted(games, key = lambda k: k['utime'])
+        nas = 1
     else:
         # TODO: Array slice to get 8 games
         x = 1
