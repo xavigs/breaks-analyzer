@@ -40,7 +40,7 @@ This is the flow chart that describes the whole process.
 - Python 2.7
   - Click library *(Parameter control)*
   - BeautifulSoup library *(Web scrapers)*
-  - PyCURL library *(Flash Score JSON access)*
+  - PycURL library *(Flash Score JSON access)*
 
 - BetsAPI, from RapidAPI *(Bet365 access)*
 
