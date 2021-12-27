@@ -5,21 +5,32 @@ Breaks Analyzer
 
 Scrapper that extracts all daily tennis matches, and analyse them to predict the probability in the "First Set Player To Break Serve" market. 
 
-* [1. License](#block3)
-* [2. Author](#block1)
+* [1. Project schema](#block1)
+* [2. License](#block2)
+* [3. Author](#block3)
 
 ---
 
 <a name="block1"></a>
-## 1. License
+## 1. Project schema
+The analysis to find a profitable formula for the "First Set Player To Break Serve" market is composed of several phases.
+
+This is the flow chart that describes the whole process.
+
+![Break analysis schema](assets/img/project-schema.png)
+
+---
+
+<a name="block2"></a>
+## 2. License
 MIT License
 
 Copyright (c) 2021 Xavi Garcia i Sunyer
 
 ---
 
-<a name="block2"></a>
-## 2. Author
+<a name="block3"></a>
+## 3. Author
 Xavi G. Sunyer
  - <xaviergs1984@gmail.com>
  - https://www.linkedin.com/in/xavi-garcia-i-sunyer-12039520/
