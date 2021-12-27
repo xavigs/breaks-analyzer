@@ -5,12 +5,21 @@ Breaks Analyzer
 
 Scrapper that extracts all daily tennis matches, and analyse them to predict the probability in the "First Set Player To Break Serve" market. 
 
-* [1. Author](#block1)
+* [1. License](#block3)
+* [2. Author](#block1)
 
 ---
 
 <a name="block1"></a>
-## 1. Author
+## 1. License
+MIT License
+
+Copyright (c) 2021 Xavi Garcia i Sunyer
+
+---
+
+<a name="block2"></a>
+## 2. Author
 Xavi G. Sunyer
  - <xaviergs1984@gmail.com>
  - https://www.linkedin.com/in/xavi-garcia-i-sunyer-12039520/
