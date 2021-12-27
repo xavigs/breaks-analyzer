@@ -80,16 +80,17 @@ def getDailyGames(day):
     return parseGames(data.getvalue(), True)
 
 def getPrecedents(idGame, homeKeyword, awayKeyword):
-    #url = "https://www.flashscore.es/partido/" + str(idGame) + "/#resumen-del-partido"
-    url = "https://www.flashscore.es/partido/848gxv3a/#resumen-del-partido"
-    print(url)
+    url = "https://www.flashscore.es/partido/" + str(idGame) + "/#resumen-del-partido"
     r = requests.get(url)
     data = r.text
     soup = BeautifulSoup(data, "lxml")
     scripts = soup.select("script")
 
     for script in scripts:
-        scriptContent = str(script.string).strip()
+        scriptString = script.string
+
+        if scriptString is not None:
+            scriptContent = str(scriptString.encode('utf-8')).strip()
 
         if "window.environment" in scriptContent:
             jsonString = scriptContent.replace("window.environment = ", "")
@@ -97,6 +98,7 @@ def getPrecedents(idGame, homeKeyword, awayKeyword):
             jsonGame = json.loads(jsonString)
             idHomePlayer = jsonGame['participantsData']['home'][0]['id']
             idAwayPlayer = jsonGame['participantsData']['away'][0]['id']
+            break
     exit()
 
 def parseGames(content, future, playerKeyword = None):
@@ -203,8 +205,7 @@ def parseGames(content, future, playerKeyword = None):
                             games.append(game)
 
     if future:
-        #games = sorted(games, key = lambda k: k['utime'])
-        nas = 1
+        games = sorted(games, key = lambda k: k['utime'])
     else:
         # TODO: Array slice to get 8 games
         x = 1
