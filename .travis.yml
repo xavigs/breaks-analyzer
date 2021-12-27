@@ -4,3 +4,5 @@ language: python
 # Run things with both these version of Python
 python:
   - "2.7"
+
+before_script: cd travis
