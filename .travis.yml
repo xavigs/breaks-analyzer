@@ -1,0 +1,6 @@
+# This project has python as the main language
+language: python
+
+# Run things with both these version of Python
+python:
+  - "2.7"
