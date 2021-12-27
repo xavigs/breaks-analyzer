@@ -173,6 +173,10 @@ def parseGames(content, future, playerKeyword = None):
                         elif keyFlashScore == SHAREDINDEXES_EVENT_STAGE_TYPE_ID:
                             if future and int(itemValue) > 1 or not future and int(itemValue) == 1:
                                 # Finished game or being played: destroy the game variable
+                                #del game
+                                x = 1
+                        elif keyFlashScore == SHAREDINDEXES_EVENT_STAGE_ID:
+                            if "game" in locals() and itemValue == 9:
                                 del game
                         elif keyFlashScore == PLAYER1_NAME:
                             if "game" in locals():
