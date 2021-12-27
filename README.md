@@ -8,8 +8,9 @@ Web scraper that extracts all daily tennis matches, and analyse them to predict 
 * [1. Features](#block1)
 * [2. Project schema](#block2)
 * [3. Technologies](#block3)
-* [4. License](#block4)
-* [5. Author](#block5)
+* [4. Required Python libraries](#block4)
+* [5. License](#block5)
+* [6. Author](#block6)
 
 ---
 
@@ -47,7 +48,19 @@ This is the flow chart that describes the whole process.
 ---
 
 <a name="block4"></a>
-## 4. License
+## 4. Required Python libraries
+
+- bs4 *(Beautiful Soup)*
+- requests *(Access to URL)*
+- lxml *(Beautiful Soup LXML Parser)*
+- pycurl *(Connect to page via cURL)*
+
+- I also use **pudb** to debug
+
+---
+
+<a name="block5"></a>
+## 5. License
 
 MIT License
 
@@ -55,8 +68,8 @@ Copyright (c) 2021 Xavi Garcia i Sunyer
 
 ---
 
-<a name="block5"></a>
-## 5. Author
+<a name="block6"></a>
+## 6. Author
 
 Xavi G. Sunyer
  - <xaviergs1984@gmail.com>
