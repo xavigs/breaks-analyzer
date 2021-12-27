@@ -170,7 +170,7 @@ def parseGames(content, future, playerKeyword = None):
                             game['utime'] = int(itemValue)
                             game['date'] = datetime.fromtimestamp(game['utime']).strftime("%Y-%m-%d")
                             game['time'] = datetime.fromtimestamp(game['utime']).strftime("%H:%M")
-                        elif keyFlashScore == SHAREDINDEXES_EVENT_STAGE_ID:
+                        elif keyFlashScore == SHAREDINDEXES_EVENT_STAGE_TYPE_ID:
                             if future and int(itemValue) > 1 or not future and int(itemValue) == 1:
                                 # Finished game or being played: destroy the game variable
                                 del game
@@ -194,9 +194,6 @@ def parseGames(content, future, playerKeyword = None):
 
                                 if not future and game['keyword2'] == playerKeyword:
                                     game['player'] = 2
-                        elif keyFlashScore == SHAREDINDEXES_EVENT_STAGE_TYPE_ID:
-                            # TODO: Implementation has to be understood
-                            x = 1
                     else:
                         if "game" in locals():
                             games.append(game)
