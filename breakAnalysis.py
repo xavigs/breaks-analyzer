@@ -15,5 +15,7 @@ else:
     print("ERROR: Number of received arguments is wrong.")
     exit()
 
-for game in flashScore.getDailyGames(day):
+dailyGames = flashScore.getDailyGames(day)
+
+for game in dailyGames:
     precedents = flashScore.getPrecedents(game['id'], game['keyword1'], game['keyword2'])
