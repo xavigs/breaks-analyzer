@@ -60,8 +60,10 @@ def getDailyGames(day):
     # Load FlashScore WS with daily matches
     if day == "today":
         url = "https://d.flashscore.es/x/feed/f_2_0_1_es_1"
-    else:
+    elif day == "tomorrow":
         url = "https://d.flashscore.es/x/feed/f_2_1_1_es_1"
+    elif day == "test":
+        url = "https://d.flashscore.es/x/feed/f_2_-1_1_es_1"
 
     # cURL to access to unauthorized page
     data = BytesIO()
