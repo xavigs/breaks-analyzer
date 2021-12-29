@@ -1,7 +1,7 @@
 import credentials
 from pymongo import MongoClient
 
-class Database():
+class Database:
 
     def connect(self):
         connection = MongoClient(credentials.MONGODB_CONNECTION)
