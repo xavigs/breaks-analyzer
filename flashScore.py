@@ -213,8 +213,7 @@ def parseGames(content, future, playerKeyword = None):
     if future:
         games = sorted(games, key = lambda k: k['utime'])
     else:
-        # TODO: Array slice to get 8 games
-        x = 1
+        games = games[0:8]
 
     #printCollection(rows)
     printCollection(games)
