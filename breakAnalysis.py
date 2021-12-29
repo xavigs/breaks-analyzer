@@ -26,7 +26,12 @@ gamesObj.empty()
 for game in dailyGames:
     #gamesObj.write(game)
     previousGames = flashScore.getPreviousGames(game['id'], game['keyword1'], game['keyword2'])
-    print(previousGames['away'][0])
+    
+    for whichPlayer in previousGames:
+        for index, previousGame in enumerate(previousGames[whichPlayer]):
+            breakData = flashScore.getBreakData(previousGame)
+            exit()
+
     exit()
 
 dbConnection.close()

@@ -233,3 +233,7 @@ def parseGames(content, future, playerKeyword = None):
     #printCollection(games)
     #print(json.dumps(games, sort_keys=False, indent=4))
     return games
+
+def getBreakData(game):
+    url = "https://d.flashscore.es/x/feed/df_mh_1_" + game['id']
+    print(getUnauthorizedContent(url))
