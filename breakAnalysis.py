@@ -1,6 +1,12 @@
 # -*- coding: utf-8 -*-
 import sys
 import flashScore
+sys.path.insert(1, 'models')
+import db
+
+breaksDB = db.Database().connect()
+print(breaksDB.list_collection_names())
+exit()
 
 if len(sys.argv) < 3:
     if len(sys.argv) == 1:
