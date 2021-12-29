@@ -79,7 +79,7 @@ def getDailyGames(day):
 
     return parseGames(data.getvalue(), True)
 
-def getPrecedents(idGame, homeKeyword, awayKeyword):
+def getPreviousGames(idGame, homeKeyword, awayKeyword):
     url = "https://www.flashscore.es/partido/" + str(idGame) + "/#resumen-del-partido"
     r = requests.get(url)
     data = r.text
@@ -99,6 +99,13 @@ def getPrecedents(idGame, homeKeyword, awayKeyword):
             idHomePlayer = jsonGame['participantsData']['home'][0]['id']
             idAwayPlayer = jsonGame['participantsData']['away'][0]['id']
             break
+    
+    url = "https://www.flashscore.es/jugador/" + homeKeyword + "/" + idHomePlayer + "/"
+    r = requests.get(url)
+    data = r.text
+    soup = BeautifulSoup(data, "lxml")
+    data = soup.select("div#participant-page-data-summary-results_s")[0].text
+    previousGames = parseGames(data.encode('utf-8'), False)
     exit()
 
 def parseGames(content, future, playerKeyword = None):
@@ -175,8 +182,7 @@ def parseGames(content, future, playerKeyword = None):
                         elif keyFlashScore == SHAREDINDEXES_EVENT_STAGE_TYPE_ID:
                             if future and int(itemValue) > 1 or not future and int(itemValue) == 1:
                                 # Finished game or being played: destroy the game variable
-                                #del game
-                                x = 1
+                                del game
                         elif keyFlashScore == SHAREDINDEXES_EVENT_STAGE_ID:
                             if "game" in locals() and itemValue == 9:
                                 del game

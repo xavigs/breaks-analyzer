@@ -18,4 +18,4 @@ else:
 dailyGames = flashScore.getDailyGames(day)
 
 for game in dailyGames:
-    precedents = flashScore.getPrecedents(game['id'], game['keyword1'], game['keyword2'])
+    previousGames = flashScore.getPreviousGames(game['id'], game['keyword1'], game['keyword2'])
