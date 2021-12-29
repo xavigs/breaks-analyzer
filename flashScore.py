@@ -80,6 +80,7 @@ def getDailyGames(day):
     return parseGames(data.getvalue(), True)
 
 def getPreviousGames(idGame, homeKeyword, awayKeyword):
+    games = {}
     url = "https://www.flashscore.es/partido/" + str(idGame) + "/#resumen-del-partido"
     r = requests.get(url)
     data = r.text
@@ -98,15 +99,26 @@ def getPreviousGames(idGame, homeKeyword, awayKeyword):
             jsonGame = json.loads(jsonString)
             idHomePlayer = jsonGame['participantsData']['home'][0]['id']
             idAwayPlayer = jsonGame['participantsData']['away'][0]['id']
+
+            # Home player
+            url = "https://www.flashscore.es/jugador/" + homeKeyword + "/" + idHomePlayer + "/resultados"
+            r = requests.get(url)
+            data = r.text
+            soup = BeautifulSoup(data, "lxml")
+            data = soup.select("div#participant-page-data-results_s")[0].text
+            games['home'] = parseGames(data.encode('utf-8'), False)
+            
+            # Away player
+            url = "https://www.flashscore.es/jugador/" + awayKeyword + "/" + idAwayPlayer + "/resultados"
+            r = requests.get(url)
+            data = r.text
+            soup = BeautifulSoup(data, "lxml")
+            data = soup.select("div#participant-page-data-results_s")[0].text
+            games['away'] = parseGames(data.encode('utf-8'), False)
+
             break
     
-    url = "https://www.flashscore.es/jugador/" + homeKeyword + "/" + idHomePlayer + "/"
-    r = requests.get(url)
-    data = r.text
-    soup = BeautifulSoup(data, "lxml")
-    data = soup.select("div#participant-page-data-summary-results_s")[0].text
-    previousGames = parseGames(data.encode('utf-8'), False)
-    exit()
+    return games
 
 def parseGames(content, future, playerKeyword = None):
     games = []

@@ -25,7 +25,8 @@ gamesObj.empty()
 
 for game in dailyGames:
     #gamesObj.write(game)
-    #previousGames = flashScore.getPreviousGames(game['id'], game['keyword1'], game['keyword2'])
-    x = 1
+    previousGames = flashScore.getPreviousGames(game['id'], game['keyword1'], game['keyword2'])
+    print(previousGames['away'][0])
+    exit()
 
 dbConnection.close()
