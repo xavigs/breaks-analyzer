@@ -21,9 +21,11 @@ dbConnection = db.Database()
 breaksDB = dbConnection.connect()
 dailyGames = flashScore.getDailyGames(day)
 gamesObj = objects.Games(breaksDB)
+gamesObj.empty()
 
 for game in dailyGames:
-    gamesObj.write(game)
+    #gamesObj.write(game)
     #previousGames = flashScore.getPreviousGames(game['id'], game['keyword1'], game['keyword2'])
+    x = 1
 
 dbConnection.close()

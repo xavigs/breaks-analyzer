@@ -22,5 +22,8 @@ class Games:
         if "id" in document:
             document['_id'] = document['id']
             del document['id']
-            
+
         self.collection.insert_one(document)
+    
+    def empty(self):
+        self.collection.delete_many({})
