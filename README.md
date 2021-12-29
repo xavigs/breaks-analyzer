@@ -39,10 +39,7 @@ This is the flow chart that describes the whole process.
 ## 3. Technologies
 
 - Python 2.7
-  - Click library *(Parameter control)*
-  - BeautifulSoup library *(Web scrapers)*
-  - PycURL library *(Flash Score JSON access)*
-
+- MongoDB database
 - BetsAPI, from RapidAPI *(Bet365 access)*
 
 ---
@@ -54,6 +51,7 @@ This is the flow chart that describes the whole process.
 - requests *(Access to URL)*
 - lxml *(Beautiful Soup LXML Parser)*
 - pycurl *(Connect to page via cURL)*
+- pymongo *(Tools for working with MongoDB)*
 
 - I also use **pudb** to debug
 
