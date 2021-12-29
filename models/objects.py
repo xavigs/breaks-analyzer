@@ -17,3 +17,10 @@ class Games:
             return games
         else:
             return self.collection.find_one({'_id': id})
+        
+    def write(self, document):
+        if "id" in document:
+            document['_id'] = document['id']
+            del document['id']
+            
+        self.collection.insert_one(document)

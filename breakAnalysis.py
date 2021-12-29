@@ -17,12 +17,13 @@ else:
     print("ERROR: Number of received arguments is wrong.")
     exit()
 
-breaksDB = db.Database().connect()
-#dailyGames = flashScore.getDailyGames(day)
+dbConnection = db.Database()
+breaksDB = dbConnection.connect()
+dailyGames = flashScore.getDailyGames(day)
 gamesObj = objects.Games(breaksDB)
-games = gamesObj.read()
-print(games)
-exit()
 
 for game in dailyGames:
-    previousGames = flashScore.getPreviousGames(game['id'], game['keyword1'], game['keyword2'])
+    gamesObj.write(game)
+    #previousGames = flashScore.getPreviousGames(game['id'], game['keyword1'], game['keyword2'])
+
+dbConnection.close()

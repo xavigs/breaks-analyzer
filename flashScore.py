@@ -216,6 +216,6 @@ def parseGames(content, future, playerKeyword = None):
         games = games[0:8]
 
     #printCollection(rows)
-    printCollection(games)
+    #printCollection(games)
     #print(json.dumps(games, sort_keys=False, indent=4))
     return games

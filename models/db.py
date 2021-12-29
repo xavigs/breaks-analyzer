@@ -4,9 +4,9 @@ from pymongo import MongoClient
 class Database:
 
     def connect(self):
-        connection = MongoClient(credentials.MONGODB_CONNECTION)
-        database = connection['breaksDB']
+        self.connection = MongoClient(credentials.MONGODB_CONNECTION)
+        database = self.connection['breaksDB']
         return database
     
     def close(self):
-        return False
+        self.connection.close()
