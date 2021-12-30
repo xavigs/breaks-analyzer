@@ -1,20 +1,19 @@
 from pymongo import MongoClient
 
-class Games:
+class MongoObject:
 
     def __init__(self, db):
         self.db = db
-        self.collection = self.db['games']
 
     def read(self, id=None):
         if id is None:
-            games = []
-            gamesDB = self.collection.find()
+            documents = []
+            documentsDB = self.collection.find()
 
-            for game in gamesDB:
-                games.append(game)
+            for document in documentsDB:
+                documents.append(document)
             
-            return games
+            return documents
         else:
             return self.collection.find_one({'_id': id})
         
@@ -23,7 +22,22 @@ class Games:
             document['_id'] = document['id']
             del document['id']
 
-        self.collection.insert_one(document)
+        existingObject = self.collection.find_one({'_id': document['_id']})
+        
+        if existingObject is None:
+            self.collection.insert_one(document)
     
     def empty(self):
         self.collection.delete_many({})
+
+class Games(MongoObject):
+
+    def __init__(self, db):
+        MongoObject.__init__(self, db)
+        self.collection = self.db['games']
+
+class Players(MongoObject):
+
+    def __init__(self, db):
+        MongoObject.__init__(self, db)
+        self.collection = self.db['players']
