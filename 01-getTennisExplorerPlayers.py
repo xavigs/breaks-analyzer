@@ -5,8 +5,8 @@ from bs4 import BeautifulSoup
 sys.path.insert(1, 'models')
 import db, objects
 
-categories = [{'sex': 'M', 'URL_BASE': "https://www.tennisexplorer.com/ranking/atp-men/?page="},
-              {'sex': 'W', 'URL_BASE': "https://www.tennisexplorer.com/ranking/wta-women/?page="}]
+categories = [{'category': 'ATP', 'sex': 'M', 'URL_BASE': "https://www.tennisexplorer.com/ranking/atp-men/?page="},
+              {'category': 'WTA', 'sex': 'W', 'URL_BASE': "https://www.tennisexplorer.com/ranking/wta-women/?page="}]
 
 dbConnection = db.Database()
 breaksDB = dbConnection.connect()
@@ -19,7 +19,7 @@ for category in categories:
     end = False
 
     while not end:
-        print("# Extracting players from the page " + str(page))
+        print("# Extracting " + categories['category'] + " players from the page " + str(page))
         url = category['URL_BASE'] + str(page)
         r = requests.get(url)
         data = r.text
