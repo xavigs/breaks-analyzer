@@ -33,7 +33,9 @@ for category in categories:
             for player in players:
                 playerDB = {}
                 tennisExplorerKeyword = player.select("td[class=t-name] a")[0]['href'].split("/")[2]
+                tennisExplorerCountry = player.select("td[class=tl] a")[0]['href'].split("/?country=")[1]
                 playerDB['_id'] = tennisExplorerKeyword
+                playerDB['country'] = tennisExplorerCountry
                 playerDB['sex'] = category['sex']
                 playerDB['startingRanking'] = ranking
                 playerDB['tennisExplorerKeyword'] = tennisExplorerKeyword
