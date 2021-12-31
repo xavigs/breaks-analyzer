@@ -102,32 +102,30 @@ def getPreviousGames(idGame, homeKeyword, awayKeyword):
         if scriptString is not None:
             scriptContent = str(scriptString.encode('utf-8')).strip()
 
-        if "window.environment" in scriptContent:
-            jsonString = scriptContent.replace("window.environment = ", "")
-            jsonString = lreplace(";", "", jsonString)
-            jsonGame = json.loads(jsonString)
-            idHomePlayer = jsonGame['participantsData']['home'][0]['id']
-            idAwayPlayer = jsonGame['participantsData']['away'][0]['id']
+            if "window.environment" in scriptContent:
+                jsonString = scriptContent.replace("window.environment = ", "")
+                jsonString = lreplace(";", "", jsonString)
+                jsonGame = json.loads(jsonString)
+                idHomePlayer = jsonGame['participantsData']['home'][0]['id']
+                idAwayPlayer = jsonGame['participantsData']['away'][0]['id']
 
-            # Home player
-            url = "https://www.flashscore.es/jugador/" + homeKeyword + "/" + idHomePlayer + "/resultados"
-            r = requests.get(url)
-            data = r.text
-            soup = BeautifulSoup(data, "lxml")
-            data = soup.select("div#participant-page-data-results_s")[0].text
-            games['home'] = parseGames(data.encode('utf-8'), False)
-            
-            # Away player
-            url = "https://www.flashscore.es/jugador/" + awayKeyword + "/" + idAwayPlayer + "/resultados"
-            r = requests.get(url)
-            data = r.text
-            soup = BeautifulSoup(data, "lxml")
-            data = soup.select("div#participant-page-data-results_s")[0].text
-            games['away'] = parseGames(data.encode('utf-8'), False)
+                # Home player
+                url = "https://www.flashscore.es/jugador/" + homeKeyword + "/" + idHomePlayer + "/resultados"
+                r = requests.get(url)
+                data = r.text
+                soup = BeautifulSoup(data, "lxml")
+                data = soup.select("div#participant-page-data-results_s")[0].text
+                games['home'] = parseGames(data.encode('utf-8'), False)
+                
+                # Away player
+                url = "https://www.flashscore.es/jugador/" + awayKeyword + "/" + idAwayPlayer + "/resultados"
+                r = requests.get(url)
+                data = r.text
+                soup = BeautifulSoup(data, "lxml")
+                data = soup.select("div#participant-page-data-results_s")[0].text
+                games['away'] = parseGames(data.encode('utf-8'), False)
 
-            break
-    
-    return games
+                return games
 
 def parseGames(content, future, playerKeyword = None):
     games = []
