@@ -16,6 +16,9 @@ class MongoObject:
             return documents
         else:
             return self.collection.find_one({'_id': id})
+    
+    def find(self, conditions):
+        return self.collection.find_one({'$and': conditions})
         
     def create(self, document):
         if "id" in document:
