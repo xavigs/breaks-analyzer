@@ -50,6 +50,13 @@ STATS_HOME = "SH"
 STATS_AWAY = "SI"
 POINTS_DETAIL = "HL"
 STATS_ENDGAME = "A1"
+RANKING_REGISTER = "TS"
+RANKING_PLAYER = "RW"
+RANKING_PLAYER_TAG = "PT"
+RANKING_PLAYER_VALUE = "PV"
+RANKING_PLAYER_NAME = "PN"
+RANKING_PLAYER_ID = "PI"
+RANKING_POSITION = "RA"
 SURFACES = {"dura": "D",
             "dura (indoor)": "I",
             "arcilla": "T",
@@ -237,3 +244,63 @@ def parseGames(content, future, playerKeyword = None):
 def getBreakData(game):
     url = "https://d.flashscore.es/x/feed/df_mh_1_" + game['id']
     print(getUnauthorizedContent(url))
+
+def getRanking(category):
+    fullranking = []
+    url = "https://www.flashscore.es/tenis/rankings/" + category + "/"
+    r = requests.get(url)
+    data = r.text
+    soup = BeautifulSoup(data, "lxml")
+    scripts = soup.select("script")
+
+    for script in scripts:
+        scriptString = script.string
+
+        if scriptString is not None:
+            scriptContent = str(scriptString.encode('utf-8')).strip()
+
+            if "_cjs.rankingId" in scriptContent:
+                rankingIdTextPos = scriptContent.index("_cjs.rankingId")
+                rankingId = scriptContent[(rankingIdTextPos + 18):(rankingIdTextPos + 26)]
+                rankingURL = "https://d.flashscore.es/x/feed/ran_" + rankingId + "_2"
+
+                for page in range(1, 3):
+                    rankingURL = "https://d.flashscore.es/x/feed/ran_" + rankingId + "_" + str(page)
+                    ranking = parseRanking(getUnauthorizedContent(rankingURL))
+                    fullranking += ranking
+
+                return fullranking
+
+def parseRanking(content):
+    players = []
+    typeValue = None
+    rows = content.split(JS_ROW_END)
+    validFields = (RANKING_PLAYER_NAME, RANKING_PLAYER_ID, RANKING_POSITION)
+    
+    for row in rows:
+        row = row.split(JS_CELL_END)
+        
+        for cell in row:
+            if JS_INDEX in cell:
+                indexName, indexValue = cell.split(JS_INDEX)
+                
+                if indexName == RANKING_REGISTER and indexValue == RANKING_PLAYER:
+                    player = {}
+                elif indexName == RANKING_PLAYER_TAG and indexValue == RANKING_PLAYER_NAME:
+                    typeValue = "name"
+                elif indexName == RANKING_PLAYER_VALUE and typeValue == "name":
+                    player['flashScoreName'] = indexValue
+                elif indexName == RANKING_PLAYER_TAG and indexValue == RANKING_PLAYER_ID:
+                    typeValue = "id"
+                elif indexName == RANKING_PLAYER_VALUE and typeValue == "id":
+                    player['flashScoreId'] = indexValue
+                elif indexName == RANKING_PLAYER_TAG and indexValue == RANKING_POSITION:
+                    typeValue = "ranking"
+                elif indexName == RANKING_PLAYER_VALUE and typeValue == "ranking":
+                    player['ranking'] = int(indexValue)
+                    players.append(player)
+                    typeValue = None
+                elif indexName == RANKING_PLAYER_TAG not in validFields:
+                    typeValue = None
+
+    return players
