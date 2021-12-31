@@ -30,6 +30,10 @@ class MongoObject:
         if existingObject is None:
             self.collection.insert_one(document)
     
+    def update(self, modifiedFields, conditions):
+        document = self.collection.find_one({"$and": conditions})
+        self.collection.update_one({'_id': document['_id']}, {'$set': modifiedFields})
+    
     def empty(self):
         self.collection.delete_many({})
 
