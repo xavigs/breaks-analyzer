@@ -17,7 +17,7 @@ class MongoObject:
         else:
             return self.collection.find_one({'_id': id})
         
-    def write(self, document):
+    def create(self, document):
         if "id" in document:
             document['_id'] = document['id']
             del document['id']

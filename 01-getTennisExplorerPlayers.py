@@ -40,7 +40,7 @@ for category in categories:
                 playerDB['startingRanking'] = ranking
                 playerDB['tennisExplorerKeyword'] = tennisExplorerKeyword
                 playerDB['tennisExplorerName'] = player.select("td[class=t-name]")[0].text
-                playersObj.write(playerDB)
+                playersObj.create(playerDB)
                 ranking += 1
 
         page += 1

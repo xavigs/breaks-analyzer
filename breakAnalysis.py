@@ -24,7 +24,7 @@ gamesObj = objects.Games(breaksDB)
 gamesObj.empty()
 
 for game in dailyGames:
-    #gamesObj.write(game)
+    #gamesObj.create(game)
     previousGames = flashScore.getPreviousGames(game['id'], game['keyword1'], game['keyword2'])
     
     for whichPlayer in previousGames:
