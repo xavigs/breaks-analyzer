@@ -245,7 +245,7 @@ def getBreakData(game):
 
 def getRanking(category):
     fullranking = []
-    url = "https://www.flashscore.es/tenis/rankings/" + category + "/"
+    url = "https://www.flashscore.com/tennis/rankings/" + category + "/"
     r = requests.get(url)
     data = r.text
     soup = BeautifulSoup(data, "lxml")
@@ -260,10 +260,9 @@ def getRanking(category):
             if "_cjs.rankingId" in scriptContent:
                 rankingIdTextPos = scriptContent.index("_cjs.rankingId")
                 rankingId = scriptContent[(rankingIdTextPos + 18):(rankingIdTextPos + 26)]
-                rankingURL = "https://d.flashscore.es/x/feed/ran_" + rankingId + "_2"
 
                 for page in range(1, 3):
-                    rankingURL = "https://d.flashscore.es/x/feed/ran_" + rankingId + "_" + str(page)
+                    rankingURL = "https://d.flashscore.com/x/feed/ran_" + rankingId + "_" + str(page)
                     ranking = parseRanking(getUnauthorizedContent(rankingURL))
                     fullranking += ranking
 
