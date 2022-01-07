@@ -59,11 +59,11 @@ RANKING_PLAYER_VALUE = "PV"
 RANKING_PLAYER_NAME = "PN"
 RANKING_PLAYER_ID = "PI"
 RANKING_POSITION = "RA"
-SURFACES = {"dura": "D",
-            "dura (indoor)": "I",
-            "arcilla": "T",
-            "hierba": "H",
-            "arcilla (indoor)": "T"}
+SURFACES = {"hard": "D",
+            "hard (indoor)": "I",
+            "clay": "T",
+            "grass": "H",
+            "clay (indoor)": "T"}
 
 def getUnauthorizedContent(url):
     data = BytesIO()
@@ -271,9 +271,57 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
     #print(json.dumps(games, sort_keys=False, indent=4))
     return games
 
+def parseStats(content):
+    homeBreaks = 0
+    awayBreaks = 0
+    rows = content.split(JS_ROW_END)
+    
+    for row in rows:
+        row = row.split(JS_CELL_END)
+        index = row[0].split(JS_INDEX)
+        indexName = ""
+        indexValue = ""
+
+        if len(index) > 0 and index[0] != "":
+            indexName = index[0]
+
+        if len(index) > 1 and index[1] != "":
+            indexValue = index[1]
+        
+        if indexName != "" and indexValue != "":
+            if indexName == STATS_SET:
+                if indexValue == "Set 1":
+                    stats = {}
+                elif "stats" in locals():
+                    stats['homeBreaks'] = homeBreaks
+                    stats['awayBreaks'] = awayBreaks
+                    return stats
+            elif "stats" in locals():
+                indexGame = 0
+
+                for item in row:
+                    if item != "":
+                        keyFS, itemValue = item.split(JS_INDEX)
+
+                        if keyFS == POINTS_DETAIL and indexGame == 5:
+                            if row[4][-1] == "1":
+                                homeBreaks
+                            else:
+                                awayBreaks
+                    
+                    indexGame += 1
+
+        elif indexName == STATS_ENDGAME and "stats" in locals():
+            stats['homeBreaks'] = homeBreaks
+            stats['awayBreaks'] = awayBreaks
+            return stats
+
+    exit()
+
 def getBreakData(game):
-    url = "https://d.flashscore.es/x/feed/df_mh_1_" + game['id']
-    print(getUnauthorizedContent(url))
+    url = "https://d.flashscore.com/x/feed/df_mh_1_" + game['id']
+    content = getUnauthorizedContent(url)
+    return parseStats(content)
 
 def getRanking(category):
     fullranking = []
@@ -336,11 +384,17 @@ def parseRanking(content):
 
 def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
     playerKeyword = getKeywordFromString(playerName)
-    url = "https://www.flashscore.es/jugador/" + playerKeyword + "/" + playerID + "/resultados"
+    url = "https://www.flashscore.com/player/" + playerKeyword + "/" + playerID + "/results"
     r = requests.get(url)
     data = r.text
     soup = BeautifulSoup(data, "lxml")
     data = soup.select("div#participant-page-data-results_s")[0].text
     games = parseGames(data.encode('utf-8'), False, lastGames = lastGames)
     
+    for event in games:
+        if event['game']:
+            breakData = getBreakData(event['game'])
+            print(breakData)
+            exit()
+
     return False
