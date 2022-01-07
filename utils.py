@@ -83,3 +83,6 @@ def lreplace(oldText, newText, subject):
     lastSubstringIndex = subject.rfind(oldText)
     newString = subject[:lastSubstringIndex] + subject[lastSubstringIndex+len(oldText):]
     return newString
+
+def getKeywordFromString(text):
+    return text.replace(" ", "-").lower()
