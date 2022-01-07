@@ -20,11 +20,13 @@ SHAREDINDEXES_EVENT_ID = "AA"
 SHAREDINDEXES_MATCH_START_UTIME = "AD"
 SHAREDINDEXES_EVENT_STAGE_TYPE_ID = "AB"
 SHAREDINDEXES_EVENT_STAGE_ID = "AC"
+PLAYER1_ID = "PY"
 PLAYER1_NAME = "CX"
 LIVE = "AI"
 HAS_STATS = "AO"
 HOME3CHARNAME = "WM"
 AWAY3CHARNAME = "WN"
+PLAYER2_ID = "PX"
 PLAYER2_NAME = "AF"
 HOME_ENCODED_PARTICIPANT_ID = "JA"
 AWAY_ENCODED_PARTICIPANT_ID = "JB"
@@ -127,7 +129,7 @@ def getPreviousGames(idGame, homeKeyword, awayKeyword):
 
                 return games
 
-def parseGames(content, future, playerKeyword = None):
+def parseGames(content, future, playerKeyword = None, lastGames = None):
     games = []
     tournament = ""
     rows = content.split(JS_ROW_END)
@@ -205,10 +207,16 @@ def parseGames(content, future, playerKeyword = None):
                         elif keyFlashScore == SHAREDINDEXES_EVENT_STAGE_ID:
                             if "game" in locals() and itemValue == 9:
                                 del game
+                        elif keyFlashScore == PLAYER1_ID:
+                            if "game" in locals():
+                                game['player1ID'] = itemValue
                         elif keyFlashScore == PLAYER1_NAME:
                             if "game" in locals():
                                 playerName = itemValue.split(" (")
                                 game['player1'] = playerName[0]
+                        elif keyFlashScore == PLAYER2_ID:
+                            if "game" in locals():
+                                game['player2ID'] = itemValue
                         elif keyFlashScore == PLAYER2_NAME:
                             if "game" in locals():
                                 playerName = itemValue.split(" (")
@@ -232,7 +240,31 @@ def parseGames(content, future, playerKeyword = None):
     if future:
         games = sorted(games, key = lambda k: k['utime'])
     else:
-        games = games[0:8]
+        newLastGames = []
+        itemsFound = 0
+
+        for game in games:
+            found = -1
+
+            for index, previousGame in enumerate(lastGames):
+                if game['date'] == previousGame['date'] and (game['player1ID'] == previousGame['opponent'] or game['player2ID'] == previousGame['opponent']):
+                    found = index
+                    itemsFound += 1
+                    break
+            
+            newLastGame = {'index': index}
+
+            if found > -1:
+                newLastGame['game'] = game
+            else:
+                newLastGame['game'] = False
+            
+            newLastGames.append(newLastGame)
+            
+            if itemsFound == 8:
+                break
+        
+        return newLastGames
 
     #printCollection(rows)
     #printCollection(games)
@@ -301,3 +333,14 @@ def parseRanking(content):
                     typeValue = None
 
     return players
+
+def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
+    playerKeyword = getKeywordFromString(playerName)
+    url = "https://www.flashscore.es/jugador/" + playerKeyword + "/" + playerID + "/resultados"
+    r = requests.get(url)
+    data = r.text
+    soup = BeautifulSoup(data, "lxml")
+    data = soup.select("div#participant-page-data-results_s")[0].text
+    games = parseGames(data.encode('utf-8'), False, lastGames = lastGames)
+    
+    return False
