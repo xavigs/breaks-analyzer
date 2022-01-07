@@ -12,12 +12,28 @@ breaksDB = dbConnection.connect()
 playersObj = objects.Players(breaksDB)
 
 players = playersObj.read()
-startLimit = 11
-endLimit = 20
+startLimit = 390
+endLimit = 500
 index = 1
 currentYear = date.today().year
 invalidCompetitions = ("A Day at the Drive (Adelaide)",
-                        "Abu Dhabi - exh.")
+                        "Abu Dhabi - exh.",
+                        "World TeamTennis",
+                        "Laver Cup",
+                        "Netherlands - Championship",
+                        "Czech league",
+                        "Bundesliga - men",
+                        "Battle of the Brits 2",
+                        "Battle of the Brits",
+                        "UK Pro Series",
+                        "UTR Pro Match Series",
+                        "UTR Pro Tennis Series 5",
+                        "Ultimate Tennis Showdown 2 2020",
+                        "Challenge Elite FFT 3",
+                        "Challenge Elite FFT 2",
+                        "Challenge Elite FFT",
+                        "Ultimate Tennis Showdown 2",
+                        "UTR Pro Tennis Series 4")
 shownCompetitions = []
 
 for player in players:
@@ -27,11 +43,13 @@ for player in players:
     elif index > endLimit:
         break
     else:
+        print("# Player => {}".format(player['tennisExplorerKeyword']))
         year = currentYear
         lastGames = []
 
         while len(lastGames) < 8 and year > 2018:
             url = "https://www.tennisexplorer.com/player/" + player['tennisExplorerKeyword'] + "?annual=" + str(year)
+            print(url)
             r = requests.get(url)
             data = r.text
             soup = BeautifulSoup(data, "lxml")
@@ -45,13 +63,22 @@ for player in players:
                     for game in schedule:
                         if "head" in game['class']:
                             # Competition
-                            competition = game.select("a")[0].text.strip()
+                            competitionLinks = game.select("a")
+
+                            if len(competitionLinks) > 0:
+                                competition = game.select("a")[0].text.strip()
+                            else:
+                                competition = game.select("span")[0].text.strip()
+
                             validCompetition = competition not in invalidCompetitions
                         else:
                             # Game
                             if validCompetition:
                                 if competition not in shownCompetitions:
-                                    print(competition)
+                                    try:
+                                        print("\t-> {}".format(competition))
+                                    except Exception as e:
+                                        print(competition)
                                     shownCompetitions.append(competition)
                                 previousGame = {}
                                 time = game.select("td")[0].text.split(".")
@@ -67,10 +94,12 @@ for player in players:
                                     playerGames = numPlayer == 1 and int(set1[0]) or int(set1[1])
                                     opponentGames = numPlayer == 1 and int(set1[1]) or int(set1[0])
 
-                                    if playerGames > 60:
-                                        playerGames = 6
-                                    elif opponentGames > 60:
-                                        opponentGames = 6
+                                    if playerGames > 10:
+                                        numGames = playerGames // 10
+                                        playerGames = numGames
+                                    elif opponentGames > 10:
+                                        numGames = opponentGames // 10
+                                        opponentGames = numGames
                                     
                                     if playerGames - opponentGames >= 2:
                                         previousGame['breakDone'] = 1
