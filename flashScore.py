@@ -383,6 +383,9 @@ def parseRanking(content):
     return players
 
 def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
+    lastGamesBreakData = {}
+    lastGamesBreakData['games'] = []
+    definedGames = 0
     playerKeyword = getKeywordFromString(playerName)
     url = "https://www.flashscore.com/player/" + playerKeyword + "/" + playerID + "/results"
     r = requests.get(url)
@@ -391,10 +394,17 @@ def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
     data = soup.select("div#participant-page-data-results_s")[0].text
     games = parseGames(data.encode('utf-8'), False, lastGames = lastGames)
     
-    for event in games:
+    for index, event in enumerate(games):
         if event['game']:
+            gameBreakData = {}
+            playerLocation = event['game']['player1ID'] == playerID and "home" or "away"
+            opponentLocation = playerLocation == "home" and "away" or "home"
             breakData = getBreakData(event['game'])
-            print(breakData)
-            exit()
+            gameBreakData['index'] = index
+            gameBreakData['breakDone'] = breakData[playerLocation + "Breaks"] > 0 and 1 or 0
+            gameBreakData['breakReceived'] = breakData[opponentLocation + "Breaks"] > 0 and 1 or 0
+            definedGames += 1
+            lastGamesBreakData['games'].append(gameBreakData)
 
-    return False
+    lastGamesBreakData['definedGames'] = definedGames
+    return lastGamesBreakData
