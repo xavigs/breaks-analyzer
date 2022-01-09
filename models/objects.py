@@ -110,3 +110,14 @@ class Players(MongoObject):
                 exit()
         else:
             MongoObject.update(self, modifiedFields, conditions)
+    
+    def updateBreakData(self, playerID, lastGamesBreaks):
+        player = self.read(playerID)
+        conditions = [{'_id': playerID}]
+        modifiedFields = {'definedGames': lastGamesBreaks['definedGames'], 'lastGames': player['lastGames']}
+        
+        for lastGameBreaks in lastGamesBreaks['games']:
+            modifiedFields['lastGames'][lastGameBreaks['index']]['breakDone'] = lastGameBreaks['breakDone']
+            modifiedFields['lastGames'][lastGameBreaks['index']]['breakReceived'] = lastGameBreaks['breakReceived']
+        
+        self.update(modifiedFields, conditions)
