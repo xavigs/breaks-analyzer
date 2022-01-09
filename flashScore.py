@@ -305,9 +305,9 @@ def parseStats(content):
 
                         if keyFS == POINTS_DETAIL and indexGame == 5:
                             if row[4][-1] == "1":
-                                homeBreaks
+                                homeBreaks += 1
                             else:
-                                awayBreaks
+                                awayBreaks += 1
                     
                     indexGame += 1
 
