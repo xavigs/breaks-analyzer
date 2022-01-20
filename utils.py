@@ -1,83 +1,28 @@
-def printCollection(collection, level = 0, keysLength=0):
-    if isinstance(collection, list):
-        print("List")
+def printCollectionContent(openings, level, levelIdentation, identation, key, value):
+    print "{}{}[{}] =>".format(levelIdentation, identation, key),
 
-        for i in range(0, level):
-            print "    ",
+    if type(value).__name__ not in openings:
+        print(str(value))
+    else:
+        printCollection(value, level + 1)
 
-            for j in range(0, keysLength):
-                print " ",
+def printCollection(collection, level = 0):
+    identation = "    "
+    levelIdentation = level > 0 and identation * (level + 1) or ""
+    openings = {'list': "[", 'tuple': "(", 'dict': "{"}
+    endings = {'list': "]", 'tuple': ")", 'dict': "}"}
+    collectionType = type(collection).__name__
+    print(collectionType.capitalize())
+    print("{}{}".format(levelIdentation, openings[collectionType]))
 
-            print "   ",
-
-        print("[")
-
-        for index, item in enumerate(collection):
-            for i in range(0, level):
-                print "    ",
-
-                for j in range(0, keysLength):
-                    print " ",
-
-                print "   ",
-
-            print "    [" + str(index) + "] => ",
-
-            if not isinstance(item, list) and not isinstance(item, tuple) and not isinstance(item, dict):
-                print(item)
-            else:
-                printCollection(item, level + 1, len(str(index)))
-
-        for i in range(0, level):
-            print "    ",
-
-            for j in range(0, keysLength):
-                print " ",
-
-            print "   ",
-
-        print("]")
-    elif isinstance(collection, tuple):
-        print("Tuple\n(")
-        print(")")
-    elif isinstance(collection, dict):
-        print("Dict")
-
-        for i in range(0, level):
-            print "    ",
-
-            for j in range(0, keysLength):
-                print " ",
-
-            print "   ",
-
-        print("{")
-
+    if collectionType == "list" or collectionType == "tuple":
+        for index, value in enumerate(collection):
+            printCollectionContent(openings, level, levelIdentation, identation, index, value)
+    elif collectionType == "dict":
         for key, value in collection.items():
-            for i in range(0, level):
-                print "    ",
+            printCollectionContent(openings, level, levelIdentation, identation, key, value)
 
-                for j in range(0, keysLength):
-                    print " ",
-
-                print "   ",
-
-            print "    [" + key + "] => ",
-
-            if not isinstance(value, list) and not isinstance(value, tuple) and not isinstance(value, dict):
-                print(value)
-            else:
-                printCollection(value, level + 1, len(str(index)))
-
-        for i in range(0, level):
-            print "    ",
-
-            for j in range(0, keysLength):
-                print " ",
-
-            print "   ",
-
-        print("}")
+    print("{}{}".format(levelIdentation, endings[collectionType]))
 
 def lreplace(oldText, newText, subject):
     lastSubstringIndex = subject.rfind(oldText)
