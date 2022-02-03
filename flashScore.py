@@ -320,7 +320,26 @@ def parseStats(content):
 
 def getBreakData(game):
     url = "https://d.flashscore.com/x/feed/df_mh_1_" + game['id']
-    content = getUnauthorizedContent(url)
+    h = {
+        'Host':'d.flashscore.com',
+        'User-Agent':'core',
+        'Accept':'*/*',
+        'Accept-Language':'*',
+        'Accept-Encoding':'gzip,deflate,br',
+        'Referer':'https://d.flashscore.com/x/feed/proxy-local',
+        'X-GeoIP':'1',
+        'X-Referer':'https://www.flashscore.com/tennis/',
+        'X-Fsign':'SW9D1eZo',
+        'X-Requested-With':'XMLHttpRequest',
+        'Connection': 'keep-alive',
+        'Cookie':'_ga=GA1.2.149667040.1559363495; _gid=GA1.2.1231578565.1559363495; _sessionhits_UA-207011-5=2; _gat_UA-207011-5=1; _session_UA-207011-5=true',
+        'TE':'Trailers'
+    }
+    r = requests.get(url, headers = h)
+    data = r.text
+    soup = BeautifulSoup(data, "lxml")
+    #content = getUnauthorizedContent(url)
+    content = soup.select("p")[0].text
     return parseStats(content)
 
 def getRanking(category):
