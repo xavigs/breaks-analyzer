@@ -46,7 +46,10 @@ for player in players:
     elif index > endLimit:
         break
     else:
-        print("# Player => {}".format(player['tennisExplorerKeyword']))
+        rankingNameLength = len(str(index)) + len(player['tennisExplorerName'])
+        print("\n" + "-" * (rankingNameLength + 25))
+        print("|          ({}) {}          |".format(index, player['tennisExplorerName'].upper()))
+        print("-" * (rankingNameLength + 25))
         year = currentYear
         lastGames = []
 
