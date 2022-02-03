@@ -20,6 +20,6 @@ for player in players[0:1]:
         lastGames.append(previousGame)
     
     lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
-    print(lastGameBreaks)
+    print(lastGamesBreaks)
     #playersObj.updateBreakData(player['_id'], lastGamesBreaks)
     exit()
