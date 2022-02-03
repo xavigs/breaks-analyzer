@@ -10,7 +10,8 @@ playersObj = objects.Players(breaksDB)
 
 players = playersObj.read()
 
-for player in players[0:1]:
+for player in players[0:50]:
+    print("Analyzing {}...".format(player['flashScoreName']))
     lastGames = []
 
     for game in player['lastGames']:
@@ -20,6 +21,4 @@ for player in players[0:1]:
         lastGames.append(previousGame)
     
     lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
-    print(lastGamesBreaks)
-    #playersObj.updateBreakData(player['_id'], lastGamesBreaks)
-    exit()
+    playersObj.updateBreakData(player['_id'], lastGamesBreaks)
