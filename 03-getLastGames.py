@@ -33,7 +33,10 @@ invalidCompetitions = ("A Day at the Drive (Adelaide)",
                         "Challenge Elite FFT 2",
                         "Challenge Elite FFT",
                         "Ultimate Tennis Showdown 2",
-                        "UTR Pro Tennis Series 4")
+                        "UTR Pro Tennis Series 4",
+                        "Grand Slam Tennis Tours MatchPlay 2020",
+                        "UTR Pro Tennis Series",
+                        "Grand Slam Tennis Tours MatchPlay")
 shownCompetitions = []
 
 for player in players:
