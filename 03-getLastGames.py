@@ -12,7 +12,7 @@ breaksDB = dbConnection.connect()
 playersObj = objects.Players(breaksDB)
 
 players = playersObj.read()
-startLimit = 390
+startLimit = 1
 endLimit = 500
 index = 1
 currentYear = date.today().year
