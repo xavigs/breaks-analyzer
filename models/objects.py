@@ -121,3 +121,14 @@ class Players(MongoObject):
             modifiedFields['lastGames'][lastGameBreaks['index']]['breakReceived'] = lastGameBreaks['breakReceived']
         
         self.update(modifiedFields, conditions)
+    
+    def printBreakData(self, playerID):
+        player = self.read(playerID)
+        if player['definedGames'] < 8:
+            print("\t⚠ Defined games: {}".format(player['definedGames']))
+        else:
+            print("\t✅ Defined games: {}".format(player['definedGames']))
+
+        for game in player['lastGames']:
+            numSpaces = 21 - len(game['opponent'])
+            print("\t📌 Opponent: {}".format(game['opponent']) + " " * numSpaces + "| Break done: {} • Break received: {}".format(game['breakDone'], game['breakReceived']))
