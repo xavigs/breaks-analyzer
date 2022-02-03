@@ -168,7 +168,7 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
             indexValue = index[1]
 
         if indexName == SHAREDINDEXES_TOURNAMENT_NAME:
-            if "EXHIBICIÓN" not in indexValue and "DOBLES" not in indexValue and "JÚNIOR" not in indexValue:
+            if "EXHIBITION" not in indexValue and "DOUBLES" not in indexValue and "JUNIOR" not in indexValue:
                 categoryTournament = indexValue.split(" - ")
                 tournamentName = categoryTournament[1].split(":")
                 tournamentNameParts = tournamentName[1].split(", ")
@@ -176,7 +176,7 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
                 if categoryTournament[0] == "ATP":
                     sex = "Masc."
                     category = "ATP"
-                elif categoryTournament[0] == "CHALLENGER MASCULINO":
+                elif categoryTournament[0] == "CHALLENGER MEN":
                     sex = "Masc."
                     category = "Challenger"
                 elif categoryTournament[0] == "ITF MASCULINO":
