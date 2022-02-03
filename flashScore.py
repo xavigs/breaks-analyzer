@@ -273,7 +273,7 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
                     itemsFound += 1
                     break
             
-            newLastGame = {'index': index}
+            newLastGame = {'index': found}
 
             if found > -1:
                 newLastGame['game'] = game
