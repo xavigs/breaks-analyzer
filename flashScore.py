@@ -195,7 +195,7 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
                 tournament = tournamentNameParts[0].strip()
 
                 if len(tournamentNameParts) > 1:
-                    surface = tournamentNameParts[1]
+                    surface = tournamentNameParts[-1]
                 else:
                     surface = "?"
             else:
