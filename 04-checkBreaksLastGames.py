@@ -12,9 +12,9 @@ players = playersObj.read()
 
 for player in players[0:50]:
     print("Analyzing {}...".format(player['flashScoreName']))
-    rankingNameLength = len(str(player['startRanking'])) + len(player['tennisExplorerName'])
+    rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
     print("\n" + "-" * (rankingNameLength + 25))
-    print("|          ({}) {}          |".format(player['startRanking'], player['tennisExplorerName'].upper()))
+    print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].upper()))
     print("-" * (rankingNameLength + 25))
     lastGames = []
 
