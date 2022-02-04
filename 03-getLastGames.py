@@ -13,7 +13,6 @@ playersObj = objects.Players(breaksDB)
 
 #players = playersObj.read()
 players = playersObj.getWomen()
-index = 1
 currentYear = date.today().year
 invalidCompetitions = ("A Day at the Drive (Adelaide)",
                         "Abu Dhabi - exh.",
@@ -38,10 +37,10 @@ invalidCompetitions = ("A Day at the Drive (Adelaide)",
                         "World TeamTennis")
 shownCompetitions = []
 
-for player in players[0:50]:
-    rankingNameLength = len(str(index)) + len(player['tennisExplorerName'])
+for player in players[50:100]:
+    rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
     print("\n" + "-" * (rankingNameLength + 25))
-    print("|          ({}) {}          |".format(index, player['tennisExplorerName'].upper()))
+    print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].upper()))
     print("-" * (rankingNameLength + 25))
     year = currentYear
     lastGames = []
@@ -125,4 +124,3 @@ for player in players[0:50]:
     updatedPlayer['lastGames'] = lastGames
     updatedPlayer['definedGames'] = 0
     playersObj.update(updatedPlayer, [{'_id': player['_id']}])
-    index += 1
