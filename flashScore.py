@@ -209,7 +209,10 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
                 game['tournament'] = tournament
 
                 if surface != "?":
-                    game['surface'] = SURFACES[surface]
+                    if surface in SURFACES:
+                        game['surface'] = SURFACES[surface]
+                    else:
+                        game['surface'] = "?"
                 else:
                     game['surface'] = surface
 
