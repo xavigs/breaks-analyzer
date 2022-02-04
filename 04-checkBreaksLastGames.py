@@ -11,7 +11,6 @@ playersObj = objects.Players(breaksDB)
 players = playersObj.read()
 
 for player in players[0:50]:
-    print("Analyzing {}...".format(player['flashScoreName']))
     rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
     print("\n" + "-" * (rankingNameLength + 25))
     print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].upper()))
