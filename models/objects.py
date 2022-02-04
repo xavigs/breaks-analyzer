@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from pymongo import MongoClient
 import unicodedata
+from utils import *
 
 class MongoObject:
 
@@ -18,6 +19,9 @@ class MongoObject:
             return documents
         else:
             return self.collection.find_one({'_id': id})
+
+    def find_all(self, conditions):
+        return self.collection.find({'$and': conditions})
     
     def find(self, conditions):
         return self.collection.find_one({'$and': conditions})
@@ -50,6 +54,9 @@ class Players(MongoObject):
     def __init__(self, db):
         MongoObject.__init__(self, db)
         self.collection = self.db['players']
+
+    def getWomen(self):
+        return self.find_all([{'sex': 'W'}])
 
     def update(self, modifiedFields, conditions):
         player = self.find(conditions)
@@ -112,9 +119,11 @@ class Players(MongoObject):
             MongoObject.update(self, modifiedFields, conditions)
     
     def updateBreakData(self, playerID, lastGamesBreaks):
+        #printCollection(lastGamesBreaks)
         player = self.read(playerID)
         conditions = [{'_id': playerID}]
         modifiedFields = {'definedGames': lastGamesBreaks['definedGames'], 'lastGames': player['lastGames']}
+        #printCollection(modifiedFields)
         
         for lastGameBreaks in lastGamesBreaks['games']:
             modifiedFields['lastGames'][lastGameBreaks['index']]['breakDone'] = lastGameBreaks['breakDone']

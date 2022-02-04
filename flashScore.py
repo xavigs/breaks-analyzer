@@ -417,13 +417,13 @@ def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
     data = soup.select("div#participant-page-data-results_s")[0].text
     games = parseGames(data.encode('utf-8'), False, lastGames = lastGames)
     
-    for index, event in enumerate(games):
+    for event in games:
         if event['game']:
             gameBreakData = {}
             playerLocation = event['game']['player1ID'] == playerID and "home" or "away"
             opponentLocation = playerLocation == "home" and "away" or "home"
             breakData = getBreakData(event['game'])
-            gameBreakData['index'] = index
+            gameBreakData['index'] = definedGames
             gameBreakData['breakDone'] = breakData[playerLocation + "Breaks"] > 0 and 1 or 0
             gameBreakData['breakReceived'] = breakData[opponentLocation + "Breaks"] > 0 and 1 or 0
             definedGames += 1
