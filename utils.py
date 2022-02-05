@@ -32,7 +32,8 @@ def lreplace(oldText, newText, subject):
 def getKeywordFromString(text):
     otherKeywords = {'alcaraz-carlos': 'alcaraz-garfia-carlos',
                     'kwon-soonwoo': 'kwon-soon-woo',
-                    'svitolina-elina': 'monfils-elina'
+                    'svitolina-elina': 'monfils-elina',
+                    'mayar-sherif-ahmed-abdul-aziz': 'sherif-mayar'
     }
     keyword = text.replace(" ", "-").lower()
 
