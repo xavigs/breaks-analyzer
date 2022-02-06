@@ -188,7 +188,7 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
                 elif categoryTournament[0] == "CHALLENGER FEMENINO":
                     sex = "Fem."
                     category = "Challenger"
-                elif categoryTournament[0] == "ITF FEMENINO":
+                elif categoryTournament[0] == "ITF WOMEN":
                     sex = "Fem."
                     category = "ITF"
 
