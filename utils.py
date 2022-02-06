@@ -36,6 +36,7 @@ def getKeywordFromString(text):
                     'mayar-sherif-ahmed-abdul-aziz': 'sherif-mayar'
     }
     keyword = text.replace(" ", "-").lower()
+    keyword = keyword.replace("'", "-")
 
     if keyword in otherKeywords:
         return otherKeywords[keyword]
