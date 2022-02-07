@@ -31,7 +31,10 @@ class MongoObject:
             document['_id'] = document['id']
             del document['id']
 
-        existingObject = self.collection.find_one({'_id': document['_id']})
+        if "_id" in document:
+            existingObject = self.collection.find_one({'_id': document['_id']})
+        else:
+            existingObject = None
         
         if existingObject is None:
             self.collection.insert_one(document)
