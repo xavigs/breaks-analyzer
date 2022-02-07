@@ -22,7 +22,7 @@ else:
 dayString = dayDatetime.strftime("%Y-%m-%d")
 
 for game in dailyGames:
-    #print("-> Analyzing game ({} vs {})...".format(game['player1'], game['player2']))
+    print("-> Analyzing game ({} vs {})...".format(game['player1'], game['player2']))
     player = playersObj.read(game['player1'])
     opponent = playersObj.read(game['player2'])
     playerData = {
@@ -38,12 +38,15 @@ for game in dailyGames:
 
     if "lastGames" in player:
         for previousGame in player['lastGames']:
-            if "breakDone" in previousGame and "breakReceived" in previousGame:
-                if previousGame['breakDone'] > -1:
-                    playerData['definedGames'] += 1
+            if playerData['definedGames'] == 5 and playerData['totalBreaksDone'] < 3 or playerData['definedGames'] >= 5 and previousGame['breakDone'] == 0:
+                break
+            else:
+                if "breakDone" in previousGame and "breakReceived" in previousGame:
+                    if previousGame['breakDone'] > -1:
+                        playerData['definedGames'] += 1
 
-                    if previousGame['breakDone'] == 1:
-                        playerData['totalBreaksDone'] += 1
+                        if previousGame['breakDone'] == 1:
+                            playerData['totalBreaksDone'] += 1
 
         if playerData['definedGames'] > 0:
             playerData['probability'] = playerData['totalBreaksDone'] * 100 / playerData['definedGames']
@@ -53,12 +56,15 @@ for game in dailyGames:
 
         if "lastGames" in opponent:
             for previousGame in opponent['lastGames']:
-                if "breakDone" in previousGame and "breakReceived" in previousGame:
-                    if previousGame['breakDone'] > -1:
-                        opponentData['definedGames'] += 1
+                if opponentData['definedGames'] == 5 and opponentData['totalBreaksReceived'] < 3 or opponentData['definedGames'] >= 5 and previousGame['breakReceived'] == 0:
+                    break
+                else:
+                    if "breakDone" in previousGame and "breakReceived" in previousGame:
+                        if previousGame['breakDone'] > -1:
+                            opponentData['definedGames'] += 1
 
-                        if previousGame['breakReceived'] == 1:
-                            opponentData['totalBreaksReceived'] += 1
+                            if previousGame['breakReceived'] == 1:
+                                opponentData['totalBreaksReceived'] += 1
 
             if opponentData['definedGames'] > 0:
                 opponentData['probability'] = opponentData['totalBreaksReceived'] * 100 / opponentData['definedGames']
@@ -69,7 +75,7 @@ for game in dailyGames:
             avgProbability = (playerData['probability'] + opponentData['probability']) / 2
             #print(avgProbability)
 
-            if avgProbability > 70 and playerData['probability'] >= 60 and opponentData['probability'] >= 60:
+            if playerData['definedGames'] >= 5 and opponentData['definedGames'] >= 5 and avgProbability > 70 and playerData['probability'] >= 60 and opponentData['probability'] >= 60:
                 profitable = True
             else:
                 profitable = False
