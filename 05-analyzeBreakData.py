@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
+from datetime import date, timedelta
 import tennisExplorer
 from utils import *
 sys.path.insert(1, 'models')
@@ -8,9 +9,17 @@ import db, objects
 dbConnection = db.Database()
 breaksDB = dbConnection.connect()
 playersObj = objects.Players(breaksDB)
-#dailyGames = te.getDailyGames()
-dailyGames = tennisExplorer.getDailyGames("tomorrow")
+gamesObj = objects.Games(breaksDB)
+day = "today"
+dailyGames = tennisExplorer.getDailyGames(day)
 gamesToAnalyze = []
+
+if day == "today":
+    dayDatetime = date.today()
+else:
+    dayDatetime = date.today() + timedelta(days=1)
+
+dayString = dayDatetime.strftime("%Y-%m-%d")
 
 for game in dailyGames:
     #print("-> Analyzing game ({} vs {})...".format(game['player1'], game['player2']))
@@ -61,8 +70,14 @@ for game in dailyGames:
             #print(avgProbability)
 
             if avgProbability > 70 and playerData['probability'] >= 60 and opponentData['probability'] >= 60:
-                x = 1
+                profitable = True
+            else:
+                profitable = False
 
-            gamesToAnalyze.append({'FS-player1': player['flashScoreName'], 'TE-player1': player['tennisExplorerName'], 'FS-player2': opponent['flashScoreName'], 'TE-player2': opponent['tennisExplorerName']})
+            gameDocument = {'gameDay': dayString, 'player1ID': player['_id'], 'FS-player1': player['flashScoreName'], 'TE-player1': player['tennisExplorerName'], 'player2ID': opponent['_id'], 'FS-player2': opponent['flashScoreName'], 'TE-player2': opponent['tennisExplorerName'], 'playerData': playerData, 'opponentData': opponentData, 'probability': avgProbability, 'profitable': profitable}
+            gamesObj.create(gameDocument)
+
+            if profitable:
+                gamesToAnalyze.append(gameDocument)
 
 printCollection(gamesToAnalyze)
