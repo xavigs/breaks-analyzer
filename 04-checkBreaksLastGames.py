@@ -11,7 +11,7 @@ playersObj = objects.Players(breaksDB)
 #players = playersObj.read()
 players = playersObj.getWomen()
 
-for player in players[18:50]:
+for player in players[62:100]:
     rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
     print("\n" + "-" * (rankingNameLength + 25))
     print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].upper()))

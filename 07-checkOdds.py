@@ -8,6 +8,9 @@ from utils import *
 from models import db, objects
 
 def matchNames(gamesBet365, gameDB):
+    maxRatio = 0
+    indexMaxRatio = -1
+
     for indexGame, gameBet365 in enumerate(gamesBet365):
         homeName = gameBet365['home']['name']
         awayName = gameBet365['away']['name']
@@ -49,10 +52,32 @@ def matchNames(gamesBet365, gameDB):
 
         if player1Found and player2Found:
             return indexGame
-    
-    return -1
+        else:
+            ratio = getGameRatio(gameBet365, gameDB)
 
-def getRatio(name1, name2):
+            if ratio > maxRatio:
+                maxRatio = ratio
+                indexMaxRatio = indexGame
+    
+    if maxRatio > 0.7:
+        return indexMaxRatio
+    else:
+        return -1
+
+def getGameRatio(gameBet365, gameDB):
+    player1FSRatio1 = getPlayerRatio(gameBet365['home']['name'], gameDB['FS-player1'])
+    player1TERatio1 = getPlayerRatio(gameBet365['home']['name'], gameDB['TE-player1'])
+    player1FSRatio2 = getPlayerRatio(gameBet365['away']['name'], gameDB['FS-player1'])
+    player1TERatio2 = getPlayerRatio(gameBet365['away']['name'], gameDB['TE-player1'])
+    player2FSRatio1 = getPlayerRatio(gameBet365['away']['name'], gameDB['FS-player2'])
+    player2TERatio1 = getPlayerRatio(gameBet365['away']['name'], gameDB['TE-player2'])
+    player2FSRatio2 = getPlayerRatio(gameBet365['home']['name'], gameDB['FS-player2'])
+    player2TERatio2 = getPlayerRatio(gameBet365['home']['name'], gameDB['TE-player2'])
+    player1Ratio = max(player1FSRatio1, player1TERatio1, player1FSRatio2, player1TERatio2)
+    player2Ratio = max(player2FSRatio1, player2TERatio1, player2FSRatio2, player2TERatio2)
+    return (player1Ratio + player2Ratio) / 2
+
+def getPlayerRatio(name1, name2):
     name1Parts = name1.split(" ")
     name2Parts = name2.split(" ")
     numParts = len(name1Parts)
