@@ -107,9 +107,14 @@ def getLastGamesByPlayer(playerID, numGames = 8):
 
     return lastGames
 
-def getDailyGames(day = "today"):
+def getDailyGames(day = "today", sex = "men"):
     gamesDay = day == "today" and date.today() or date.today() + timedelta(days=1)
-    url = "https://www.tennisexplorer.com/next/?type=atp-single&year={}&month={}&day={}".format(gamesDay.year, '{:02d}'.format(gamesDay.month), '{:02d}'.format(gamesDay.day))
+
+    if sex == "men":
+        url = "https://www.tennisexplorer.com/next/?type=atp-single&year={}&month={}&day={}".format(gamesDay.year, '{:02d}'.format(gamesDay.month), '{:02d}'.format(gamesDay.day))
+    else:
+        url = "https://www.tennisexplorer.com/next/?type=wta-single&year={}&month={}&day={}".format(gamesDay.year, '{:02d}'.format(gamesDay.month), '{:02d}'.format(gamesDay.day))
+
     r = requests.get(url)
     data = r.text
     soup = BeautifulSoup(data, "lxml")
