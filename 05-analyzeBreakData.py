@@ -1,17 +1,16 @@
 # -*- coding: utf-8 -*-
-import sys
 from datetime import date, timedelta
 import tennisExplorer
 from utils import *
-sys.path.insert(1, 'models')
-import db, objects
+from models import db, objects
 
 dbConnection = db.Database()
 breaksDB = dbConnection.connect()
 playersObj = objects.Players(breaksDB)
 gamesObj = objects.Games(breaksDB)
 day = "today"
-dailyGames = tennisExplorer.getDailyGames(day)
+sex = "men"
+dailyGames = tennisExplorer.getDailyGames(day, sex)
 gamesToAnalyze = []
 
 if day == "today":
