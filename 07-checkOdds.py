@@ -123,6 +123,7 @@ def checkOdds(games_day):
         indexGameBet365 = matchNames(gamesBet365, gameDB)
         print(gameDB)
         print(indexGameBet365)
+        print("Bet365 Game => {} vs {}".format(data['results'][indexGameBet365]['home']['name'], data['results'][indexGameBet365]['away']['name']))
 
     exit()
 
