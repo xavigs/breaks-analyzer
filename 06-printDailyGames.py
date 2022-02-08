@@ -61,6 +61,8 @@ def printDailyGames(games_day):
             bgColor = Back.MAGENTA
 
         print(bgColor + Fore.BLACK + " TOTAL" + " " * 8 + "{}/{}".format(game['playerData']['totalBreaksDone'], game['playerData']['definedGames']) + " " * 33 + "{}%".format(game['playerData']['probability']) + " " * 5 + "| TOTAL" + " " * 8 + "{}/{}".format(game['opponentData']['totalBreaksReceived'], game['opponentData']['definedGames']) + " " * 35 + "{}%".format(game['opponentData']['probability']) + " " * 7)
+    
+    print()
 
 if __name__ == '__main__':
     printDailyGames()
