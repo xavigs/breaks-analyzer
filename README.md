@@ -50,8 +50,10 @@ This is the flow chart that describes the whole process.
 - bs4 *(Beautiful Soup)*
 - requests *(Access to URL)*
 - lxml *(Beautiful Soup LXML Parser)*
-- pycurl *(Connect to page via cURL)*
 - pymongo *(Tools for working with MongoDB)*
+- click *(Toolkit to pass arguments to the scripts)*
+- colorama *(Colored terminal print)*
+- python-Levenshtein *(Python extension for computing string edit distances and similarities)*
 
 - I also use **pudb** to debug
 
