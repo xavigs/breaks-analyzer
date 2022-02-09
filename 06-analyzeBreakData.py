@@ -20,6 +20,7 @@ else:
     dayDatetime = date.today() + timedelta(days=1)
 
 dayString = dayDatetime.strftime("%Y-%m-%d")
+gamesObj.delete({'gameDay': dayString})
 
 for game in dailyGames:
     print("-> Analyzing game ({} vs {})...".format(game['player1'], game['player2']))
