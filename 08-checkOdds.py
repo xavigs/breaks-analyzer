@@ -121,6 +121,10 @@ def checkOdds(games_day):
     response = requests.request("GET", url, headers = headers, params = querystring)
     data = response.json()
     gamesBet365 = data['results']
+    
+    '''for gameBet365 in gamesBet365:
+        print("{} vs {}".format(gameBet365['home']['name'], gameBet365['away']['name']))
+    exit()'''
     '''print(gamesBet365)
     exit()
     printCollection(gamesBet365)
