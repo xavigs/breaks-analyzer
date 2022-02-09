@@ -24,6 +24,13 @@ COMPETITIONS_TO_SKIP = (
     "UTR Pro Tennis Series 5",
     "World TeamTennis",
 )
+SEX_KEYWORDS = {'M': 'atp-men', 'W': 'wta-women'}
+SURFACE_ABBREVIATIONS = {
+    "Clay": "T",
+    "Grass": "H",
+    "Hard": "D",
+    "Indoors": "I"
+}
 
 def getLastGamesByPlayer(playerID, numGames = 8):
     year = date.today().year
@@ -184,3 +191,41 @@ def getDailyGames(day = "today", sex = "men"):
                         games.append(game2)
 
     return games
+
+def getTournaments(sex, year):
+    tournaments = []
+    url = "https://www.tennisexplorer.com/calendar/{}/{}/".format(SEX_KEYWORDS[sex], year)
+    soup = BeautifulSoup(requests.get(url).text, "lxml")
+    rows = soup.select("table[id=tournamentList] tbody tr")
+
+    for row in rows:
+        if not "month" in row['class']:
+            tournament = {}
+            rowHead = row.select("th")
+            
+            if len(rowHead) > 0:
+                tournamentElement = rowHead[0].select("a")[0]
+                print(row.select("td[class=tr]")[0].text)
+                tournamentPrize = int(row.select("td[class=tr]")[0].text.split(" ")[0].replace(",", ""))
+                tournament['_id'] = tournamentElement['href'].split("/")[1]
+                tournament['sex'] = sex
+                tournament['name'] = tournamentElement.text
+                tournament['surface'] = SURFACE_ABBREVIATIONS[row.select("td[class=s-color] span")[0]['title']]
+
+                if " chall" in tournament['name']:
+                    tournament['category'] = "CH"
+                elif sex == "M":
+                    tournament['category'] = "ATP"
+
+                    if tournamentPrize > 2000000:
+                        tournament['subcategory'] = "GS"
+                    elif tournamentPrize > 1000000:
+                        tournament['subcategory'] = "500"
+                    else:
+                        tournament['subcategory'] = "250"
+                else:
+                    tournament['category'] = "WTA"
+
+                tournaments.append(tournament)
+    
+    return tournaments
