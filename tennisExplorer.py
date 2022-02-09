@@ -218,7 +218,7 @@ def getTournaments(sex, year):
 
                     if tournamentPrize > 2000000:
                         tournament['subcategory'] = "GS"
-                    elif tournamentPrize > 1000000:
+                    elif tournamentPrize > 1200000:
                         tournament['subcategory'] = "500"
                     else:
                         tournament['subcategory'] = "250"
