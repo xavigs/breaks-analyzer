@@ -18,8 +18,12 @@ init(autoreset = True)
     '-d', '--games-day',
     help = "Game date to print", type = str, default = date.today().strftime("%Y-%m-%d"), show_default = True
 )
+@click.option(
+    '-s', '--sex',
+    help = "Sex category to print", type = str, default = "M", show_default = True
+)
 
-def printDailyGames(games_day):
+def printDailyGames(games_day, sex):
     games = gamesObj.find_all([{'gameDay': games_day}])
 
     for game in games:
@@ -60,9 +64,9 @@ def printDailyGames(games_day):
         else:
             bgColor = Back.MAGENTA
 
-        print(bgColor + Fore.BLACK + " TOTAL" + " " * 8 + "{}/{}".format(game['playerData']['totalBreaksDone'], game['playerData']['definedGames']) + " " * 33 + "{}%".format(game['playerData']['probability']) + " " * 5 + "| TOTAL" + " " * 8 + "{}/{}".format(game['opponentData']['totalBreaksReceived'], game['opponentData']['definedGames']) + " " * 35 + "{}%".format(game['opponentData']['probability']) + " " * 7)
+        print(bgColor + Fore.BLACK + " TOTAL" + " " * 8 + "{}/{}".format(game['playerData']['totalBreaksDone'], game['playerData']['totalGames']) + " " * 33 + "{}%".format(game['playerData']['probability']) + " " * 5 + "| TOTAL" + " " * 8 + "{}/{}".format(game['opponentData']['totalBreaksReceived'], game['opponentData']['totalGames']) + " " * 35 + "{}%".format(game['opponentData']['probability']) + " " * 7)
     
-    print()
+    print("")
 
 if __name__ == '__main__':
     printDailyGames()
