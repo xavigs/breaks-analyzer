@@ -40,7 +40,7 @@ for game in dailyGames:
 
     if "lastGames" in player:
         for previousGame in player['lastGames']:
-            if playerData['totalGames'] == 5 and playerData['totalBreaksDone'] < 3 or playerData['totalGames'] >= 5 and previousGame['breakDone'] == 0:
+            if playerData['totalGames'] == 5 and playerData['totalBreaksDone'] < 3 or playerData['totalGames'] >= 5 and previousGame['breakDone'] < 1:
                 break
             else:
                 playerData['totalGames'] += 1
@@ -60,13 +60,13 @@ for game in dailyGames:
 
         if "lastGames" in opponent:
             for previousGame in opponent['lastGames']:
-                if opponentData['totalGames'] == 5 and opponentData['totalBreaksReceived'] < 3 or opponentData['totalGames'] >= 5 and previousGame['breakReceived'] == 0:
+                if opponentData['totalGames'] == 5 and opponentData['totalBreaksReceived'] < 3 or opponentData['totalGames'] >= 5 and previousGame['breakReceived'] < 1:
                     break
                 else:
                     opponentData['totalGames'] += 1
 
                     if "breakDone" in previousGame and "breakReceived" in previousGame:
-                        if previousGame['breakDone'] > -1:
+                        if previousGame['breakReceived'] > -1:
                             opponentData['definedGames'] += 1
 
                             if previousGame['breakReceived'] == 1:
