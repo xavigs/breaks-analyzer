@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import division
 from datetime import date, timedelta
 import tennisExplorer
 from utils import *
@@ -28,13 +29,13 @@ for game in dailyGames:
         'totalGames': 0,
         'definedGames': 0,
         'totalBreaksDone': 0,
-        'probability': 0
+        'probability': 0.0
     }
     opponentData = {
         'totalGames': 0,
         'definedGames': 0,
         'totalBreaksReceived': 0,
-        'probability': 0
+        'probability': 0.0
     }
 
     if "lastGames" in player:
@@ -52,9 +53,9 @@ for game in dailyGames:
                             playerData['totalBreaksDone'] += 1
 
         if playerData['totalGames'] > 0:
-            playerData['probability'] = playerData['totalBreaksDone'] * 100 / playerData['totalGames']
+            playerData['probability'] = round(playerData['totalBreaksDone'] * 100 / playerData['totalGames'], 2)
         else:
-            playerData['probability'] = 0
+            playerData['probability'] = 0.0
         #print(playerData['probability'])
 
         if "lastGames" in opponent:
@@ -62,7 +63,7 @@ for game in dailyGames:
                 if opponentData['totalGames'] == 5 and opponentData['totalBreaksReceived'] < 3 or opponentData['totalGames'] >= 5 and previousGame['breakReceived'] == 0:
                     break
                 else:
-                    playerData['totalGames'] += 1
+                    opponentData['totalGames'] += 1
 
                     if "breakDone" in previousGame and "breakReceived" in previousGame:
                         if previousGame['breakDone'] > -1:
@@ -72,12 +73,12 @@ for game in dailyGames:
                                 opponentData['totalBreaksReceived'] += 1
 
             if opponentData['totalGames'] > 0:
-                opponentData['probability'] = opponentData['totalBreaksReceived'] * 100 / opponentData['totalGames']
+                opponentData['probability'] = round(opponentData['totalBreaksReceived'] * 100 / opponentData['totalGames'], 2)
             else:
-                opponentData['probability'] = 0
+                opponentData['probability'] = 0.0
 
             #print(opponentData['probability'])
-            avgProbability = (playerData['probability'] + opponentData['probability']) / 2
+            avgProbability = round((playerData['probability'] + opponentData['probability']) / 2, 2)
             #print(avgProbability)
 
             if playerData['totalGames'] >= 5 and opponentData['totalGames'] >= 5 and avgProbability > 70 and playerData['probability'] >= 60 and opponentData['probability'] >= 60:
