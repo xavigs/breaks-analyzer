@@ -20,7 +20,7 @@ tournamentsObj = objects.Tournaments(breaksDB)
 )
 
 def getYearlyTournaments(sex, year):
-    tournamentsObj.empty()
+    tournamentsObj.delete([{'sex': sex}])
     print("# Getting tournaments from Tennis Explorer...")
     tournaments = tennisExplorer.getTournaments(sex, year)
     print("# Inserting tournaments into the DB...")

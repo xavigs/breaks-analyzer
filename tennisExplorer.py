@@ -213,6 +213,8 @@ def getTournaments(sex, year):
 
                 if " chall" in tournament['name']:
                     tournament['category'] = "CH"
+                elif " ITF" in tournament['name']:
+                    tournament['category'] = "ITF"
                 elif sex == "M":
                     tournament['category'] = "ATP"
 
@@ -224,6 +226,13 @@ def getTournaments(sex, year):
                         tournament['subcategory'] = "250"
                 else:
                     tournament['category'] = "WTA"
+
+                    if tournamentPrize > 2000000:
+                        tournament['subcategory'] = "GS"
+                    elif tournamentPrize > 1200000:
+                        tournament['subcategory'] = "500"
+                    else:
+                        tournament['subcategory'] = "250"
 
                 tournaments.append(tournament)
     
