@@ -147,3 +147,9 @@ class Players(MongoObject):
         for game in player['lastGames']:
             numSpaces = 21 - len(game['opponent'])
             print("\t📌 Opponent: {}".format(game['opponent']) + " " * numSpaces + "| Break done: {} • Break received: {}".format(game['breakDone'], game['breakReceived']))
+
+class Tournaments(MongoObject):
+
+    def __init__(self, db):
+        MongoObject.__init__(self, db)
+        self.collection = self.db['tournaments']

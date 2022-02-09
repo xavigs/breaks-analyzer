@@ -5,6 +5,10 @@ from utils import *
 import tennisExplorer
 from models import db, objects
 
+dbConnection = db.Database()
+breaksDB = dbConnection.connect()
+tournamentsObj = objects.Tournaments(breaksDB)
+
 @click.command()
 @click.option(
     '-s', '--sex',
@@ -16,8 +20,13 @@ from models import db, objects
 )
 
 def getYearlyTournaments(sex, year):
+    tournamentsObj.empty()
+    print("# Getting tournaments from Tennis Explorer...")
     tournaments = tennisExplorer.getTournaments(sex, year)
-    printCollection(tournaments)
+    print("# Inserting tournaments into the DB...")
+    
+    for tournament in tournaments:
+        tournamentsObj.create(tournament)
 
 if __name__ == '__main__':
     getYearlyTournaments()

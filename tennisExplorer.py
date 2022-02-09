@@ -205,7 +205,6 @@ def getTournaments(sex, year):
             
             if len(rowHead) > 0:
                 tournamentElement = rowHead[0].select("a")[0]
-                print(row.select("td[class=tr]")[0].text)
                 tournamentPrize = int(row.select("td[class=tr]")[0].text.split(" ")[0].replace(",", ""))
                 tournament['_id'] = tournamentElement['href'].split("/")[1]
                 tournament['sex'] = sex
