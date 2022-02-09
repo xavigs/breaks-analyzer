@@ -42,6 +42,9 @@ class MongoObject:
     def update(self, modifiedFields, conditions):
         document = self.collection.find_one({"$and": conditions})
         self.collection.update_one({'_id': document['_id']}, {'$set': modifiedFields})
+
+    def delete(self, conditions):
+        return self.collection.delete_many({'$and': conditions})
     
     def empty(self):
         self.collection.delete_many({})
