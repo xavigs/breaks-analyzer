@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from utils import *
 from datetime import date, timedelta
 
+BASE_URL = "https://www.tennisexplorer.com/"
 COMPETITIONS_TO_SKIP = (
     "A Day at the Drive (Adelaide)",
     "Abu Dhabi - exh.",
@@ -38,7 +39,7 @@ def getLastGamesByPlayer(playerID, numGames = 8):
     lastGames = []
 
     while len(lastGames) < numGames and year > 2018:
-        url = "https://www.tennisexplorer.com/player/{}?annual={}".format(player['tennisExplorerKeyword'], year)
+        url = BASE_URL + "player/{}?annual={}".format(player['tennisExplorerKeyword'], year)
         print(url)
         r = requests.get(url)
         data = r.text
@@ -118,9 +119,9 @@ def getDailyGames(day = "today", sex = "men"):
     gamesDay = day == "today" and date.today() or date.today() + timedelta(days=1)
 
     if sex == "men":
-        url = "https://www.tennisexplorer.com/next/?type=atp-single&year={}&month={}&day={}".format(gamesDay.year, '{:02d}'.format(gamesDay.month), '{:02d}'.format(gamesDay.day))
+        url = BASE_URL + "next/?type=atp-single&year={}&month={}&day={}".format(gamesDay.year, '{:02d}'.format(gamesDay.month), '{:02d}'.format(gamesDay.day))
     else:
-        url = "https://www.tennisexplorer.com/next/?type=wta-single&year={}&month={}&day={}".format(gamesDay.year, '{:02d}'.format(gamesDay.month), '{:02d}'.format(gamesDay.day))
+        url = BASE_URL + "next/?type=wta-single&year={}&month={}&day={}".format(gamesDay.year, '{:02d}'.format(gamesDay.month), '{:02d}'.format(gamesDay.day))
 
     r = requests.get(url)
     data = r.text
@@ -194,7 +195,7 @@ def getDailyGames(day = "today", sex = "men"):
 
 def getTournaments(sex, year):
     tournaments = []
-    url = "https://www.tennisexplorer.com/calendar/{}/{}/".format(SEX_KEYWORDS[sex], year)
+    url = BASE_URL + "calendar/{}/{}/".format(SEX_KEYWORDS[sex], year)
     soup = BeautifulSoup(requests.get(url).text, "lxml")
     rows = soup.select("table[id=tournamentList] tbody tr")
 
@@ -234,6 +235,9 @@ def getTournaments(sex, year):
                     else:
                         tournament['subcategory'] = "250"
 
+                urlTournament = BASE_URL + "{}/{}/{}/".format(tournament['_id'], year, SEX_KEYWORDS[sex])
+                soup = BeautifulSoup(requests.get(urlTournament).text, "lxml")
+                tournament['country'] = soup.select("h1")[0].text.split(" (")[1].split(")")[0]
                 tournaments.append(tournament)
     
     return tournaments
