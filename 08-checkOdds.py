@@ -154,21 +154,36 @@ def checkOdds(games_day):
     for gameDB in gamesDB:
         print(Back.CYAN + Fore.BLACK + " {} vs {} ".format(gameDB['FS-player1'], gameDB['FS-player2']))
         indexGameBet365 = matchNames(gamesBet365, gameDB)
-        print(Fore.GREEN + Style.BRIGHT + "Bet365 Index: {}".format(indexGameBet365))
         print(Fore.YELLOW + "Bet365 Game => {} vs {}".format(gamesBet365[indexGameBet365]['home']['name'], gamesBet365[indexGameBet365]['away']['name']))
+        print(Fore.GREEN + Style.BRIGHT + "Bet365 Index: {}".format(indexGameBet365))
 
         if indexGameBet365 > -1:
+            player1Ratio1 = getPlayerRatio(gameDB['FS-player1'], gamesBet365[indexGameBet365]['home']['name'])
+            player1Ratio2 = getPlayerRatio(gameDB['TE-player1'], gamesBet365[indexGameBet365]['home']['name'])
+            player1Ratio3 = getPlayerRatio(gameDB['FS-player1'], gamesBet365[indexGameBet365]['away']['name'])
+            player1Ratio4 = getPlayerRatio(gameDB['TE-player1'], gamesBet365[indexGameBet365]['away']['name'])
+            player1Ratios = [player1Ratio1, player1Ratio2, player1Ratio3, player1Ratio4]
+            maxPlayer1Ratio = max(player1Ratios)
+
+            if maxPlayer1Ratio == player1Ratio1 or maxPlayer1Ratio == player1Ratio2:
+                playerIndex = 0
+            elif maxPlayer1Ratio == player1Ratio3 or maxPlayer1Ratio == player1Ratio4:
+                playerIndex = 1
+            else:
+                print("❌ There has been an error with the player {}.".format(gameDB['FS-player1']))
+                exit()
+
             url = "https://betsapi2.p.rapidapi.com/v3/bet365/prematch"
             querystring = {"FI":gamesBet365[indexGameBet365]['id']}
             response = requests.request("GET", url, headers = headers, params = querystring)
             markets = ast.literal_eval(response.text)
-            #printCollection(markets)
 
             if "results" in markets:
                 if "others" in markets['results'][0]:
                     for othersContent in markets['results'][0]['others']:
                         if "first_set_player_to_break_serve" in othersContent['sp']:
-                            printCollection(othersContent['sp']['first_set_player_to_break_serve'])
+                            breakOdd = othersContent['sp']['first_set_player_to_break_serve']['odds'][playerIndex]['odds']
+                            print(Fore.WHITE + Style.BRIGHT + "Break Odd: {}".format(breakOdd))
             else:
                 print("⚠️  Hourly plan has been exceeded!")
                 exit()
