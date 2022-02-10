@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from datetime import date
 import re
 import requests
@@ -125,11 +126,15 @@ def checkOdds(games_day):
         response = requests.request("GET", url, headers = headers, params = querystring)
         data = response.json()
         
-        if len(data['results']) > 0:
-            page += 1
-            gamesBet365 += data['results']
+        if "results" in data:
+            if len(data['results']) > 0:
+                page += 1
+                gamesBet365 += data['results']
+            else:
+                end = True
         else:
-            end = True
+            print("⚠️  Hourly plan has been exceeded!")
+            exit()
     
     '''for gameBet365 in gamesBet365:
         print("{} vs {}".format(gameBet365['home']['name'], gameBet365['away']['name']))
@@ -157,10 +162,16 @@ def checkOdds(games_day):
             querystring = {"FI":gamesBet365[indexGameBet365]['id']}
             response = requests.request("GET", url, headers = headers, params = querystring)
             markets = ast.literal_eval(response.text)
+            #printCollection(markets)
 
-            for othersContent in markets['results'][0]['others']:
-                if "first_set_player_to_break_serve" in othersContent['sp']:
-                    printCollection(othersContent['sp']['first_set_player_to_break_serve'])
+            if "results" in markets:
+                if "others" in markets['results'][0]:
+                    for othersContent in markets['results'][0]['others']:
+                        if "first_set_player_to_break_serve" in othersContent['sp']:
+                            printCollection(othersContent['sp']['first_set_player_to_break_serve'])
+            else:
+                print("⚠️  Hourly plan has been exceeded!")
+                exit()
 
 if __name__ == '__main__':
     checkOdds()
