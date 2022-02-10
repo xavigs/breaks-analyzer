@@ -205,7 +205,7 @@ def checkOdds(games_day):
                             if "first_set_player_to_break_serve" in othersContent['sp']:
                                 breakOdd = othersContent['sp']['first_set_player_to_break_serve']['odds'][playerIndex]['odds']
                                 print(Fore.WHITE + Style.BRIGHT + "Break Odd: {}".format(breakOdd))
-                                gamesObj.update({'odd': breakOdd}, [{'_id': gameDB['_id']}])
+                                gamesObj.update({'odd': float(breakOdd)}, [{'_id': gameDB['_id']}])
                 else:
                     print("⚠️  Hourly plan has been exceeded!")
                     rapidAPIKeyIndex += 1
