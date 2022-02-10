@@ -113,21 +113,33 @@ init(autoreset = True)
 
 def checkOdds(games_day):
     url = "https://betsapi2.p.rapidapi.com/v1/bet365/upcoming"
-    querystring = {"sport_id":"13"}
-    headers = {
-        'x-rapidapi-host': "betsapi2.p.rapidapi.com",
-        'x-rapidapi-key': RAPIDAPI_KEY
-    }
-    response = requests.request("GET", url, headers = headers, params = querystring)
-    data = response.json()
-    gamesBet365 = data['results']
+    gamesBet365 = []
+    page = 1
+    end = False
+
+    while not end:
+        querystring = {"sport_id":"13", "page":page}
+        headers = {
+            'x-rapidapi-host': "betsapi2.p.rapidapi.com",
+            'x-rapidapi-key': RAPIDAPI_KEY,
+        }
+        response = requests.request("GET", url, headers = headers, params = querystring)
+        data = response.json()
+        
+        if len(data['results']) > 0:
+            page += 1
+            gamesBet365 += data['results']
+        else:
+            end = True
     
     '''for gameBet365 in gamesBet365:
         print("{} vs {}".format(gameBet365['home']['name'], gameBet365['away']['name']))
     exit()'''
+    '''print(len(gamesBet365))
+    exit()'''
     '''print(gamesBet365)
-    exit()
-    printCollection(gamesBet365)
+    exit()'''
+    '''printCollection(gamesBet365)
     exit()'''
 
     dbConnection = db.Database()
