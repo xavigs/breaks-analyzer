@@ -16,7 +16,6 @@ def matchNames(gamesBet365, gameDB):
     for indexGame, gameBet365 in enumerate(gamesBet365):
         homeName = gameBet365['home']['name']
         awayName = gameBet365['away']['name']
-        #print("{} vs {}".format(homeName, awayName))
         player1FS = gameDB['FS-player1'].split(" ")
         player1TE = gameDB['TE-player1'].split(" ")
         player2FS = gameDB['FS-player2'].split(" ")
@@ -113,16 +112,16 @@ init(autoreset = True)
 
 def checkOdds(games_day):
     url = "https://betsapi2.p.rapidapi.com/v1/bet365/upcoming"
+    headers = {
+        'x-rapidapi-host': "betsapi2.p.rapidapi.com",
+        'x-rapidapi-key': RAPIDAPI_KEY,
+    }
     gamesBet365 = []
     page = 1
     end = False
 
     while not end:
         querystring = {"sport_id":"13", "page":page}
-        headers = {
-            'x-rapidapi-host': "betsapi2.p.rapidapi.com",
-            'x-rapidapi-key': RAPIDAPI_KEY,
-        }
         response = requests.request("GET", url, headers = headers, params = querystring)
         data = response.json()
         
@@ -153,22 +152,15 @@ def checkOdds(games_day):
         print(Fore.GREEN + Style.BRIGHT + "Bet365 Index: {}".format(indexGameBet365))
         print(Fore.YELLOW + "Bet365 Game => {} vs {}".format(gamesBet365[indexGameBet365]['home']['name'], gamesBet365[indexGameBet365]['away']['name']))
 
-    exit()
+        if indexGameBet365 > -1:
+            url = "https://betsapi2.p.rapidapi.com/v3/bet365/prematch"
+            querystring = {"FI":gamesBet365[indexGameBet365]['id']}
+            response = requests.request("GET", url, headers = headers, params = querystring)
+            markets = ast.literal_eval(response.text)
 
-    for fixture in data['results']:
-        print(".:: {} vs {} ::.\n".format(fixture['home']['name'], fixture['away']['name']))
-        url = "https://betsapi2.p.rapidapi.com/v3/bet365/prematch"
-        querystring = {"FI":fixture['id']}
-        headers = {
-            'x-rapidapi-host': "betsapi2.p.rapidapi.com",
-            'x-rapidapi-key': RAPIDAPI_KEY
-            }
-        response = requests.request("GET", url, headers = headers, params = querystring)
-        markets = ast.literal_eval(response.text)
-
-        for othersContent in markets['results'][0]['others']:
-            if "first_set_player_to_break_serve" in othersContent['sp']:
-                printCollection(othersContent['sp']['first_set_player_to_break_serve'])
+            for othersContent in markets['results'][0]['others']:
+                if "first_set_player_to_break_serve" in othersContent['sp']:
+                    printCollection(othersContent['sp']['first_set_player_to_break_serve'])
 
 if __name__ == '__main__':
     checkOdds()
