@@ -116,29 +116,40 @@ init(autoreset = True)
 )
 
 def checkOdds(games_day):
-    url = "https://betsapi2.p.rapidapi.com/v1/bet365/upcoming"
-    headers = {
-        'x-rapidapi-host': "betsapi2.p.rapidapi.com",
-        'x-rapidapi-key': RAPIDAPI_KEY,
-    }
+    rapidAPIKeyIndex = 0
     gamesBet365 = []
     page = 1
-    end = False
+    validData = False
 
-    while not end:
-        querystring = {"sport_id":"13", "page":page}
-        response = requests.request("GET", url, headers = headers, params = querystring)
-        data = response.json()
-        
-        if "results" in data:
-            if len(data['results']) > 0:
-                page += 1
-                gamesBet365 += data['results']
+    while not validData:
+        url = "https://betsapi2.p.rapidapi.com/v1/bet365/upcoming"
+        headers = {
+            'x-rapidapi-host': "betsapi2.p.rapidapi.com",
+            'x-rapidapi-key': RAPIDAPI_KEYS[rapidAPIKeyIndex],
+        }
+        end = False
+
+        while not end:
+            querystring = {"sport_id":"13", "page":page}
+            response = requests.request("GET", url, headers = headers, params = querystring)
+            data = response.json()
+            
+            if "results" in data:
+                validData = True
+
+                if len(data['results']) > 0:
+                    page += 1
+                    gamesBet365 += data['results']
+                else:
+                    end = True
             else:
-                end = True
-        else:
-            print("⚠️  Hourly plan has been exceeded!")
-            exit()
+                print("⚠️  Hourly plan has been exceeded!")
+                rapidAPIKeyIndex += 1
+
+                if len(RAPIDAPI_KEYS) > rapidAPIKeyIndex:
+                    end = True
+                else:
+                    exit()
     
     '''for gameBet365 in gamesBet365:
         print("{} vs {}".format(gameBet365['home']['name'], gameBet365['away']['name']))
@@ -174,21 +185,33 @@ def checkOdds(games_day):
                 print("❌ There has been an error with the player {}.".format(gameDB['FS-player1']))
                 exit()
 
-            url = "https://betsapi2.p.rapidapi.com/v3/bet365/prematch"
-            querystring = {"FI":gamesBet365[indexGameBet365]['id']}
-            response = requests.request("GET", url, headers = headers, params = querystring)
-            markets = ast.literal_eval(response.text)
+            validData = False
 
-            if "results" in markets:
-                if "others" in markets['results'][0]:
-                    for othersContent in markets['results'][0]['others']:
-                        if "first_set_player_to_break_serve" in othersContent['sp']:
-                            breakOdd = othersContent['sp']['first_set_player_to_break_serve']['odds'][playerIndex]['odds']
-                            print(Fore.WHITE + Style.BRIGHT + "Break Odd: {}".format(breakOdd))
-                            gamesObj.update({'odd': breakOdd}, [{'_id': gameDB['_id']}])
-            else:
-                print("⚠️  Hourly plan has been exceeded!")
-                exit()
+            while not validData:
+                url = "https://betsapi2.p.rapidapi.com/v3/bet365/prematch"
+                headers = {
+                    'x-rapidapi-host': "betsapi2.p.rapidapi.com",
+                    'x-rapidapi-key': RAPIDAPI_KEYS[rapidAPIKeyIndex],
+                }
+                querystring = {"FI":gamesBet365[indexGameBet365]['id']}
+                response = requests.request("GET", url, headers = headers, params = querystring)
+                markets = ast.literal_eval(response.text)
+
+                if "results" in markets:
+                    validData = True
+
+                    if "others" in markets['results'][0]:
+                        for othersContent in markets['results'][0]['others']:
+                            if "first_set_player_to_break_serve" in othersContent['sp']:
+                                breakOdd = othersContent['sp']['first_set_player_to_break_serve']['odds'][playerIndex]['odds']
+                                print(Fore.WHITE + Style.BRIGHT + "Break Odd: {}".format(breakOdd))
+                                gamesObj.update({'odd': breakOdd}, [{'_id': gameDB['_id']}])
+                else:
+                    print("⚠️  Hourly plan has been exceeded!")
+                    rapidAPIKeyIndex += 1
+
+                    if len(RAPIDAPI_KEYS) == rapidAPIKeyIndex:
+                        exit()
 
 if __name__ == '__main__':
     checkOdds()
