@@ -10,6 +10,10 @@ from credentials import *
 from utils import *
 from models import db, objects
 
+dbConnection = db.Database()
+breaksDB = dbConnection.connect()
+gamesObj = objects.Games(breaksDB)
+
 def matchNames(gamesBet365, gameDB):
     maxRatio = 0
     indexMaxRatio = -1
@@ -146,9 +150,6 @@ def checkOdds(games_day):
     '''printCollection(gamesBet365)
     exit()'''
 
-    dbConnection = db.Database()
-    breaksDB = dbConnection.connect()
-    gamesObj = objects.Games(breaksDB)
     gamesDB = gamesObj.find_all([{'gameDay': games_day, 'profitable': True}])
 
     for gameDB in gamesDB:
@@ -184,6 +185,7 @@ def checkOdds(games_day):
                         if "first_set_player_to_break_serve" in othersContent['sp']:
                             breakOdd = othersContent['sp']['first_set_player_to_break_serve']['odds'][playerIndex]['odds']
                             print(Fore.WHITE + Style.BRIGHT + "Break Odd: {}".format(breakOdd))
+                            gamesObj.update([{'odd': breakOdd}], [{'_id': gameDB['_id']}])
             else:
                 print("⚠️  Hourly plan has been exceeded!")
                 exit()
