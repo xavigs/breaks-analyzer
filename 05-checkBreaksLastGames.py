@@ -1,39 +1,59 @@
 # -*- coding: utf-8 -*-
-import sys
+import click
 import flashScore
-sys.path.insert(1, 'models')
-import db, objects
+from models import db, objects
 
 dbConnection = db.Database()
 breaksDB = dbConnection.connect()
 playersObj = objects.Players(breaksDB)
 
-#players = playersObj.read()
-players = playersObj.getWomen()
+@click.command()
+@click.option(
+    '-s', '--sex',
+    help = "Sex players to check breacks", type = str, default = "M", show_default = True
+)
+@click.option(
+    '-f', '--from-player',
+    help = "Index player that we check breaks from", type = str, default = 0, show_default = True
+)
+@click.option(
+    '-l', '--limit-player',
+    help = "Index player that we check breaks to", type = str, default = 200, show_default = True
+)
 
-for player in players[63:100]:
-    rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
-    print("\n" + "-" * (rankingNameLength + 25))
-    print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].upper()))
-    print("-" * (rankingNameLength + 25))
-    lastGames = []
 
-    for game in player['lastGames']:
-        previousGame = {}
-        opponent = playersObj.find([{'_id': game['opponent']}])
+def checkBreaks(sex, from_player, limit_player):
+    if sex == "M":
+        players = playersObj.read()
+    else:
+        players = playersObj.getWomen()
 
-        if opponent is None:
-            print("❌ The opponent {} is not into the database.".format(game['opponent']))
-            exit()
-        else:
-            if "flashScoreId" in opponent:
-                previousGame['opponent'] = opponent['flashScoreId']
-                previousGame['date'] = game['time']
-                lastGames.append(previousGame)
-            else:
-                print("❌ The opponent {} does not have flashScoreId.".format(game['opponent']))
+    for player in players[from_player:limit_player]:
+        rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
+        print("\n" + "-" * (rankingNameLength + 25))
+        print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].upper()))
+        print("-" * (rankingNameLength + 25))
+        lastGames = []
+
+        for game in player['lastGames']:
+            previousGame = {}
+            opponent = playersObj.find([{'_id': game['opponent']}])
+
+            if opponent is None:
+                print("❌ The opponent {} is not into the database.".format(game['opponent']))
                 exit()
-    
-    lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
-    playersObj.updateBreakData(player['_id'], lastGamesBreaks)
-    playersObj.printBreakData(player['_id'])
+            else:
+                if "flashScoreId" in opponent:
+                    previousGame['opponent'] = opponent['flashScoreId']
+                    previousGame['date'] = game['time']
+                    lastGames.append(previousGame)
+                else:
+                    print("❌ The opponent {} does not have flashScoreId.".format(game['opponent']))
+                    exit()
+        
+        lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
+        playersObj.updateBreakData(player['_id'], lastGamesBreaks)
+        playersObj.printBreakData(player['_id'])
+
+if __name__ == '__main__':
+    checkBreaks()

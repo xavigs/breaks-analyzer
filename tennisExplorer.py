@@ -2,7 +2,7 @@
 import requests
 from bs4 import BeautifulSoup
 from utils import *
-from datetime import date, timedelta
+from datetime import date, datetime
 
 BASE_URL = "https://www.tennisexplorer.com/"
 COMPETITIONS_TO_SKIP = (
@@ -115,8 +115,8 @@ def getLastGamesByPlayer(playerID, numGames = 8):
 
     return lastGames
 
-def getDailyGames(day = "today", sex = "men"):
-    gamesDay = day == "today" and date.today() or date.today() + timedelta(days=1)
+def getDailyGames(day = date.today().strftime("%Y-%m-%d"), sex = "men"):
+    gamesDay = datetime.strptime(day, "%Y-%m-%d")
 
     if sex == "men":
         url = BASE_URL + "next/?type=atp-single&year={}&month={}&day={}".format(gamesDay.year, '{:02d}'.format(gamesDay.month), '{:02d}'.format(gamesDay.day))
