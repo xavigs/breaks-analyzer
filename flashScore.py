@@ -7,7 +7,6 @@ import certifi
 from utils import *
 from datetime import datetime
 import json
-import re
 
 JS_ROW_END = "~"
 JS_CELL_END = "¬"
