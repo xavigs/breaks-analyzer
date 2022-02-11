@@ -11,6 +11,7 @@ playersObj = objects.Players(breaksDB)
 gamesObj = objects.Games(breaksDB)
 day = "today"
 sex = "men"
+sexAbbreviations = {'men': 'M', 'women': 'W'}
 dailyGames = tennisExplorer.getDailyGames(day, sex)
 gamesToAnalyze = []
 
@@ -20,7 +21,7 @@ else:
     dayDatetime = date.today() + timedelta(days=1)
 
 dayString = dayDatetime.strftime("%Y-%m-%d")
-gamesObj.delete({'gameDay': dayString})
+gamesObj.delete([{'gameDay': dayString}, {'sex': sexAbbreviations[sex]}])
 
 for game in dailyGames:
     print("-> Analyzing game ({} vs {})...".format(game['player1'], game['player2']))
@@ -87,7 +88,7 @@ for game in dailyGames:
             else:
                 profitable = False
 
-            gameDocument = {'tournament': game['tournament'], 'gameDay': dayString, 'player1ID': player['_id'], 'FS-player1': player['flashScoreName'], 'TE-player1': player['tennisExplorerName'], 'player2ID': opponent['_id'], 'FS-player2': opponent['flashScoreName'], 'TE-player2': opponent['tennisExplorerName'], 'playerData': playerData, 'opponentData': opponentData, 'probability': avgProbability, 'profitable': profitable}
+            gameDocument = {'sex': sexAbbreviations[sex], 'tournament': game['tournament'], 'gameDay': dayString, 'player1ID': player['_id'], 'FS-player1': player['flashScoreName'], 'TE-player1': player['tennisExplorerName'], 'player2ID': opponent['_id'], 'FS-player2': opponent['flashScoreName'], 'TE-player2': opponent['tennisExplorerName'], 'playerData': playerData, 'opponentData': opponentData, 'probability': avgProbability, 'profitable': profitable}
             gamesObj.create(gameDocument)
 
             if profitable:
