@@ -237,7 +237,7 @@ def getTournaments(sex, year):
 
                 urlTournament = BASE_URL + "{}/{}/{}/".format(tournament['_id'], year, SEX_KEYWORDS[sex])
                 soup = BeautifulSoup(requests.get(urlTournament).text, "lxml")
-                tournament['country'] = soup.select("h1")[0].text.split(" (")[1].split(")")[0]
+                tournament['country'] = getKeywordFromString(soup.select("h1")[0].text.split(" (")[1].split(")")[0])
                 tournaments.append(tournament)
     
     return tournaments
