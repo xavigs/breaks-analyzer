@@ -167,4 +167,5 @@ workbook.save(filepath)
     1) Into player lastGames (or game documents), newField: last ("OK", "01", "02", "10", "11", "12", "20", "21", "22")
     2) Opponent win odd
     3) Print avgProbability in 07-printDailyGames
+    4) Refactoring 04-getLastGames calling tennisExplorer.getLastGamesByPlayer
 '''
