@@ -43,11 +43,11 @@ shownCompetitions = []
 )
 @click.option(
     '-f', '--from-player',
-    help = "Index player that we get previous games from", type = str, default = 0, show_default = True
+    help = "Index player that we get previous games from", type = int, default = 0, show_default = True
 )
 @click.option(
     '-l', '--limit-player',
-    help = "Index player that we get previous games to", type = str, default = 200, show_default = True
+    help = "Index player that we get previous games to", type = int, default = 200, show_default = True
 )
 
 def getLastGames(limit_date, sex, from_player, limit_player):

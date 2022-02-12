@@ -14,11 +14,11 @@ playersObj = objects.Players(breaksDB)
 )
 @click.option(
     '-f', '--from-player',
-    help = "Index player that we check breaks from", type = str, default = 0, show_default = True
+    help = "Index player that we check breaks from", type = int, default = 0, show_default = True
 )
 @click.option(
     '-l', '--limit-player',
-    help = "Index player that we check breaks to", type = str, default = 200, show_default = True
+    help = "Index player that we check breaks to", type = int, default = 200, show_default = True
 )
 
 
