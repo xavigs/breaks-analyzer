@@ -44,7 +44,7 @@ def analyzeBreakData(day, sex):
             'probability': 0.0
         }
 
-        if "lastGames" in player:
+        if player is not None and "lastGames" in player:
             for previousGame in player['lastGames']:
                 if playerData['totalGames'] == 5 and playerData['totalBreaksDone'] < 3 or playerData['totalGames'] >= 5 and previousGame['breakDone'] < 1:
                     break
@@ -64,7 +64,7 @@ def analyzeBreakData(day, sex):
                 playerData['probability'] = 0.0
             #print(playerData['probability'])
 
-            if "lastGames" in opponent:
+            if opponent is not None and "lastGames" in opponent:
                 for previousGame in opponent['lastGames']:
                     if opponentData['totalGames'] == 5 and opponentData['totalBreaksReceived'] < 3 or opponentData['totalGames'] >= 5 and previousGame['breakReceived'] < 1:
                         break

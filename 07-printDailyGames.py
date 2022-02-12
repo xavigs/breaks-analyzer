@@ -49,19 +49,25 @@ def printDailyGames(games_day, sex):
                 opponent2Name = opponentDB['flashScoreName']
                 numSpacesAfterPlayer2 = 39 - len(opponent2Name)
 
-                if playerGame['breakDone'] == 1:
-                    breakDoneChar = "Y"
-                elif playerGame['breakDone'] == 0:
-                    breakDoneChar = "N"
-                else:
+                if not "breakDone" in playerGame:
                     breakDoneChar = "?"
-
-                if opponentGame['breakReceived'] == 1:
-                    breakReceivedChar = "Y"
-                elif opponentGame['breakReceived'] == 0:
-                    breakReceivedChar = "N"
                 else:
+                    if playerGame['breakDone'] == 1:
+                        breakDoneChar = "Y"
+                    elif playerGame['breakDone'] == 0:
+                        breakDoneChar = "N"
+                    else:
+                        breakDoneChar = "?"
+                
+                if not "breakReceived" in opponentGame:
                     breakReceivedChar = "?"
+                else:
+                    if opponentGame['breakReceived'] == 1:
+                        breakReceivedChar = "Y"
+                    elif opponentGame['breakReceived'] == 0:
+                        breakReceivedChar = "N"
+                    else:
+                        breakReceivedChar = "?"
 
                 print(" {}   {}".format(playerGame['time'], opponent1Name) + " " * numSpacesAfterPlayer1 + breakDoneChar + " " * 6 + "| {}   {}".format(opponentGame['time'], opponent2Name) + " " * numSpacesAfterPlayer2 + breakReceivedChar)
         
