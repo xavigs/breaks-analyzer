@@ -24,7 +24,7 @@ init(autoreset = True)
 )
 
 def printDailyGames(games_day, sex):
-    games = gamesObj.find_all([{'gameDay': games_day}])
+    games = gamesObj.find_all([{'gameDay': games_day}, {'sex': sex}])
 
     for game in games:
         numSpacesBefore1 = int(ceil((58 - len(game['FS-player1'])) / 2))
