@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
+import time
+from random import seed
+from random import randint
 import requests
 import json
-import brotli
 from utils import *
 
 BASE_URL = "https://api.sofascore.com/api/v1/team/"
@@ -27,13 +29,20 @@ def getJSONFromURL(url):
     return json.loads(requests.request("GET", url, data = "", headers = HEADERS).text)
 
 def getPlayers(fromID = 1, toID = None):
+    seed(1)
     currentID = fromID
-    end = False
 
-    while not end:
+    while currentID <= toID:
+        print("# Analyzing the team with ID {}...".format(currentID))
         url = "{}{}".format(BASE_URL, currentID)
         dataJSON = getJSONFromURL(url)
-        printCollection(dataJSON)
-        currentID += 1
+        
+        if dataJSON['team']['category']['sport']['id'] == 5:
+            print(dataJSON)
+            exit()
 
-getPlayers(1, 100)
+        currentID += 1
+        secondsToWait = randint(10, 15)
+        time.sleep(secondsToWait)
+
+getPlayers(11, 100)
