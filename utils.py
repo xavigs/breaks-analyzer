@@ -42,3 +42,7 @@ def getKeywordFromString(text):
         return otherKeywords[keyword]
     else:
         return keyword
+
+def getStringFromKeyword(text):
+    string = text.replace("-", " ").title()
+    return string
