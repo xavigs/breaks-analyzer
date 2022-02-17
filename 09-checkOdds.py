@@ -136,6 +136,9 @@ def checkOdds(games_day):
             
             if "results" in data:
                 validData = True
+                print("### Page {}:".format(page))
+                print(data['results'])
+                printCollection(data['results'])
 
                 if len(data['results']) > 0:
                     page += 1
@@ -196,6 +199,11 @@ def checkOdds(games_day):
                 querystring = {"FI":gamesBet365[indexGameBet365]['id']}
                 response = requests.request("GET", url, headers = headers, params = querystring)
                 markets = ast.literal_eval(response.text)
+                print("# Response text:")
+                print(response.text)
+                print("# Markets:")
+                print(markets)
+                printCollection(markets)
 
                 if "results" in markets:
                     validData = True
