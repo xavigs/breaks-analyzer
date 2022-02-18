@@ -116,7 +116,7 @@ init(autoreset = True)
 )
 @click.option(
     '-s', '--sex',
-    help = "Sex category to check", type = str, default = "M", show_default = True
+    help = "Sex category to check", type = str, default = None, show_default = True
 )
 
 def checkOdds(games_day, sex):
@@ -168,7 +168,10 @@ def checkOdds(games_day, sex):
     '''printCollection(gamesBet365)
     exit()'''
 
-    gamesDB = gamesObj.find_all([{'gameDay': games_day, 'sex': sex, 'profitable': True}])
+    if sex is None:
+        gamesDB = gamesObj.find_all([{'gameDay': games_day}, {'profitable': True}])
+    else:
+        gamesDB = gamesObj.find_all([{'gameDay': games_day}, {'sex': sex}, {'profitable': True}])
 
     for gameDB in gamesDB:
         print(Back.CYAN + Fore.BLACK + " {} vs {} ".format(gameDB['FS-player1'], gameDB['FS-player2']))

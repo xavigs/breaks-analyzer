@@ -20,11 +20,14 @@ init(autoreset = True)
 )
 @click.option(
     '-s', '--sex',
-    help = "Sex category to print", type = str, default = "M", show_default = True
+    help = "Sex category to print", type = str, default = None, show_default = True
 )
 
 def printDailyGames(games_day, sex):
-    games = gamesObj.find_all([{'gameDay': games_day}, {'sex': sex}])
+    if sex is None:
+        games = gamesObj.find_all([{'gameDay': games_day}])
+    else:
+        games = gamesObj.find_all([{'gameDay': games_day}, {'sex': sex}])
 
     for game in games:
         numSpacesBefore1 = int(ceil((58 - len(game['FS-player1'])) / 2))
