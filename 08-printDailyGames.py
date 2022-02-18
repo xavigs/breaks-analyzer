@@ -30,56 +30,57 @@ def printDailyGames(games_day, sex):
         games = gamesObj.find_all([{'gameDay': games_day}, {'sex': sex}])
 
     for game in games:
-        numSpacesBefore1 = int(ceil((58 - len(game['FS-player1'])) / 2))
-        numSpacesAfter1 = int(floor((58 - len(game['FS-player1'])) / 2))
-        numSpacesBefore2 = int(ceil((62 - len(game['FS-player2'])) / 2))
-        numSpacesAfter2 = int(floor((62 - len(game['FS-player2'])) / 2))
-        print("\n" + Back.BLUE + " " * numSpacesBefore1 + game['FS-player1'] + " " * numSpacesAfter1 + "|" + " " * numSpacesBefore2 + game['FS-player2'] + " " * numSpacesAfter2)
-        print(Back.CYAN + Fore.BLACK +  " Date" + " " * 9 + "Opponent" + " " * 25 + "Break Done | Date" + " " * 9 + "Opponent" + " " * 25 + "Break Received ")
-        player = playersObj.read(game['player1ID'])
-        opponent = playersObj.read(game['player2ID'])
-
-        for indexGame, playerGame in enumerate(player['lastGames']):
-            opponentDB = playersObj.read(playerGame['opponent'])
-
-            if opponentDB is None:
-                print("❌ The opponent {} is not into the database.".format(playerGame['opponent']))
-                exit()
-            else:
-                opponent1Name = opponentDB['flashScoreName']
-                numSpacesAfterPlayer1 = 37 - len(opponent1Name)
-                opponentGame = opponent['lastGames'][indexGame]
-                opponent2Name = opponentDB['flashScoreName']
-                numSpacesAfterPlayer2 = 39 - len(opponent2Name)
-
-                if not "breakDone" in playerGame:
-                    breakDoneChar = "?"
-                else:
-                    if playerGame['breakDone'] == 1:
-                        breakDoneChar = "Y"
-                    elif playerGame['breakDone'] == 0:
-                        breakDoneChar = "N"
-                    else:
-                        breakDoneChar = "?"
-                
-                if not "breakReceived" in opponentGame:
-                    breakReceivedChar = "?"
-                else:
-                    if opponentGame['breakReceived'] == 1:
-                        breakReceivedChar = "Y"
-                    elif opponentGame['breakReceived'] == 0:
-                        breakReceivedChar = "N"
-                    else:
-                        breakReceivedChar = "?"
-
-                print(" {}   {}".format(playerGame['time'], opponent1Name) + " " * numSpacesAfterPlayer1 + breakDoneChar + " " * 6 + "| {}   {}".format(opponentGame['time'], opponent2Name) + " " * numSpacesAfterPlayer2 + breakReceivedChar)
-        
         if game['profitable']:
-            bgColor = Back.GREEN
-        else:
-            bgColor = Back.MAGENTA
+            numSpacesBefore1 = int(ceil((58 - len(game['FS-player1'])) / 2))
+            numSpacesAfter1 = int(floor((58 - len(game['FS-player1'])) / 2))
+            numSpacesBefore2 = int(ceil((62 - len(game['FS-player2'])) / 2))
+            numSpacesAfter2 = int(floor((62 - len(game['FS-player2'])) / 2))
+            print("\n" + Back.BLUE + " " * numSpacesBefore1 + game['FS-player1'] + " " * numSpacesAfter1 + "|" + " " * numSpacesBefore2 + game['FS-player2'] + " " * numSpacesAfter2)
+            print(Back.CYAN + Fore.BLACK +  " Date" + " " * 9 + "Opponent" + " " * 25 + "Break Done | Date" + " " * 9 + "Opponent" + " " * 25 + "Break Received ")
+            player = playersObj.read(game['player1ID'])
+            opponent = playersObj.read(game['player2ID'])
 
-        print(bgColor + Fore.BLACK + " TOTAL" + " " * 8 + "{}/{}".format(game['playerData']['totalBreaksDone'], game['playerData']['totalGames']) + " " * 33 + "{}%".format(game['playerData']['probability']) + " " * 5 + "| TOTAL" + " " * 8 + "{}/{}".format(game['opponentData']['totalBreaksReceived'], game['opponentData']['totalGames']) + " " * 35 + "{}%".format(game['opponentData']['probability']) + " " * 7)
+            for indexGame, playerGame in enumerate(player['lastGames']):
+                opponentDB = playersObj.read(playerGame['opponent'])
+
+                if opponentDB is None:
+                    print("❌ The opponent {} is not into the database.".format(playerGame['opponent']))
+                    exit()
+                else:
+                    opponent1Name = opponentDB['flashScoreName']
+                    numSpacesAfterPlayer1 = 37 - len(opponent1Name)
+                    opponentGame = opponent['lastGames'][indexGame]
+                    opponent2Name = opponentDB['flashScoreName']
+                    numSpacesAfterPlayer2 = 39 - len(opponent2Name)
+
+                    if not "breakDone" in playerGame:
+                        breakDoneChar = "?"
+                    else:
+                        if playerGame['breakDone'] == 1:
+                            breakDoneChar = "Y"
+                        elif playerGame['breakDone'] == 0:
+                            breakDoneChar = "N"
+                        else:
+                            breakDoneChar = "?"
+                    
+                    if not "breakReceived" in opponentGame:
+                        breakReceivedChar = "?"
+                    else:
+                        if opponentGame['breakReceived'] == 1:
+                            breakReceivedChar = "Y"
+                        elif opponentGame['breakReceived'] == 0:
+                            breakReceivedChar = "N"
+                        else:
+                            breakReceivedChar = "?"
+
+                    print(" {}   {}".format(playerGame['time'], opponent1Name) + " " * numSpacesAfterPlayer1 + breakDoneChar + " " * 6 + "| {}   {}".format(opponentGame['time'], opponent2Name) + " " * numSpacesAfterPlayer2 + breakReceivedChar)
+            
+            if game['profitable']:
+                bgColor = Back.GREEN
+            else:
+                bgColor = Back.MAGENTA
+
+            print(bgColor + Fore.BLACK + " TOTAL" + " " * 8 + "{}/{}".format(game['playerData']['totalBreaksDone'], game['playerData']['totalGames']) + " " * 33 + "{}%".format(game['playerData']['probability']) + " " * 5 + "| TOTAL" + " " * 8 + "{}/{}".format(game['opponentData']['totalBreaksReceived'], game['opponentData']['totalGames']) + " " * 35 + "{}%".format(game['opponentData']['probability']) + " " * 7)
     
     print("")
 
