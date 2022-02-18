@@ -114,8 +114,12 @@ init(autoreset = True)
     '-d', '--games-day',
     help = "Game date to check", type = str, default = date.today().strftime("%Y-%m-%d"), show_default = True
 )
+@click.option(
+    '-s', '--sex',
+    help = "Sex category to check", type = str, default = "M", show_default = True
+)
 
-def checkOdds(games_day):
+def checkOdds(games_day, sex):
     rapidAPIKeyIndex = 0
     gamesBet365 = []
     page = 1
@@ -164,7 +168,7 @@ def checkOdds(games_day):
     '''printCollection(gamesBet365)
     exit()'''
 
-    gamesDB = gamesObj.find_all([{'gameDay': games_day, 'profitable': True}])
+    gamesDB = gamesObj.find_all([{'gameDay': games_day, 'sex': sex, 'profitable': True}])
 
     for gameDB in gamesDB:
         print(Back.CYAN + Fore.BLACK + " {} vs {} ".format(gameDB['FS-player1'], gameDB['FS-player2']))
