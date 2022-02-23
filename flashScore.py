@@ -150,6 +150,8 @@ def getPreviousGames(idGame, homeKeyword, awayKeyword):
                 return games
 
 def parseGames(content, future, playerKeyword = None, lastGames = None):
+    firstGameDate = lastGames[0]['date']
+    #print(firstGameDate)
     games = []
     tournament = ""
     rows = content.split(JS_ROW_END)
@@ -222,6 +224,11 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
                         if keyFlashScore == SHAREDINDEXES_MATCH_START_UTIME:
                             game['utime'] = int(itemValue)
                             game['date'] = datetime.fromtimestamp(game['utime']).strftime("%Y-%m-%d")
+                            #print(game['date'])
+                            
+                            if game['date'] > firstGameDate:
+                                break
+
                             game['time'] = datetime.fromtimestamp(game['utime']).strftime("%H:%M")
                         elif keyFlashScore == SHAREDINDEXES_EVENT_STAGE_TYPE_ID:
                             if future and int(itemValue) > 1 or not future and int(itemValue) == 1:
@@ -418,6 +425,37 @@ def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
     soup = BeautifulSoup(data, "lxml")
     data = soup.select("div#participant-page-data-results_s")[0].text
     games = parseGames(data.encode('utf-8'), False, lastGames = lastGames)
+    
+    for event in games:
+        if event['game']:
+            gameBreakData = {}
+            playerLocation = event['game']['player1ID'] == playerID and "home" or "away"
+            opponentLocation = playerLocation == "home" and "away" or "home"
+            breakData = getBreakData(event['game'])
+            gameBreakData['index'] = definedGames
+            gameBreakData['breakDone'] = breakData[playerLocation + "Breaks"] > 0 and 1 or 0
+            gameBreakData['breakReceived'] = breakData[opponentLocation + "Breaks"] > 0 and 1 or 0
+            definedGames += 1
+            lastGamesBreakData['games'].append(gameBreakData)
+
+    lastGamesBreakData['definedGames'] = definedGames
+    return lastGamesBreakData
+
+def newCheckBreaksLastGamesByPlayer(playerID, lastGames):
+    lastGamesBreakData = {}
+    lastGamesBreakData['games'] = []
+    definedGames = 0
+    numPage = 0
+    games = []
+    # TODO: Falta controlar si els matxos queden partits en 2 pàgines diferents
+
+    while len(games) == 0:
+        url = "https://d.flashscore.com/x/feed/pr_2_167_{}_{}_1_en_1_s".format(playerID, numPage)
+        print(url)
+        soup = getSoup(url)
+        content = soup.select("p")[0].text.encode('utf-8')
+        games = parseGames(content, False, lastGames = lastGames)
+        numPage += 1
     
     for event in games:
         if event['game']:

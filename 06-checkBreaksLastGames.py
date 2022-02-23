@@ -51,7 +51,8 @@ def checkBreaks(sex, from_player, limit_player):
                     print("❌ The opponent {} does not have flashScoreId.".format(game['opponent']))
                     exit()
         
-        lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
+        #lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
+        lastGamesBreaks = flashScore.newCheckBreaksLastGamesByPlayer(player['flashScoreId'], lastGames)
         playersObj.updateBreakData(player['_id'], lastGamesBreaks)
         playersObj.printBreakData(player['_id'])
 
