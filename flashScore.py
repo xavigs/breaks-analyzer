@@ -447,7 +447,6 @@ def newCheckBreaksLastGamesByPlayer(playerID, lastGames):
     definedGames = 0
     numPage = 0
     games = []
-    # TODO: Falta controlar si els matxos queden partits en 2 pàgines diferents
 
     while len(games) == 0:
         url = "https://d.flashscore.com/x/feed/pr_2_167_{}_{}_1_en_1_s".format(playerID, numPage)
@@ -457,6 +456,25 @@ def newCheckBreaksLastGamesByPlayer(playerID, lastGames):
         games = parseGames(content, False, lastGames = lastGames)
         numPage += 1
     
+    for event in games:
+        if event['game']:
+            gameBreakData = {}
+            playerLocation = event['game']['player1ID'] == playerID and "home" or "away"
+            opponentLocation = playerLocation == "home" and "away" or "home"
+            breakData = getBreakData(event['game'])
+            gameBreakData['index'] = definedGames
+            gameBreakData['breakDone'] = breakData[playerLocation + "Breaks"] > 0 and 1 or 0
+            gameBreakData['breakReceived'] = breakData[opponentLocation + "Breaks"] > 0 and 1 or 0
+            definedGames += 1
+            lastGamesBreakData['games'].append(gameBreakData)
+
+    if definedGames < 8:
+        url = "https://d.flashscore.com/x/feed/pr_2_167_{}_{}_1_en_1_s".format(playerID, numPage)
+        print(url)
+        soup = getSoup(url)
+        content = soup.select("p")[0].text.encode('utf-8')
+        games = parseGames(content, False, lastGames = lastGames)
+
     for event in games:
         if event['game']:
             gameBreakData = {}
