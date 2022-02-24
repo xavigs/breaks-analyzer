@@ -224,7 +224,6 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
                         if keyFlashScore == SHAREDINDEXES_MATCH_START_UTIME:
                             game['utime'] = int(itemValue)
                             game['date'] = datetime.fromtimestamp(game['utime']).strftime("%Y-%m-%d")
-                            #print(game['date'])
                             
                             if game['date'] > firstGameDate:
                                 break
@@ -462,7 +461,7 @@ def newCheckBreaksLastGamesByPlayer(playerID, lastGames):
             playerLocation = event['game']['player1ID'] == playerID and "home" or "away"
             opponentLocation = playerLocation == "home" and "away" or "home"
             breakData = getBreakData(event['game'])
-            gameBreakData['index'] = definedGames
+            gameBreakData['index'] = event['index']
             gameBreakData['breakDone'] = breakData[playerLocation + "Breaks"] > 0 and 1 or 0
             gameBreakData['breakReceived'] = breakData[opponentLocation + "Breaks"] > 0 and 1 or 0
             definedGames += 1
