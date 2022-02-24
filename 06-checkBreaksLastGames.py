@@ -10,7 +10,7 @@ playersObj = objects.Players(breaksDB)
 @click.command()
 @click.option(
     '-s', '--sex',
-    help = "Sex players to check breacks", type = str, default = "M", show_default = True
+    help = "Sex players to check breaks", type = str, default = "M", show_default = True
 )
 @click.option(
     '-f', '--from-player',
@@ -51,8 +51,8 @@ def checkBreaks(sex, from_player, limit_player):
                     print("❌ The opponent {} does not have flashScoreId.".format(game['opponent']))
                     exit()
         
-        #lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
-        lastGamesBreaks = flashScore.newCheckBreaksLastGamesByPlayer(player['flashScoreId'], lastGames)
+        lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
+        #lastGamesBreaks = flashScore.newCheckBreaksLastGamesByPlayer(player['flashScoreId'], lastGames)
         playersObj.updateBreakData(player['_id'], lastGamesBreaks)
         playersObj.printBreakData(player['_id'])
 

@@ -432,7 +432,7 @@ def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
             playerLocation = event['game']['player1ID'] == playerID and "home" or "away"
             opponentLocation = playerLocation == "home" and "away" or "home"
             breakData = getBreakData(event['game'])
-            gameBreakData['index'] = definedGames
+            gameBreakData['index'] = event['index']
             gameBreakData['breakDone'] = breakData[playerLocation + "Breaks"] > 0 and 1 or 0
             gameBreakData['breakReceived'] = breakData[opponentLocation + "Breaks"] > 0 and 1 or 0
             definedGames += 1
