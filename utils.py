@@ -30,13 +30,17 @@ def lreplace(oldText, newText, subject):
     return newString
 
 def getKeywordFromString(text):
-    otherKeywords = {'alcaraz-carlos': 'alcaraz-garfia-carlos',
-                    'kwon-soonwoo': 'kwon-soon-woo',
-                    'svitolina-elina': 'monfils-elina',
-                    'mayar-sherif-ahmed-abdul-aziz': 'sherif-mayar'
+    otherKeywords = {
+        'alcaraz-carlos': 'alcaraz-garfia-carlos',
+        'kwon-soonwoo': 'kwon-soon-woo',
+        'svitolina-elina': 'monfils-elina',
+        'mayar-sherif-ahmed-abdul-aziz': 'sherif-mayar',
+        'meligeni-alves-felipe': 'meligeni-rodrigues-alves-felipe'
     }
     keyword = text.replace(" ", "-").lower()
     keyword = keyword.replace("'", "-")
+    keyword = keyword.replace("(", "")
+    keyword = keyword.replace(")", "")
 
     if keyword in otherKeywords:
         return otherKeywords[keyword]
