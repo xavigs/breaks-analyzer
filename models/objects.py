@@ -132,8 +132,11 @@ class Players(MongoObject):
         #printCollection(modifiedFields)
         
         for lastGameBreaks in lastGamesBreaks['games']:
-            modifiedFields['lastGames'][lastGameBreaks['index']]['breakDone'] = lastGameBreaks['breakDone']
-            modifiedFields['lastGames'][lastGameBreaks['index']]['breakReceived'] = lastGameBreaks['breakReceived']
+            if modifiedFields['lastGames'][lastGameBreaks['index']]['breakDone'] == -1:
+                modifiedFields['lastGames'][lastGameBreaks['index']]['breakDone'] = lastGameBreaks['breakDone']
+
+            if modifiedFields['lastGames'][lastGameBreaks['index']]['breakReceived'] == -1:
+                modifiedFields['lastGames'][lastGameBreaks['index']]['breakReceived'] = lastGameBreaks['breakReceived']
         
         self.update(modifiedFields, conditions)
     

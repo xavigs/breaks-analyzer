@@ -304,6 +304,7 @@ def parseStats(content):
     homeBreaks = 0
     awayBreaks = 0
     rows = content.split(JS_ROW_END)
+    hasStats = False
     
     for row in rows:
         row = row.split(JS_CELL_END)
@@ -322,8 +323,13 @@ def parseStats(content):
                 if indexValue == "Set 1":
                     stats = {}
                 elif "stats" in locals():
-                    stats['homeBreaks'] = homeBreaks
-                    stats['awayBreaks'] = awayBreaks
+                    if hasStats:
+                        stats['homeBreaks'] = homeBreaks
+                        stats['awayBreaks'] = awayBreaks
+                    else:
+                        stats['homeBreaks'] = -1
+                        stats['awayBreaks'] = -1
+
                     return stats
             elif "stats" in locals():
                 indexGame = 0
@@ -332,17 +338,25 @@ def parseStats(content):
                     if item != "":
                         keyFS, itemValue = item.split(JS_INDEX)
 
-                        if keyFS == POINTS_DETAIL and indexGame == 5:
-                            if row[4][-1] == "1":
-                                homeBreaks += 1
-                            else:
-                                awayBreaks += 1
+                        if keyFS == POINTS_DETAIL:
+                            hasStats = True
+
+                            if indexGame == 5:
+                                if row[4][-1] == "1":
+                                    homeBreaks += 1
+                                else:
+                                    awayBreaks += 1
                     
                     indexGame += 1
 
         elif indexName == STATS_ENDGAME and "stats" in locals():
-            stats['homeBreaks'] = homeBreaks
-            stats['awayBreaks'] = awayBreaks
+            if hasStats:
+                stats['homeBreaks'] = homeBreaks
+                stats['awayBreaks'] = awayBreaks
+            else:
+                stats['homeBreaks'] = -1
+                stats['awayBreaks'] = -1
+
             return stats
 
     exit()
@@ -432,9 +446,12 @@ def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
             opponentLocation = playerLocation == "home" and "away" or "home"
             breakData = getBreakData(event['game'])
             gameBreakData['index'] = event['index']
-            gameBreakData['breakDone'] = breakData[playerLocation + "Breaks"] > 0 and 1 or 0
-            gameBreakData['breakReceived'] = breakData[opponentLocation + "Breaks"] > 0 and 1 or 0
-            definedGames += 1
+            gameBreakData['breakDone'] = breakData[playerLocation + "Breaks"] > 0 and 1 or breakData[playerLocation + "Breaks"]
+            gameBreakData['breakReceived'] = breakData[opponentLocation + "Breaks"] > 0 and 1 or breakData[opponentLocation + "Breaks"]
+
+            if gameBreakData['breakDone'] > -1 and gameBreakData['breakReceived'] > -1:
+                definedGames += 1
+
             lastGamesBreakData['games'].append(gameBreakData)
 
     lastGamesBreakData['definedGames'] = definedGames
