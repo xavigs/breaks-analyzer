@@ -6,7 +6,7 @@ import requests
 import json
 from utils import *
 
-BASE_URL = "https://api.sofascore.com/api/v1/team/"
+BASE_URL = "https://api.sofascore.com/api/v1/"
 HEADERS = {
     "cache-control": "max-age=0",
     "sec-ch-ua": '"Google Chrome";v="93", " Not;A Brand";v="99", "Chromium";v="93"',
@@ -25,7 +25,7 @@ HEADERS = {
 
 def getJSONFromURL(url):
     content = requests.request("GET", url, data = "", headers = HEADERS).text
-    print(content)
+    #print(content)
 
     try:
         jsonContent = json.loads(content)
@@ -52,4 +52,41 @@ def getPlayers(fromID = 1, toID = None):
         secondsToWait = randint(10, 15)
         time.sleep(secondsToWait)
 
-getPlayers(2857, 6500)
+def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
+    breakData = []
+
+    for indexGame, game in enumerate(lastGames):
+        if game['breakDone'] == -1 or game['breakReceived'] == -1:
+            url = "{}{}{}".format(BASE_URL, "sport/tennis/scheduled-events/", game['date'])
+            print(url)
+            dataJSON = getJSONFromURL(url)
+            
+            for dailyGame in dataJSON['events']:
+                homePlayer = dailyGame['homeTeam']['id']
+                awayPlayer = dailyGame['awayTeam']['id']
+                
+                if homePlayer == playerID and awayPlayer == game['opponent'] or homePlayer == game['opponent'] and awayPlayer == playerID:
+                    urlStats = "{}{}{}{}".format(BASE_URL, "event/", dailyGame['id'], "/statistics")
+                    print(urlStats)
+                    statsJSON = getJSONFromURL(urlStats)
+                    
+                    for phase in statsJSON['statistics']:
+                        if phase['period'] == "1ST":
+                            for group in phase['groups']:
+                                if group['groupName'] == "Return":
+                                    for item in group['statisticsItems']:
+                                        if item['name'] == "Break points converted":
+                                            breakItem = {'index': indexGame}
+                                            
+                                            if homePlayer == playerID:
+                                                breakItem['breakDone'] = item['home']
+                                                breakItem['breakReceived'] = item['away']
+                                            else:
+                                                breakItem['breakDone'] = item['away']
+                                                breakItem['breakReceived'] = item['home']
+                                            
+                                            breakData.append(breakItem)
+
+                    break
+    
+    return breakData
