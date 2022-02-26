@@ -66,6 +66,17 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                 awayPlayer = dailyGame['awayTeam']['id']
                 
                 if homePlayer == playerID and awayPlayer == game['opponent'] or homePlayer == game['opponent'] and awayPlayer == playerID:
+                    urlGame = "{}{}{}".format(BASE_URL, "event/", dailyGame['id'])
+                    print(urlGame)
+                    gameJSON = getJSONFromURL(urlGame)
+                    wonGamesHome = gameJSON['event']['homeScore']['period1']
+                    wonGamesAway = gameJSON['event']['awayScore']['period1']
+
+                    if abs(wonGamesHome - wonGamesAway) > 1 and max(wonGamesHome, wonGamesAway) > 5 or max(wonGamesHome, wonGamesAway) == 7:
+                        setFinished = True
+                    else:
+                        setFinished = False
+
                     urlStats = "{}{}{}{}".format(BASE_URL, "event/", dailyGame['id'], "/statistics")
                     print(urlStats)
                     statsJSON = getJSONFromURL(urlStats)
@@ -77,17 +88,22 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                                     for item in group['statisticsItems']:
                                         if item['name'] == "Break points converted":
                                             breakItem = {'index': indexGame}
-                                            
-                                            if homePlayer == playerID:
-                                                breakItem['breakDone'] = int(item['home']) > 0 and 1 or 0
-                                                breakItem['breakReceived'] = int(item['away']) > 0 and 1 or 0
+
+                                            if not setFinished and (int(item['home']) == 0 or int(item['away']) == 0):
+                                                # Player retired during the 1st set without break for both players
+                                                breakItem['toDelete'] = True
                                             else:
-                                                breakItem['breakDone'] = int(item['away']) > 0 and 1 or 0
-                                                breakItem['breakReceived'] = int(item['home']) > 0 and 1 or 0
-                                            
-                                            breakData['definedGames'] += 1
+                                                if homePlayer == playerID:
+                                                    breakItem['breakDone'] = int(item['home']) > 0 and 1 or 0
+                                                    breakItem['breakReceived'] = int(item['away']) > 0 and 1 or 0
+                                                else:
+                                                    breakItem['breakDone'] = int(item['away']) > 0 and 1 or 0
+                                                    breakItem['breakReceived'] = int(item['home']) > 0 and 1 or 0
+                                                
+                                                breakData['definedGames'] += 1
+
                                             breakData['games'].append(breakItem)
 
                     break
-    
+
     return breakData
