@@ -53,10 +53,10 @@ def getPlayers(fromID = 1, toID = None):
         time.sleep(secondsToWait)
 
 def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
-    breakData = []
+    breakData = {'definedGames': lastGames['definedGames'], 'games': []}
 
-    for indexGame, game in enumerate(lastGames):
-        if game['breakDone'] == -1 or game['breakReceived'] == -1:
+    for indexGame, game in enumerate(lastGames['games']):
+        if "opponent" in game and (game['breakDone'] == -1 or game['breakReceived'] == -1):
             url = "{}{}{}".format(BASE_URL, "sport/tennis/scheduled-events/", game['date'])
             print(url)
             dataJSON = getJSONFromURL(url)
@@ -79,13 +79,14 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                                             breakItem = {'index': indexGame}
                                             
                                             if homePlayer == playerID:
-                                                breakItem['breakDone'] = item['home']
-                                                breakItem['breakReceived'] = item['away']
+                                                breakItem['breakDone'] = int(item['home']) > 0 and 1 or 0
+                                                breakItem['breakReceived'] = int(item['away']) > 0 and 1 or 0
                                             else:
-                                                breakItem['breakDone'] = item['away']
-                                                breakItem['breakReceived'] = item['home']
+                                                breakItem['breakDone'] = int(item['away']) > 0 and 1 or 0
+                                                breakItem['breakReceived'] = int(item['home']) > 0 and 1 or 0
                                             
-                                            breakData.append(breakItem)
+                                            breakData['definedGames'] += 1
+                                            breakData['games'].append(breakItem)
 
                     break
     

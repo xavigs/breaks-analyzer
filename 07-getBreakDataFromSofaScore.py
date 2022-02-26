@@ -30,7 +30,7 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
         print("\n" + "-" * (rankingNameLength + 25))
         print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].upper()))
         print("-" * (rankingNameLength + 25))
-        lastGames = []
+        lastGames = {'definedGames': player['definedGames'], 'games': []}
 
         for game in player['lastGames']:
             previousGame = {}
@@ -41,16 +41,17 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
                 exit()
             elif "sofaScoreID" in opponent:
                 previousGame['opponent'] = opponent['sofaScoreID']
-                previousGame['date'] = game['time']
-                previousGame['breakDone'] = game['breakDone']
-                previousGame['breakReceived'] = game['breakReceived']
-                lastGames.append(previousGame)
             else:
-                print("❌ The opponent {} does not have sofaScoreID.".format(game['opponent']))
-                exit()
+                print("⚠️  The opponent {} does not have sofaScoreID.".format(game['opponent']))
+
+            previousGame['date'] = game['time']
+            previousGame['breakDone'] = game['breakDone']
+            previousGame['breakReceived'] = game['breakReceived']
+            lastGames['games'].append(previousGame)
         
         lastGamesBreaks = sofaScore.checkBreaksUndefinedGamesByPlayer(player['sofaScoreID'], lastGames)
-        print(lastGamesBreaks)
+        playersObj.updateBreakData(player['_id'], lastGamesBreaks)
+        playersObj.printBreakData(player['_id'])
 
 if __name__ == '__main__':
     getBreakDataFromSofaScore()
