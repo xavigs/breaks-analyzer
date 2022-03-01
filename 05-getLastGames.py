@@ -255,7 +255,9 @@ def getLastGames(limit_date, sex, from_player, limit_player):
                                         previousGame['breakReceived'] = 1
                                     elif playerGames == 0:
                                         previousGame['breakDone'] = 0
+                                        previousGame['breakReceived'] = -1
                                     elif opponentGames == 0:
+                                        previousGame['breakDone'] = -1
                                         previousGame['breakReceived'] = 0
                                     else:
                                         previousGame['breakDone'] = -1
