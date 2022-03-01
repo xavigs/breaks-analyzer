@@ -143,6 +143,7 @@ COMPETITIONS_TO_SKIP = (
     "UTR Pro Tennis Series 3",
     "UTR Pro Tennis Series 4",
     "UTR Pro Tennis Series 5",
+    "UTR Pro Tennis Series 6",
     "UTS Championship",
     "Verbier Open",
     "West Coast Pro Series",
