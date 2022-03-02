@@ -364,8 +364,13 @@ def parseStats(content):
 def getBreakData(game):
     url = "https://d.flashscore.com/x/feed/df_mh_1_" + game['id']
     soup = getSoup(url)
-    content = soup.select("p")[0].text.encode('utf-8')
-    return parseStats(content)
+    paragraphs = soup.select("p")
+
+    if len(paragraphs) == 0:
+        return False
+    else:
+        content = soup.select("p")[0].text.encode('utf-8')
+        return parseStats(content)
 
 def getRanking(category):
     fullranking = []
@@ -445,14 +450,16 @@ def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
             playerLocation = event['game']['player1ID'] == playerID and "home" or "away"
             opponentLocation = playerLocation == "home" and "away" or "home"
             breakData = getBreakData(event['game'])
-            gameBreakData['index'] = event['index']
-            gameBreakData['breakDone'] = breakData[playerLocation + "Breaks"] > 0 and 1 or breakData[playerLocation + "Breaks"]
-            gameBreakData['breakReceived'] = breakData[opponentLocation + "Breaks"] > 0 and 1 or breakData[opponentLocation + "Breaks"]
 
-            if gameBreakData['breakDone'] > -1 and gameBreakData['breakReceived'] > -1:
-                definedGames += 1
+            if breakData:
+                gameBreakData['index'] = event['index']
+                gameBreakData['breakDone'] = breakData[playerLocation + "Breaks"] > 0 and 1 or breakData[playerLocation + "Breaks"]
+                gameBreakData['breakReceived'] = breakData[opponentLocation + "Breaks"] > 0 and 1 or breakData[opponentLocation + "Breaks"]
 
-            lastGamesBreakData['games'].append(gameBreakData)
+                if gameBreakData['breakDone'] > -1 and gameBreakData['breakReceived'] > -1:
+                    definedGames += 1
+
+                lastGamesBreakData['games'].append(gameBreakData)
 
     lastGamesBreakData['definedGames'] = definedGames
     return lastGamesBreakData
@@ -478,11 +485,13 @@ def newCheckBreaksLastGamesByPlayer(playerID, lastGames):
             playerLocation = event['game']['player1ID'] == playerID and "home" or "away"
             opponentLocation = playerLocation == "home" and "away" or "home"
             breakData = getBreakData(event['game'])
-            gameBreakData['index'] = event['index']
-            gameBreakData['breakDone'] = breakData[playerLocation + "Breaks"] > 0 and 1 or 0
-            gameBreakData['breakReceived'] = breakData[opponentLocation + "Breaks"] > 0 and 1 or 0
-            definedGames += 1
-            lastGamesBreakData['games'].append(gameBreakData)
+
+            if breakData:
+                gameBreakData['index'] = event['index']
+                gameBreakData['breakDone'] = breakData[playerLocation + "Breaks"] > 0 and 1 or 0
+                gameBreakData['breakReceived'] = breakData[opponentLocation + "Breaks"] > 0 and 1 or 0
+                definedGames += 1
+                lastGamesBreakData['games'].append(gameBreakData)
 
     if definedGames < 8:
         url = "https://d.flashscore.com/x/feed/pr_2_167_{}_{}_1_en_1_s".format(playerID, numPage)
