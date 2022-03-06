@@ -81,28 +81,29 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                     print(urlStats)
                     statsJSON = getJSONFromURL(urlStats)
                     
-                    for phase in statsJSON['statistics']:
-                        if phase['period'] == "1ST":
-                            for group in phase['groups']:
-                                if group['groupName'] == "Return":
-                                    for item in group['statisticsItems']:
-                                        if item['name'] == "Break points converted":
-                                            breakItem = {'index': indexGame}
+                    if "statistics" in statsJSON:
+                        for phase in statsJSON['statistics']:
+                            if phase['period'] == "1ST":
+                                for group in phase['groups']:
+                                    if group['groupName'] == "Return":
+                                        for item in group['statisticsItems']:
+                                            if item['name'] == "Break points converted":
+                                                breakItem = {'index': indexGame}
 
-                                            if not setFinished and (int(item['home']) == 0 or int(item['away']) == 0):
-                                                # Player retired during the 1st set without break for both players
-                                                breakItem['toDelete'] = True
-                                            else:
-                                                if homePlayer == playerID:
-                                                    breakItem['breakDone'] = int(item['home']) > 0 and 1 or 0
-                                                    breakItem['breakReceived'] = int(item['away']) > 0 and 1 or 0
+                                                if not setFinished and (int(item['home']) == 0 or int(item['away']) == 0):
+                                                    # Player retired during the 1st set without break for both players
+                                                    breakItem['toDelete'] = True
                                                 else:
-                                                    breakItem['breakDone'] = int(item['away']) > 0 and 1 or 0
-                                                    breakItem['breakReceived'] = int(item['home']) > 0 and 1 or 0
-                                                
-                                                breakData['definedGames'] += 1
+                                                    if homePlayer == playerID:
+                                                        breakItem['breakDone'] = int(item['home']) > 0 and 1 or 0
+                                                        breakItem['breakReceived'] = int(item['away']) > 0 and 1 or 0
+                                                    else:
+                                                        breakItem['breakDone'] = int(item['away']) > 0 and 1 or 0
+                                                        breakItem['breakReceived'] = int(item['home']) > 0 and 1 or 0
+                                                    
+                                                    breakData['definedGames'] += 1
 
-                                            breakData['games'].append(breakItem)
+                                                breakData['games'].append(breakItem)
 
                     break
 

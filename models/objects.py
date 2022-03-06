@@ -129,17 +129,19 @@ class Players(MongoObject):
         player = self.read(playerID)
         conditions = [{'_id': playerID}]
         modifiedFields = {'definedGames': lastGamesBreaks['definedGames'], 'lastGames': player['lastGames']}
+        indexToSubstract = 0
         #printCollection(modifiedFields)
         
         for lastGameBreaks in lastGamesBreaks['games']:
             if "toDelete" in lastGameBreaks:
                 del modifiedFields['lastGames'][lastGameBreaks['index']]
+                indexToSubstract = 1
             else:
-                if modifiedFields['lastGames'][lastGameBreaks['index']]['breakDone'] == -1:
-                    modifiedFields['lastGames'][lastGameBreaks['index']]['breakDone'] = lastGameBreaks['breakDone']
+                if modifiedFields['lastGames'][lastGameBreaks['index'] - indexToSubstract]['breakDone'] == -1:
+                    modifiedFields['lastGames'][lastGameBreaks['index'] - indexToSubstract]['breakDone'] = lastGameBreaks['breakDone']
 
-                if modifiedFields['lastGames'][lastGameBreaks['index']]['breakReceived'] == -1:
-                    modifiedFields['lastGames'][lastGameBreaks['index']]['breakReceived'] = lastGameBreaks['breakReceived']
+                if modifiedFields['lastGames'][lastGameBreaks['index'] - indexToSubstract]['breakReceived'] == -1:
+                    modifiedFields['lastGames'][lastGameBreaks['index'] - indexToSubstract]['breakReceived'] = lastGameBreaks['breakReceived']
         
         self.update(modifiedFields, conditions)
     

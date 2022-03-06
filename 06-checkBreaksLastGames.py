@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import click
 import flashScore
+from utils import *
 from models import db, objects
 
 dbConnection = db.Database()
