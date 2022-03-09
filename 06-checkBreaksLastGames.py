@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+from datetime import datetime
 import click
 import flashScore
 from utils import *
@@ -24,6 +26,8 @@ playersObj = objects.Players(breaksDB)
 
 
 def checkBreaks(sex, from_player, limit_player):
+    errors = []
+
     if sex == "M":
         players = playersObj.read()
     else:
@@ -35,27 +39,35 @@ def checkBreaks(sex, from_player, limit_player):
         print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].upper()))
         print("-" * (rankingNameLength + 25))
         lastGames = []
+        error = False
 
         for game in player['lastGames']:
             previousGame = {}
             opponent = playersObj.find([{'_id': game['opponent']}])
 
             if opponent is None:
-                print("❌ The opponent {} is not into the database.".format(game['opponent']))
-                exit()
+                errors.append("❌ The opponent {} for player {} ({}) is not into the database.\n".format(game['opponent'], player['tennisExplorerName'], player['startingRanking']))
+                error = True
+            elif "flashScoreId" in opponent:
+                previousGame['opponent'] = opponent['flashScoreId']
+                previousGame['date'] = game['time']
+                lastGames.append(previousGame)
             else:
-                if "flashScoreId" in opponent:
-                    previousGame['opponent'] = opponent['flashScoreId']
-                    previousGame['date'] = game['time']
-                    lastGames.append(previousGame)
-                else:
-                    print("❌ The opponent {} does not have flashScoreId.".format(game['opponent']))
-                    exit()
+                errors.append("❌ The opponent {} for player {} ({}) does not have flashScoreId.\n".format(game['opponent'], player['tennisExplorerName'], player['startingRanking']))
+                error = True
         
-        lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
-        #lastGamesBreaks = flashScore.newCheckBreaksLastGamesByPlayer(player['flashScoreId'], lastGames)
-        playersObj.updateBreakData(player['_id'], lastGamesBreaks)
-        playersObj.printBreakData(player['_id'])
+        if not error:
+            lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
+            #lastGamesBreaks = flashScore.newCheckBreaksLastGamesByPlayer(player['flashScoreId'], lastGames)
+            playersObj.updateBreakData(player['_id'], lastGamesBreaks)
+            playersObj.printBreakData(player['_id'])
+
+    if len(errors) > 0:
+        directory = os.path.dirname(os.path.realpath(__file__))
+        today = datetime.today().strftime('%Y%m%d')
+        f = open("{}/{}{}.log".format(directory, today, sex), "w")
+        f.writelines(errors)
+        f.close()
 
 if __name__ == '__main__':
     checkBreaks()
