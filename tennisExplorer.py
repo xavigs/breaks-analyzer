@@ -312,9 +312,9 @@ def getDailyGames(day = date.today().strftime("%Y-%m-%d"), sex = "men"):
                     game1['player2'] = row.select("td")[0].select("a")[0]['href'].split("/")[2]
                     game2['player1'] = row.select("td")[0].select("a")[0]['href'].split("/")[2]
 
-                    if game1['tournament'] != "itf" and "itf" not in game1['tournament']:
-                        games.append(game1)
-                        games.append(game2)
+                    #if game1['tournament'] != "itf" and "itf" not in game1['tournament']:
+                    games.append(game1)
+                    games.append(game2)
 
     return games
 
