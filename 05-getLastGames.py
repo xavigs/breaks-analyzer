@@ -218,7 +218,7 @@ def getLastGames(limit_date, sex, from_player, limit_player):
                             if validCompetition:
                                 if competition not in shownCompetitions:
                                     try:
-                                        print("\t-> {}".format(competition))
+                                        print("\t-> {}".format(competition.encode('utf-8')))
                                     except Exception as e:
                                         print(competition)
                                     shownCompetitions.append(competition)
