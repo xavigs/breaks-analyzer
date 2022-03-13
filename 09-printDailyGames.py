@@ -40,40 +40,56 @@ def printDailyGames(games_day, sex):
             player = playersObj.read(game['player1ID'])
             opponent = playersObj.read(game['player2ID'])
 
-            for indexGame, playerGame in enumerate(player['lastGames']):
-                opponentDB = playersObj.read(playerGame['opponent'])
+            for indexGame in range(0, 9):
+                if len(player['lastGames']) > indexGame:
+                    playerGame = player['lastGames'][indexGame]
+                    opponentDB = playersObj.read(playerGame['opponent'])
 
-                if opponentDB is None:
-                    print("❌ The opponent {} is not into the database.".format(playerGame['opponent']))
-                    exit()
-                else:
-                    opponent1Name = opponentDB['flashScoreName']
-                    numSpacesAfterPlayer1 = 37 - len(opponent1Name)
-                    opponentGame = opponent['lastGames'][indexGame]
-                    opponent2Name = opponentDB['flashScoreName']
-                    numSpacesAfterPlayer2 = 39 - len(opponent2Name)
-
-                    if not "breakDone" in playerGame:
-                        breakDoneChar = "?"
+                    if opponentDB is None:
+                        print("❌ The opponent {} is not into the database.".format(playerGame['opponent']))
+                        exit()
                     else:
-                        if playerGame['breakDone'] == 1:
-                            breakDoneChar = "Y"
-                        elif playerGame['breakDone'] == 0:
-                            breakDoneChar = "N"
-                        else:
+                        opponentName = opponentDB['flashScoreName']
+                        numSpacesAfterPlayer1 = 37 - len(opponentName)
+
+                        if not "breakDone" in playerGame:
                             breakDoneChar = "?"
-                    
-                    if not "breakReceived" in opponentGame:
-                        breakReceivedChar = "?"
-                    else:
-                        if opponentGame['breakReceived'] == 1:
-                            breakReceivedChar = "Y"
-                        elif opponentGame['breakReceived'] == 0:
-                            breakReceivedChar = "N"
                         else:
-                            breakReceivedChar = "?"
+                            if playerGame['breakDone'] == 1:
+                                breakDoneChar = "Y"
+                            elif playerGame['breakDone'] == 0:
+                                breakDoneChar = "N"
+                            else:
+                                breakDoneChar = "?"
 
-                    print(" {}   {}".format(playerGame['time'], opponent1Name) + " " * numSpacesAfterPlayer1 + breakDoneChar + " " * 6 + "| {}   {}".format(opponentGame['time'], opponent2Name) + " " * numSpacesAfterPlayer2 + breakReceivedChar)
+                    print " {}   {}".format(playerGame['time'], opponentName) + " " * numSpacesAfterPlayer1 + breakDoneChar + " " * 6 + "|",
+                else:
+                    print(" " * 50)
+
+                if len(opponent['lastGames']) > indexGame:
+                    playerGame = opponent['lastGames'][indexGame]
+                    opponentDB = playersObj.read(playerGame['opponent'])
+
+                    if opponentDB is None:
+                        print("❌ The opponent {} is not into the database.".format(playerGame['opponent']))
+                        exit()
+                    else:
+                        opponentName = opponentDB['flashScoreName']
+                        numSpacesAfterPlayer1 = 37 - len(opponentName)
+                        
+                        if not "breakReceived" in playerGame:
+                            breakReceivedChar = "?"
+                        else:
+                            if playerGame['breakReceived'] == 1:
+                                breakReceivedChar = "Y"
+                            elif playerGame['breakReceived'] == 0:
+                                breakReceivedChar = "N"
+                            else:
+                                breakReceivedChar = "?"
+
+                    print("{}   {}".format(playerGame['time'], opponentName) + " " * numSpacesAfterPlayer1 + breakReceivedChar)
+                else:
+                    print(" " * 50)
             
             if game['profitable']:
                 bgColor = Back.GREEN
