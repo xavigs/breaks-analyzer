@@ -226,7 +226,7 @@ def getLastGames(limit_date, sex, from_player, limit_player):
                                 time = game.select("td")[0].text.split(".")
                                 day = "{}-{}-{}".format(year, time[1], time[0])
 
-                                if day > limit_date:
+                                if day >= limit_date:
                                     continue
 
                                 previousGame['time'] = day
