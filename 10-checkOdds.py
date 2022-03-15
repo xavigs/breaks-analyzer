@@ -171,7 +171,7 @@ def checkOdds(games_day, sex):
     if sex is None:
         gamesDB = gamesObj.find_all([{'gameDay': games_day}, {'profitable': True}])
     else:
-        gamesDB = gamesObj.find_all([{'gameDay': games_day}, {'sex': sex}, {'profitable': True}])
+        gamesDB = gamesObj.find_all([{'gameDay': games_day}, {'sex': sex}, {'profitable': True}, {"odd": {"$exists": False}}])
 
     for gameDB in gamesDB:
         print(Back.CYAN + Fore.BLACK + " {} vs {} ".format(gameDB['FS-player1'], gameDB['FS-player2']))
