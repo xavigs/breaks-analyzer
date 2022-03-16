@@ -40,7 +40,7 @@ def printDailyGames(games_day, sex):
             player = playersObj.read(game['player1ID'])
             opponent = playersObj.read(game['player2ID'])
 
-            for indexGame in range(0, 9):
+            for indexGame in range(0, 8):
                 if len(player['lastGames']) > indexGame:
                     playerGame = player['lastGames'][indexGame]
                     opponentDB = playersObj.read(playerGame['opponent'])
