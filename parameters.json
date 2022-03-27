@@ -1,0 +1,1925 @@
+{
+	"last-row": 1483,
+	"formula":
+		[
+			{
+				"system": "Sistema NAS",
+				"stake": 1
+			},
+			{
+				"system": "Sistema JUAS",
+				"stake": 1
+			}
+		],
+	"periods":
+		[
+			{
+				"name": "1 setmana",
+				"first-row": 4,
+				"last-row": 30,
+				"type": 0
+			},
+			{
+				"name": "2 setmanes",
+				"first-row": 4,
+				"last-row": 58,
+				"type": 0
+			},
+			{
+				"name": "Feb-20",
+				"first-row": 4,
+				"last-row": 125,
+				"type": 1
+			},
+			{
+				"name": "Mar-20 (PRE-COVID)",
+				"first-row": 126,
+				"last-row": 161,
+				"type": 0
+			},
+			{
+				"name": "Set-20 (POST-COVID)",
+				"first-row": 163,
+				"last-row": 196,
+				"type": 0
+			},
+			{
+				"name": "Mar+Set-20",
+				"first-row": 126,
+				"last-row": 196,
+				"type": 1
+			},
+			{
+				"name": "Oct-20",
+				"first-row": 197,
+				"last-row": 314,
+				"type": 1
+			},
+			{
+				"name": "Nov-20",
+				"first-row": 315,
+				"last-row": 413,
+				"type": 1
+			},
+			{
+				"name": "Des-20",
+				"first-row": 414,
+				"last-row": 438,
+				"type": 1
+			},
+			{
+				"name": "Gen-21",
+				"first-row": 439,
+				"last-row": 506,
+				"type": 1
+			},
+			{
+				"name": "Feb-21",
+				"first-row": 507,
+				"last-row": 635,
+				"type": 1
+			},
+			{
+				"name": "Mar-21",
+				"first-row": 636,
+				"last-row": 790,
+				"type": 1
+			},
+			{
+				"name": "Abr-21",
+				"first-row": 791,
+				"last-row": 866,
+				"type": 1
+			},
+			{
+				"name": "Mai-21",
+				"first-row": 867,
+				"last-row": 1017,
+				"type": 1
+			},
+			{
+				"name": "Jun-21",
+				"first-row": 1018,
+				"last-row": 1297,
+				"type": 1
+			},
+			{
+				"name": "Jul+Ago-21",
+				"first-row": 1298,
+				"last-row": 1351,
+				"type": 1
+			},
+			{
+				"name": "Feb-22",
+				"first-row": 1353,
+				"last-row": 1415,
+				"type": 1
+			},
+			{
+				"name": "Mar-22",
+				"first-row": 1416,
+				"last-row": 1483,
+				"type": 1
+			}
+		],
+	"dismiss":
+		[
+			{
+				"col": "B",
+				"operator": "=",
+				"value": "GS"
+			},
+			{
+				"col": "L",
+				"operator": "<",
+				"value": 0.76
+			},
+			{
+				"col": "B",
+				"operator": "=",
+				"value": "Davis"
+			},
+			{
+				"col": "B",
+				"operator": "=",
+				"value": "ATP Cup"
+			}
+		],
+	"jump": [37, 162, 1352],
+	"systems":
+		[
+			{
+				"name": "Sistema 1",
+				"future": 304,
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						]
+					]
+			},
+			{
+				"name": "Sistema 3",
+				"future": 304,
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">=",
+								"value": 2.20
+							}
+						]
+					]
+			},
+			{
+				"name": "Sistema NAS",
+				"future": 191,
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							}
+						],
+						[
+							{
+								"col": "K",
+								"operator": ">=",
+								"value": 2.20
+							}
+						]
+					]
+			},
+			{
+				"name": "Sistema JUAS",
+				"future": 229,
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "Sistema JIXTA",
+				"future": 497,
+				"conditions":
+					[
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						],
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						]
+					]
+			},
+			{
+				"name": "Sistema D1SITIS",
+				"future": 497,
+				"conditions":
+					[
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						],
+						[
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						]
+					]
+			},
+			{
+				"name": "Sistema Experimental",
+				"future": 635,
+				"conditions":
+					[
+						[
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						]
+					]
+			},
+			{
+				"name": "Sistema Experimental II",
+				"future": 736,
+				"conditions":
+					[
+						[
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 500
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 1000
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 500
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 1000
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						]
+					]
+			},
+			{
+				"name": "Sistema Experimental III",
+				"future": 791,
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "B",
+								"operator": "<>",
+								"value": "GS"
+							},
+							{
+								"col": "B",
+								"operator": "<>",
+								"value": "ITF"
+							},
+							{
+								"col": "C",
+								"operator": "<>",
+								"value": "ITF"
+							},
+							{
+								"col": "B",
+								"operator": "<>",
+								"value": "CH"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 500
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 1000
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "Sistema Experimental V",
+				"future": 1484,
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "L",
+                                "operator": ">=",
+                                "value": 0.9
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "Sistema Experimental VI",
+				"future": 1484,
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "L",
+                                "operator": ">=",
+                                "value": 0.9
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "N",
+                                "operator": ">=",
+                                "value": 1.60
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "Sistema Experimental VII",
+				"future": 1484,
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "L",
+                                "operator": ">=",
+                                "value": 0.9
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ATP"
+                            },
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": 500
+                            },
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            }
+                        ],
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "Sistema Experimental VIII",
+				"future": 1484,
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "L",
+                                "operator": ">=",
+                                "value": 0.9
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "N",
+                                "operator": ">=",
+                                "value": 1.60
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ATP"
+                            },
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": 250
+                            },
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            }
+                        ],
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ATP"
+                            },
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": 500
+                            },
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            }
+                        ],
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "Valor >= 1,60 + Quota > 2,00",
+				"conditions":
+					[
+						[
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "Valor >= 1,60 + Rival < 1,20",
+				"conditions":
+					[
+						[
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							},
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							}
+						]
+					]
+			},
+			{
+				"name": "OK + Quota > 2,00",
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "Rival < 1,20 + SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "OK + Quota >= 2,20",
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">=",
+								"value": 2.20
+							}
+						]
+					]
+			},
+			{
+				"name": "OK + Quota > 2,20",
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							}
+						]
+					]
+			},
+			{
+				"name": "Terra + SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "Terra (excepte Grand Slams, ITFs i Challengers)",
+				"conditions":
+					[
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "B",
+								"operator": "<>",
+								"value": "GS"
+							},
+							{
+								"col": "B",
+								"operator": "<>",
+								"value": "ITF"
+							},
+							{
+								"col": "C",
+								"operator": "<>",
+								"value": "ITF"
+							},
+							{
+								"col": "B",
+								"operator": "<>",
+								"value": "CH"
+							}
+						]
+					]
+			},
+			{
+				"name": "ITF + SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "WTA",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							}
+						]
+					]
+			},
+			{
+				"name": "Terra + OK + SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "ITF + Valor >= 1,60",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						]
+					]
+			},
+			{
+				"name": "ATP-250 + Terra",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						]
+					]
+			},
+			{
+				"name": "ATP-500 + Quota > 2,00",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 500
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "Challengers + Rival < 1,20",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "CH"
+							},
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							}
+						]
+					]
+			},
+			{
+				"name": "(ATP o WTA) + Terra",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 500
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 1000
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						]
+					]
+			},
+			{
+				"name": "(ATP o WTA) + Quota > 2,00",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 500
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 1000
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "Probabilitat >= 90% + Quota > 2,00 ó Valor >= 1,60 + Local SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.9
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+                            {
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							},
+                            {
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+                            {
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "Probabilitat >= 90% + Quota > 2,00 ó Rival < 1,20 + Local SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.9
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+                            {
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+                            {
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+                            {
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "Probabilitat >= 90% + Quota > 2,00 ó ITF + Local SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.9
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+                            {
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+                            {
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+                            {
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+                            {
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+                            {
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+                            {
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "Probabilitat >= 90% + Quota > 2,00 ó Rival < 1,20 + Quota > 2,00",
+				"conditions":
+					[
+						[
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.9
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+                            {
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "ITF + Local SN ó Rival < 1,20 + Quota > 2,00",
+				"conditions":
+					[
+						[
+                            {
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+                            {
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+                            {
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+                            {
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+                            {
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+                            {
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+                            {
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			}
+		]
+}
