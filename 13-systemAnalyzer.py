@@ -213,11 +213,17 @@ for systemName, systemData in systems.items():
         print("\t* Mesos amb més del 10% de yield: " + str(plusMonths))
         print("\t* Picks mensuals: " + str(round(systemData['num-picks'] / systemData['total-months'], 2)))
         print("\t* Detall per mesos:\n")
+        bank = 100.00
+        stake = 2.50
 
         for periodKeyword, periodData in sorted(systemData['periods'].items()):
             if periodData['type'] == 1:
                 try:
-                    print("\t\t-> " + periodData['name'] + "\t" + str(round(periodData['units'], 2)) + " uts.\t" + str(periodData['num-picks']) + " picks \tYield: " + str(periodData['yield']) + " %")
+                    profit = round(periodData['units'] * stake, 2)
+                    new_bank = bank + profit
+                    print("\t\t-> " + periodData['name'] + "\t" + str(round(periodData['units'], 2)) + " uts.\t" + str(periodData['num-picks']) + " picks \tYield: " + str(periodData['yield']) + " %\t\tBank final: " + str(new_bank) + u" \u20ac")
+                    bank = new_bank
+                    stake = round(bank / 40, 2)
                 except:
                     print("\t\t-> " + periodData['name'] + "\t" + str(round(periodData['units'], 2)) + " uts.\t" + str(periodData['num-picks']) + " picks \tYield: 0.00 %")
 
