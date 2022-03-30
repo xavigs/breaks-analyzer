@@ -52,15 +52,17 @@ for system in parameters['systems']:
     for period in parameters['periods']:
         if period['type'] == 1:
             systems[system['name']]['total-months'] += 1
-            formula['periods'][period['name']] = {}
-            formula['periods'][period['name']]['units'] = 0.0
-            formula['periods'][period['name']]['num-picks'] = 0
-            formula['periods'][period['name']]['stake'] = 0.0
+            formula['periods'][period['keyword']] = {}
+            formula['periods'][period['keyword']]['name'] = period['name']
+            formula['periods'][period['keyword']]['units'] = 0.0
+            formula['periods'][period['keyword']]['num-picks'] = 0
+            formula['periods'][period['keyword']]['stake'] = 0.0
 
-        systems[system['name']]['periods'][period['name']] = {}
-        systems[system['name']]['periods'][period['name']]['type'] = period['type']
-        systems[system['name']]['periods'][period['name']]['units'] = 0.0
-        systems[system['name']]['periods'][period['name']]['num-picks'] = 0
+        systems[system['name']]['periods'][period['keyword']] = {}
+        systems[system['name']]['periods'][period['keyword']]['name'] = period['name']
+        systems[system['name']]['periods'][period['keyword']]['type'] = period['type']
+        systems[system['name']]['periods'][period['keyword']]['units'] = 0.0
+        systems[system['name']]['periods'][period['keyword']]['num-picks'] = 0
 
 # Open Workbook
 workbook = openpyxl.load_workbook(filename = "Breaks 1r set.xlsx", data_only = True)
@@ -180,19 +182,19 @@ for row in range(4, parameters['last-row'] + 1):
 
                             for period in parameters['periods']:
                                 if row >= period['first-row'] and row <= period['last-row'] and period['type'] == 1:
-                                    formula['periods'][period['name']]['units'] += balance * formulaSystem['stake']
-                                    formula['periods'][period['name']]['num-picks'] += 1
-                                    formula['periods'][period['name']]['stake'] += formulaSystem['stake']
-                                    formula['periods'][period['name']]['yield'] = round(formula['periods'][period['name']]['units'] * 100 / formula['periods'][period['name']]['stake'], 2)
+                                    formula['periods'][period['keyword']]['units'] += balance * formulaSystem['stake']
+                                    formula['periods'][period['keyword']]['num-picks'] += 1
+                                    formula['periods'][period['keyword']]['stake'] += formulaSystem['stake']
+                                    formula['periods'][period['keyword']]['yield'] = round(formula['periods'][period['keyword']]['units'] * 100 / formula['periods'][period['keyword']]['stake'], 2)
 
                     for period in parameters['periods']:
                         if row >= period['first-row'] and row <= period['last-row']:
-                            systems[system['name']]['periods'][period['name']]['units'] += balance
-                            systems[system['name']]['periods'][period['name']]['num-picks'] += 1
-                            systems[system['name']]['periods'][period['name']]['yield'] = round(systems[system['name']]['periods'][period['name']]['units'] * 100 / systems[system['name']]['periods'][period['name']]['num-picks'], 2)
+                            systems[system['name']]['periods'][period['keyword']]['units'] += balance
+                            systems[system['name']]['periods'][period['keyword']]['num-picks'] += 1
+                            systems[system['name']]['periods'][period['keyword']]['yield'] = round(systems[system['name']]['periods'][period['keyword']]['units'] * 100 / systems[system['name']]['periods'][period['keyword']]['num-picks'], 2)
 
 for systemName, systemData in systems.items():
-    if systemName == "Sistema Experimental VIII":
+    if "Sistema" in systemName:
         print("\n~~ " + systemName + " ~~\n")
         print("\t* Unitats: " + str(round(systemData['units'],2)) + " uts.")
         print("\t* Nº picks: " + str(systemData['num-picks']))
@@ -212,20 +214,20 @@ for systemName, systemData in systems.items():
         print("\t* Picks mensuals: " + str(round(systemData['num-picks'] / systemData['total-months'], 2)))
         print("\t* Detall per mesos:\n")
 
-        for periodName, periodData in systemData['periods'].items():
+        for periodKeyword, periodData in sorted(systemData['periods'].items()):
             if periodData['type'] == 1:
                 try:
-                    print("\t\t-> " + periodName + "\t" + str(round(periodData['units'], 2)) + " uts.\t" + str(periodData['num-picks']) + " picks \tYield: " + str(periodData['yield']) + " %")
+                    print("\t\t-> " + periodData['name'] + "\t" + str(round(periodData['units'], 2)) + " uts.\t" + str(periodData['num-picks']) + " picks \tYield: " + str(periodData['yield']) + " %")
                 except:
-                    print("\t\t-> " + periodName + "\t" + str(round(periodData['units'], 2)) + " uts.\t" + str(periodData['num-picks']) + " picks \tYield: 0.00 %")
+                    print("\t\t-> " + periodData['name'] + "\t" + str(round(periodData['units'], 2)) + " uts.\t" + str(periodData['num-picks']) + " picks \tYield: 0.00 %")
 
         if "future" in systemData:
             print("\n\t* Dades futures:\n")
             print("\t\t-> Unitats: " + str(round(systemData['future']['units'],2)) + " uts.")
             print("\t\t-> Nº picks: " + str(systemData['future']['num-picks']))
             print("\t\t-> Yield: " + str(systemData['future']['yield']) + " %")
-        exit()
 
+exit()
 print("\n~~ Intervals ~~\n")
 print "------------",
 

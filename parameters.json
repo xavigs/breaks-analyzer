@@ -1,5 +1,5 @@
 {
-	"last-row": 1483,
+	"last-row": 1498,
 	"formula":
 		[
 			{
@@ -14,111 +14,129 @@
 	"periods":
 		[
 			{
+				"keyword": "00-week1",
 				"name": "1 setmana",
 				"first-row": 4,
 				"last-row": 30,
 				"type": 0
 			},
 			{
+				"keyword": "00-week2",
 				"name": "2 setmanes",
 				"first-row": 4,
 				"last-row": 58,
 				"type": 0
 			},
 			{
+				"keyword": "2020-02",
 				"name": "Feb-20",
 				"first-row": 4,
 				"last-row": 125,
 				"type": 1
 			},
 			{
+				"keyword": "01-20-mar",
 				"name": "Mar-20 (PRE-COVID)",
 				"first-row": 126,
 				"last-row": 161,
 				"type": 0
 			},
 			{
+				"keyword": "01-20-set",
 				"name": "Set-20 (POST-COVID)",
 				"first-row": 163,
 				"last-row": 196,
 				"type": 0
 			},
 			{
+				"keyword": "2020-03",
 				"name": "Mar+Set-20",
 				"first-row": 126,
 				"last-row": 196,
 				"type": 1
 			},
 			{
+				"keyword": "2020-10",
 				"name": "Oct-20",
 				"first-row": 197,
 				"last-row": 314,
 				"type": 1
 			},
 			{
+				"keyword": "2020-11",
 				"name": "Nov-20",
 				"first-row": 315,
 				"last-row": 413,
 				"type": 1
 			},
 			{
+				"keyword": "2020-12",
 				"name": "Des-20",
 				"first-row": 414,
 				"last-row": 438,
 				"type": 1
 			},
 			{
+				"keyword": "2021-01",
 				"name": "Gen-21",
 				"first-row": 439,
 				"last-row": 506,
 				"type": 1
 			},
 			{
+				"keyword": "2021-02",
 				"name": "Feb-21",
 				"first-row": 507,
 				"last-row": 635,
 				"type": 1
 			},
 			{
+				"keyword": "2021-03",
 				"name": "Mar-21",
 				"first-row": 636,
 				"last-row": 790,
 				"type": 1
 			},
 			{
+				"keyword": "2021-04",
 				"name": "Abr-21",
 				"first-row": 791,
 				"last-row": 866,
 				"type": 1
 			},
 			{
+				"keyword": "2021-05",
 				"name": "Mai-21",
 				"first-row": 867,
 				"last-row": 1017,
 				"type": 1
 			},
 			{
+				"keyword": "2021-06",
 				"name": "Jun-21",
 				"first-row": 1018,
 				"last-row": 1297,
 				"type": 1
 			},
 			{
+				"keyword": "2021-07",
 				"name": "Jul+Ago-21",
 				"first-row": 1298,
 				"last-row": 1351,
 				"type": 1
 			},
 			{
+				"keyword": "2022-02",
 				"name": "Feb-22",
 				"first-row": 1353,
 				"last-row": 1415,
 				"type": 1
 			},
 			{
+				"keyword": "2022-03",
 				"name": "Mar-22",
 				"first-row": 1416,
-				"last-row": 1483,
+				"last-row": 1498,
 				"type": 1
 			}
 		],
