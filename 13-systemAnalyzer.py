@@ -19,6 +19,13 @@ with open("parameters.json") as content:
     parameters = json.load(content)
 
 # Variables
+SYSTEMS_TO_SHOW = (
+    "Sistema Experimental",
+    "Sistema Experimental V",
+    "Sistema Experimental VI",
+    "Sistema Experimental VII",
+    "Sistema Experimental VIII",
+)
 systems = {}
 formula = {}
 formula['units'] = 0
@@ -194,7 +201,7 @@ for row in range(4, parameters['last-row'] + 1):
                             systems[system['name']]['periods'][period['keyword']]['yield'] = round(systems[system['name']]['periods'][period['keyword']]['units'] * 100 / systems[system['name']]['periods'][period['keyword']]['num-picks'], 2)
 
 for systemName, systemData in systems.items():
-    if "Sistema" in systemName:
+    if systemName in SYSTEMS_TO_SHOW:
         print("\n~~ " + systemName + " ~~\n")
         print("\t* Unitats: " + str(round(systemData['units'],2)) + " uts.")
         print("\t* Nº picks: " + str(systemData['num-picks']))
