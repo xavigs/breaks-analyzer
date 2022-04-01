@@ -20,8 +20,11 @@ class MongoObject:
         else:
             return self.collection.find_one({'_id': id})
 
-    def find_all(self, conditions):
-        return self.collection.find({'$and': conditions})
+    def find_all(self, conditions=None):
+        if conditions is None:
+            return self.collection.find()
+        else:
+            return self.collection.find({'$and': conditions})
     
     def find(self, conditions):
         return self.collection.find_one({'$and': conditions})
@@ -155,6 +158,12 @@ class Players(MongoObject):
         for game in player['lastGames']:
             numSpaces = 21 - len(game['opponent'])
             print("\t📌 Opponent: {}".format(game['opponent']) + " " * numSpaces + "| Break done: {} • Break received: {}".format(game['breakDone'], game['breakReceived']))
+
+class PlayersMissing(MongoObject):
+
+    def __init__(self, db):
+        MongoObject.__init__(self, db)
+        self.collection = self.db['playersMissing']
 
 class Tournaments(MongoObject):
 

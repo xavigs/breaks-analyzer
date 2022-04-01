@@ -9,6 +9,7 @@ from models import db, objects
 dbConnection = db.Database()
 breaksDB = dbConnection.connect()
 playersObj = objects.Players(breaksDB)
+playersMissingObj = objects.PlayersMissing(breaksDB)
 
 @click.command()
 @click.option(
@@ -46,14 +47,24 @@ def checkBreaks(sex, from_player, limit_player):
             opponent = playersObj.find([{'_id': game['opponent']}])
 
             if opponent is None:
-                errors.append("❌ The opponent {} for player {} ({}) is not into the database.\n".format(game['opponent'], player['tennisExplorerName'], player['startingRanking']))
+                playerMissing = {
+                    'opponent': game['opponent'],
+                    'player': player['tennisExplorerName'],
+                    'playerRanking': player['startingRanking']
+                }
+                playersMissingObj.create(playerMissing)
                 error = True
             elif "flashScoreId" in opponent:
                 previousGame['opponent'] = opponent['flashScoreId']
                 previousGame['date'] = game['time']
                 lastGames.append(previousGame)
             else:
-                errors.append("❌ The opponent {} for player {} ({}) does not have flashScoreId.\n".format(game['opponent'], player['tennisExplorerName'], player['startingRanking']))
+                playerMissing = {
+                    'opponent': game['opponent'],
+                    'player': player['tennisExplorerName'],
+                    'playerRanking': player['startingRanking']
+                }
+                playersMissingObj.create(playerMissing)
                 error = True
         
         if not error and player['flashScoreId'] != "":
@@ -61,13 +72,6 @@ def checkBreaks(sex, from_player, limit_player):
             #lastGamesBreaks = flashScore.newCheckBreaksLastGamesByPlayer(player['flashScoreId'], lastGames)
             playersObj.updateBreakData(player['_id'], lastGamesBreaks)
             playersObj.printBreakData(player['_id'])
-
-    if len(errors) > 0:
-        directory = os.path.dirname(os.path.realpath(__file__))
-        today = datetime.today().strftime('%Y%m%d')
-        f = open("{}/{}{}.log".format(directory, today, sex), "w")
-        f.writelines(errors)
-        f.close()
 
 if __name__ == '__main__':
     checkBreaks()
