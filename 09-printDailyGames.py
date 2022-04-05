@@ -49,7 +49,7 @@ def printDailyGames(games_day, sex):
                         print("❌ The opponent {} is not into the database.".format(playerGame['opponent']))
                         exit()
                     else:
-                        opponentName = opponentDB['flashScoreName']
+                        opponentName = opponentDB['tennisExplorerName']
                         numSpacesAfterPlayer1 = 37 - len(opponentName)
 
                         if not "breakDone" in playerGame:
@@ -74,7 +74,7 @@ def printDailyGames(games_day, sex):
                         print("❌ The opponent {} is not into the database.".format(playerGame['opponent']))
                         exit()
                     else:
-                        opponentName = opponentDB['flashScoreName']
+                        opponentName = opponentDB['tennisExplorerName']
                         numSpacesAfterPlayer1 = 37 - len(opponentName)
                         
                         if not "breakReceived" in playerGame:
