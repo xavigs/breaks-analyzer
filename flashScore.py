@@ -6,10 +6,11 @@ from io import BytesIO
 import certifi
 from utils import *
 from datetime import datetime
-import pytz
+import time, pytz
 import json
 
-TIMEZONE = pytz.timezone("CET")
+OLD_TIMEZONE = pytz.timezone(time.tzname[0])
+NEW_TIMEZONE = pytz.timezone("CET")
 JS_ROW_END = "~"
 JS_CELL_END = "¬"
 JS_INDEX = "÷"
@@ -226,7 +227,8 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
                         if keyFlashScore == SHAREDINDEXES_MATCH_START_UTIME:
                             game['utime'] = int(itemValue)
                             uTimeDateTime = datetime.fromtimestamp(game['utime'])
-                            game['date'] = TIMEZONE.localize(uTimeDateTime).strftime("%Y-%m-%d")
+                            uTimeDateTime = OLD_TIMEZONE.localize(uTimeDateTime).astimezone(NEW_TIMEZONE)
+                            game['date'] = uTimeDateTime.strftime("%Y-%m-%d")
                             
                             if game['date'] > firstGameDate:
                                 break
