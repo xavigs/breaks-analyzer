@@ -138,7 +138,7 @@ class Players(MongoObject):
         for lastGameBreaks in lastGamesBreaks['games']:
             if "toDelete" in lastGameBreaks:
                 del modifiedFields['lastGames'][lastGameBreaks['index']]
-                indexToSubstract = 1
+                indexToSubstract += 1
             else:
                 if modifiedFields['lastGames'][lastGameBreaks['index'] - indexToSubstract]['breakDone'] == -1:
                     modifiedFields['lastGames'][lastGameBreaks['index'] - indexToSubstract]['breakDone'] = lastGameBreaks['breakDone']
