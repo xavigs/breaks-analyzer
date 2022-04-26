@@ -200,7 +200,7 @@ for row in range(4, parameters['last-row'] + 1):
                             systems[system['name']]['periods'][period['keyword']]['num-picks'] += 1
                             systems[system['name']]['periods'][period['keyword']]['yield'] = round(systems[system['name']]['periods'][period['keyword']]['units'] * 100 / systems[system['name']]['periods'][period['keyword']]['num-picks'], 2)
 
-for systemName, systemData in systems.items():
+for systemName, systemData in sorted(systems.items()):
     if "Sistema" in systemName:
         print("\n~~ " + systemName + " ~~\n")
         print("\t* Unitats: " + str(round(systemData['units'],2)) + " uts.")
