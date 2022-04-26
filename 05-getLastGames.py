@@ -186,7 +186,7 @@ def getLastGames(limit_date, sex, from_player, limit_player):
     for player in players[from_player:limit_player]:
         rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
         print("\n" + "-" * (rankingNameLength + 25))
-        print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].upper()))
+        print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].encode('utf-8').upper()))
         print("-" * (rankingNameLength + 25))
         year = currentYear
         lastGames = []

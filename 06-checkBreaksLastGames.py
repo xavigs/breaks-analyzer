@@ -27,8 +27,6 @@ playersMissingObj = objects.PlayersMissing(breaksDB)
 
 
 def checkBreaks(sex, from_player, limit_player):
-    errors = []
-
     if sex == "M":
         players = playersObj.read()
     else:
@@ -37,7 +35,7 @@ def checkBreaks(sex, from_player, limit_player):
     for player in players[from_player:limit_player]:
         rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
         print("\n" + "-" * (rankingNameLength + 25))
-        print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].upper()))
+        print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].encode('utf-8').upper()))
         print("-" * (rankingNameLength + 25))
         lastGames = []
         error = False
@@ -48,6 +46,7 @@ def checkBreaks(sex, from_player, limit_player):
 
             if opponent is None:
                 playerMissing = {
+                    'sex': sex,
                     'opponent': game['opponent'],
                     'player': player['tennisExplorerName'],
                     'playerRanking': player['startingRanking']
@@ -60,6 +59,7 @@ def checkBreaks(sex, from_player, limit_player):
                 lastGames.append(previousGame)
             else:
                 playerMissing = {
+                    'sex': sex,
                     'opponent': game['opponent'],
                     'player': player['tennisExplorerName'],
                     'playerRanking': player['startingRanking']
