@@ -29,7 +29,7 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
     for player in players:
         playerMissingDB = playersMissingObj.find([{'sex': sex}, {'playerRanking': player['startingRanking']}])
         
-        if playerMissingDB is not None:
+        if playerMissingDB is None:
             rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
             print("\n" + "-" * (rankingNameLength + 25))
             print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].upper()))
