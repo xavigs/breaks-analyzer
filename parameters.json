@@ -1,5 +1,5 @@
 {
-	"last-row": 1589,
+	"last-row": 1649,
 	"formula":
 		[
 			{
@@ -143,9 +143,17 @@
 				"keyword": "2022-04",
 				"name": "Abr-22",
 				"first-row": 1511,
-				"last-row": 1589,
+				"last-row": 1605,
+				"type": 1
+			},
+			{
+				"keyword": "2022-05",
+				"name": "Mai-22",
+				"first-row": 1606,
+				"last-row": 1649,
 				"type": 1
 			}
+
 		],
 	"dismiss":
 		[
@@ -176,6 +184,7 @@
 			{
 				"name": "03-Sistema 1",
 				"future": 304,
+				"start-date": "2020-10-28",
 				"conditions":
 					[
 						[
@@ -195,6 +204,7 @@
 			{
 				"name": "04-Sistema 3",
 				"future": 304,
+				"start-date": "2020-10-28",
 				"conditions":
 					[
 						[
@@ -231,6 +241,7 @@
 			{
 				"name": "01-Sistema NAS",
 				"future": 191,
+				"start-date": "2020-09-30",
 				"conditions":
 					[
 						[
@@ -264,6 +275,7 @@
 			{
 				"name": "02-Sistema JUAS",
 				"future": 229,
+				"start-date": "2020-10-13",
 				"conditions":
 					[
 						[
@@ -341,6 +353,7 @@
 			{
 				"name": "05-Sistema JIXTA",
 				"future": 497,
+				"start-date": "2021-01-21",
 				"conditions":
 					[
 						[
@@ -447,6 +460,7 @@
 			{
 				"name": "06-Sistema D1SITIS",
 				"future": 497,
+				"start-date": "2021-01-21",
 				"conditions":
 					[
 						[
@@ -478,6 +492,7 @@
 			{
 				"name": "07-Sistema Experimental",
 				"future": 635,
+				"start-date": "2021-02-28",
 				"conditions":
 					[
 						[
@@ -568,8 +583,85 @@
 					]
 			},
 			{
-				"name": "08-Sistema Experimental II",
+				"name": "08-Sistema Experimental I",
+				"future": 635,
+				"start-date": "2021-02-28",
+				"conditions":
+					[
+						[
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "09-Sistema Experimental II",
 				"future": 736,
+				"start-date": "2021-03-19",
 				"conditions":
 					[
 						[
@@ -725,8 +817,9 @@
 					]
 			},
 			{
-				"name": "09-Sistema Experimental III",
+				"name": "10-Sistema Experimental III",
 				"future": 791,
+				"start-date": "2021-04-01",
 				"conditions":
 					[
 						[
@@ -868,8 +961,9 @@
 					]
 			},
 			{
-				"name": "10-Sistema Experimental IV",
+				"name": "11-Sistema Experimental IV",
 				"future": 1018,
+				"start-date": "2021-06-01",
 				"conditions":
 					[
 						[
@@ -938,8 +1032,9 @@
 					]
 			},
 			{
-				"name": "11-Sistema Experimental V",
+				"name": "12-Sistema Experimental V",
 				"future": 1484,
+				"start-date": "2022-03-27",
 				"conditions":
 					[
                         [
@@ -1003,8 +1098,9 @@
                     ]
 			},
 			{
-				"name": "12-Sistema Experimental VI",
+				"name": "13-Sistema Experimental VI",
 				"future": 1484,
+				"start-date": "2022-03-27",
 				"conditions":
 					[
                         [
@@ -1085,8 +1181,9 @@
                     ]
 			},
 			{
-				"name": "13-Sistema Experimental VII",
+				"name": "14-Sistema Experimental VII",
 				"future": 1484,
+				"start-date": "2022-03-27",
 				"conditions":
 					[
                         [
@@ -1191,8 +1288,9 @@
                     ]
 			},
 			{
-				"name": "14-Sistema Experimental VIII",
+				"name": "15-Sistema Experimental VIII",
 				"future": 1484,
+				"start-date": "2022-03-27",
 				"conditions":
 					[
                         [
@@ -1331,8 +1429,9 @@
                     ]
 			},
 			{
-				"name": "15-Sistema Experimental IX",
+				"name": "16-Sistema Experimental IX",
 				"future": 1580,
+				"start-date": "2022-04-26",
 				"conditions":
 					[
                         [
@@ -1384,6 +1483,77 @@
                                 "col": "K",
                                 "operator": ">",
                                 "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "17-Sistema Experimental X",
+				"future": 1580,
+				"start-date": "2022-04-26",
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
                             }
                         ],
                         [
