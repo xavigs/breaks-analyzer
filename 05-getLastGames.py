@@ -148,6 +148,7 @@ invalidCompetitions = (
     "UTR Pro Tennis Series 4",
     "UTR Pro Tennis Series 5",
     "UTR Pro Tennis Series 6",
+    "UTR Pro Tennis Series 7",
     "UTS Championship",
     "Verbier Open",
     "West Coast Pro Series",
