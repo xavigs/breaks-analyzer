@@ -202,6 +202,7 @@ for row in range(4, parameters['last-row'] + 1):
 
 for systemName, systemData in sorted(systems.items()):
     if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
         print("\n~~ " + systemName + " ~~\n")
         print("\t* Unitats: " + str(round(systemData['units'],2)) + " uts.")
         print("\t* Nº picks: " + str(systemData['num-picks']))
