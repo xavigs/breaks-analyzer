@@ -144,6 +144,7 @@ COMPETITIONS_TO_SKIP = (
     "UTR Pro Tennis Series 4",
     "UTR Pro Tennis Series 5",
     "UTR Pro Tennis Series 6",
+    "UTR Pro Tennis Series 7",
     "UTS Championship",
     "Verbier Open",
     "West Coast Pro Series",
@@ -335,34 +336,37 @@ def getTournaments(sex, year):
                 tournament['_id'] = tournamentElement['href'].split("/")[1]
                 tournament['sex'] = sex
                 tournament['name'] = tournamentElement.text
-                tournament['surface'] = SURFACE_ABBREVIATIONS[row.select("td[class=s-color] span")[0]['title']]
 
-                if " chall" in tournament['name']:
-                    tournament['category'] = "CH"
-                elif " ITF" in tournament['name']:
-                    tournament['category'] = "ITF"
-                elif sex == "M":
-                    tournament['category'] = "ATP"
+                if tournament['name'] not in COMPETITIONS_TO_SKIP:
+                    print(tournamentElement.text)
+                    tournament['surface'] = SURFACE_ABBREVIATIONS[row.select("td[class=s-color] span")[0]['title']]
 
-                    if tournamentPrize > 2000000:
-                        tournament['subcategory'] = "GS"
-                    elif tournamentPrize > 1200000:
-                        tournament['subcategory'] = "500"
+                    if " chall" in tournament['name']:
+                        tournament['category'] = "CH"
+                    elif " ITF" in tournament['name']:
+                        tournament['category'] = "ITF"
+                    elif sex == "M":
+                        tournament['category'] = "ATP"
+
+                        if tournamentPrize > 2000000:
+                            tournament['subcategory'] = "GS"
+                        elif tournamentPrize > 1200000:
+                            tournament['subcategory'] = "500"
+                        else:
+                            tournament['subcategory'] = "250"
                     else:
-                        tournament['subcategory'] = "250"
-                else:
-                    tournament['category'] = "WTA"
+                        tournament['category'] = "WTA"
 
-                    if tournamentPrize > 2000000:
-                        tournament['subcategory'] = "GS"
-                    elif tournamentPrize > 1200000:
-                        tournament['subcategory'] = "500"
-                    else:
-                        tournament['subcategory'] = "250"
+                        if tournamentPrize > 2000000:
+                            tournament['subcategory'] = "GS"
+                        elif tournamentPrize > 1200000:
+                            tournament['subcategory'] = "500"
+                        else:
+                            tournament['subcategory'] = "250"
 
-                urlTournament = BASE_URL + "{}/{}/{}/".format(tournament['_id'], year, SEX_KEYWORDS[sex])
-                soup = BeautifulSoup(requests.get(urlTournament).text, "lxml")
-                tournament['country'] = getKeywordFromString(soup.select("h1")[0].text.split(" (")[1].split(")")[0])
-                tournaments.append(tournament)
+                    urlTournament = BASE_URL + "{}/{}/{}/".format(tournament['_id'], year, SEX_KEYWORDS[sex])
+                    soup = BeautifulSoup(requests.get(urlTournament).text, "lxml")
+                    tournament['country'] = getKeywordFromString(soup.select("h1")[0].text.split(" (")[1].split(")")[0])
+                    tournaments.append(tournament)
     
     return tournaments
