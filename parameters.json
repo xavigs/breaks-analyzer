@@ -1475,14 +1475,79 @@
                                 "value": 1.60
                             },
                             {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
                                 "col": "I",
                                 "operator": "=",
                                 "value": "S"
                             },
                             {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
                                 "col": "K",
                                 "operator": ">",
                                 "value": 2.00
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "17-Sistema Experimental X",
+				"future": 1606,
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
                             }
                         ],
                         [
