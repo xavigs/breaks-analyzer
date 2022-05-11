@@ -25,7 +25,11 @@ for system in parameters['systems']:
         startDateDT = datetime.strptime(startDate, "%Y-%m-%d")
         numDaysSystemMonth = float(monthrange(startDateDT.year, startDateDT.month)[1])
         firstSystemDay = float(startDateDT.day)
-        systemMonthPct = round((numDaysSystemMonth - firstSystemDay + 1.0) / numDaysSystemMonth, 1)
+
+        if date.today().strftime("%Y-%m") == startDateDT.strftime("%Y-%m"):
+            systemMonthPct = round((currentDay - firstSystemDay + 1.0) / numDaysSystemMonth, 1)
+        else:
+            systemMonthPct = round((numDaysSystemMonth - firstSystemDay + 1.0) / numDaysSystemMonth, 1)
 
         systems[system['name']] = {}
         systems[system['name']]['start-date'] = startDate
