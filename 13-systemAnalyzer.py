@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sys
 import openpyxl
 import json
 
@@ -243,169 +244,137 @@ for systemName, systemData in sorted(systems.items()):
 
 exit()
 print("\n~~ Intervals ~~\n")
-print "------------",
+sys.stdout.write("------------")
 
 for systemName, systemData in systems.items():
     if "future" in systemData:
         print "-",
 
-        for char in systemName:
-            print "-",
+            for char in systemName:
+                sys.stdout.write("-")
 
-        print "--",
+            sys.stdout.write("--")
 
-print "\n| Nº picks |",
+sys.stdout.write("\n| Nº picks |")
 
 for systemName, systemData in systems.items():
     if "future" in systemData:
         print " " + systemName + " |",
 
-print "\n------------",
+            for char in systemName:
+                sys.stdout.write("-")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print "-",
+            sys.stdout.write("--")
 
-        for char in systemName:
-            print "-",
+sys.stdout.write("\n|    25    |")
 
         print "--",
 
-print "\n|    25    |",
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print " " + str(systemData['25']) + " %",
-        leftChars = len(systemName) - len(str(systemData['25']))
+            sys.stdout.write("|")
 
-        for i in range(1, leftChars):
-            print " "
+sys.stdout.write("\n------------")
 
         print "|",
 
-print "\n------------",
+            for char in systemName:
+                sys.stdout.write("-")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print "-",
+            sys.stdout.write("--")
 
-        for char in systemName:
-            print "-",
+sys.stdout.write("\n|    50    |")
 
         print "--",
 
-print "\n|    50    |",
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print " " + str(systemData['50']) + " %",
-        leftChars = len(systemName) - len(str(systemData['50']))
+            sys.stdout.write("|")
 
-        for i in range(1, leftChars):
-            print " ",
+sys.stdout.write("\n------------")
 
         print "|",
 
-print "\n------------",
+            for char in systemName:
+                sys.stdout.write("-")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print "-",
+            sys.stdout.write("--")
 
-        for char in systemName:
-            print "-",
+sys.stdout.write("\n|    75    |")
 
         print "--",
 
-print "\n|    75    |",
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print " " + str(systemData['75']) + " %",
-        leftChars = len(systemName) - len(str(systemData['75']))
+            sys.stdout.write("|")
 
-        for i in range(1, leftChars):
-            print " ",
+sys.stdout.write("\n------------")
 
         print "|",
 
-print "\n------------",
+            for char in systemName:
+                sys.stdout.write("-")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print "-",
+            sys.stdout.write("--")
 
-        for char in systemName:
-            print "-",
+sys.stdout.write("\n|    100   |")
 
         print "--",
 
-print "\n|    100   |",
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print " " + str(systemData['100']) + " %",
-        leftChars = len(systemName) - len(str(systemData['100']))
+            sys.stdout.write("|")
 
-        for i in range(1, leftChars):
-            print " ",
+sys.stdout.write("\n------------")
 
         print "|",
 
-print "\n------------",
+            for char in systemName:
+                sys.stdout.write("-")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print "-",
+            sys.stdout.write("--")
 
-        for char in systemName:
-            print "-",
+sys.stdout.write("\n|    150   |")
 
         print "--",
 
-print "\n|    150   |",
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print " " + str(systemData['150']) + " %",
-        leftChars = len(systemName) - len(str(systemData['150']))
+            sys.stdout.write("|")
 
-        for i in range(1, leftChars):
-            print " ",
+sys.stdout.write("\n------------")
 
         print "|",
 
-print "\n------------",
+            for char in systemName:
+                sys.stdout.write("-")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print "-",
+            sys.stdout.write("--")
 
-        for char in systemName:
-            print "-",
+sys.stdout.write("\n|    200   |")
 
         print "--",
 
-print "\n|    200   |",
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print " " + str(systemData['200']) + " %",
-        leftChars = len(systemName) - len(str(systemData['200']))
+            sys.stdout.write("|")
 
-        for i in range(1, leftChars):
-            print " ",
+sys.stdout.write("\n------------")
 
         print "|",
 
-print "\n------------",
+            for char in systemName:
+                sys.stdout.write("-")
 
-for systemName, systemData in systems.items():
-    if "future" in systemData:
-        print "-",
+            sys.stdout.write("--")
 
-        for char in systemName:
-            print "-",
+sys.stdout.write("\n|    250   |")
 
         print "--",
 
