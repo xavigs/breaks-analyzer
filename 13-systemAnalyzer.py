@@ -44,6 +44,10 @@ for system in parameters['systems']:
     systems[system['name']]['100'] = 0.0
     systems[system['name']]['150'] = 0.0
     systems[system['name']]['200'] = 0.0
+    systems[system['name']]['250'] = 0.0
+    systems[system['name']]['300'] = 0.0
+    systems[system['name']]['350'] = 0.0
+    systems[system['name']]['400'] = 0.0
     systems[system['name']]['units'] = 0.0
     systems[system['name']]['num-picks'] = 0
     systems[system['name']]['total-months'] = 0
@@ -172,6 +176,14 @@ for row in range(4, parameters['last-row'] + 1):
                         systems[system['name']]['150'] = systems[system['name']]['yield']
                     elif systems[system['name']]['num-picks'] == 200:
                         systems[system['name']]['200'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 250:
+                        systems[system['name']]['250'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 300:
+                        systems[system['name']]['300'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 350:
+                        systems[system['name']]['350'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 400:
+                        systems[system['name']]['400'] = systems[system['name']]['yield']
 
                     if "future" in system and row >= system['future']:
                         systems[system['name']]['future']['units'] += balance
@@ -376,8 +388,121 @@ sys.stdout.write("\n------------")
 
 sys.stdout.write("\n|    250   |")
 
-        print "--",
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['250']) + " %")
+            leftChars = len(systemName) - len(str(systemData['250']))
 
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    300   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['300']) + " %")
+            leftChars = len(systemName) - len(str(systemData['300']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    350   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['350']) + " %")
+            leftChars = len(systemName) - len(str(systemData['350']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    400   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['400']) + " %")
+            leftChars = len(systemName) - len(str(systemData['400']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+sys.stdout.write("\n")
+exit()
 print("\n\n~~ Fórmula Actual ~~\n")
 print("\t* Unitats: " + str(round(formula['units'],2)) + " uts.")
 print("\t* Nº picks: " + str(formula['num-picks']))
