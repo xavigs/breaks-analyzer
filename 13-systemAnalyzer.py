@@ -101,7 +101,7 @@ for row in range(4, parameters['last-row'] + 1):
     if not row in parameters['jump']:
         valid = True
 
-        '''for criteria in parameters['dismiss']:
+        for criteria in parameters['dismiss']:
             if criteria['operator'] == "=":
                 if sheet[criteria['col'] + str(row)].value == criteria['value']:
                     valid = False
@@ -121,7 +121,7 @@ for row in range(4, parameters['last-row'] + 1):
             elif criteria['operator'] == "<>":
                 if sheet[criteria['col'] + str(row)].value != criteria['value']:
                     valid = False
-                    break'''
+                    break
 
         #if valid or not valid:
         if valid:
