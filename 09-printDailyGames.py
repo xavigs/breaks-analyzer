@@ -38,6 +38,7 @@ def printDailyGames(games_day, sex):
             print("\n" + Back.BLUE + " " * numSpacesBefore1 + game['FS-player1'] + " " * numSpacesAfter1 + "|" + " " * numSpacesBefore2 + game['FS-player2'] + " " * numSpacesAfter2)
             print(Back.CYAN + Fore.BLACK +  " Date" + " " * 9 + "Opponent" + " " * 25 + "Break Done | Date" + " " * 9 + "Opponent" + " " * 25 + "Break Received ")
             player = playersObj.read(game['player1ID'])
+
             opponent = playersObj.read(game['player2ID'])
 
             for indexGame in range(0, 8):
@@ -49,7 +50,11 @@ def printDailyGames(games_day, sex):
                         print("❌ The opponent {} is not into the database.".format(playerGame['opponent']))
                         exit()
                     else:
-                        opponentName = opponentDB['tennisExplorerName']
+                        if "flashScoreName" in opponentDB and opponentDB['flashScoreName'] != "":
+                            opponentName = opponentDB['flashScoreName']
+                        else:
+                            opponentName = opponentDB['tennisExplorerName']
+                            
                         numSpacesAfterPlayer1 = 37 - len(opponentName)
 
                         if not "breakDone" in playerGame:
@@ -74,7 +79,11 @@ def printDailyGames(games_day, sex):
                         print("❌ The opponent {} is not into the database.".format(playerGame['opponent']))
                         exit()
                     else:
-                        opponentName = opponentDB['tennisExplorerName']
+                        if "flashScoreName" in opponentDB and opponentDB['flashScoreName'] != "":
+                            opponentName = opponentDB['flashScoreName']
+                        else:
+                            opponentName = opponentDB['tennisExplorerName']
+
                         numSpacesAfterPlayer1 = 37 - len(opponentName)
                         
                         if not "breakReceived" in playerGame:
