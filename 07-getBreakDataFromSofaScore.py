@@ -32,7 +32,13 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
         if playerMissingDB is None:
             rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
             print("\n" + "-" * (rankingNameLength + 25))
-            print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].upper()))
+
+            if "flashScoreName" in player and player['flashScoreName'] != "":
+                playerName = player['flashScoreName']
+            else:
+                playerName = player['tennisExplorerName']
+
+            print("|          ({}) {}          |".format(player['startingRanking'], playerName.upper()))
             print("-" * (rankingNameLength + 25))
             lastGames = {'definedGames': player['definedGames'], 'games': []}
             error = False
