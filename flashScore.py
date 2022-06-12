@@ -186,6 +186,9 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
                 elif categoryTournament[0] == "ITF MEN":
                     sex = "Masc."
                     category = "ITF"
+                elif categoryTournament[0] == "BOYS":
+                    sex = "Masc."
+                    category = "Junior"
                 elif categoryTournament[0] == "WTA":
                     sex = "Fem."
                     category = "WTA"
@@ -195,6 +198,9 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
                 elif categoryTournament[0] == "ITF WOMEN":
                     sex = "Fem."
                     category = "ITF"
+                elif categoryTournament[0] == "GIRLS":
+                    sex = "Fem."
+                    category = "Junior"
 
                 tournament = tournamentNameParts[0].strip()
 
