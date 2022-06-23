@@ -1,5 +1,5 @@
 {
-	"last-row": 1655,
+	"last-row": 1880,
 	"formula":
 		[
 			{
@@ -150,7 +150,14 @@
 				"keyword": "2022-05",
 				"name": "Mai-22",
 				"first-row": 1606,
-				"last-row": 1655,
+				"last-row": 1756,
+				"type": 1
+			},
+			{
+				"keyword": "2022-06",
+				"name": "Jun-22",
+				"first-row": 1757,
+				"last-row": 1880,
 				"type": 1
 			}
 
@@ -161,21 +168,6 @@
 				"col": "B",
 				"operator": "=",
 				"value": "GS"
-			},
-			{
-				"col": "L",
-				"operator": "<",
-				"value": 0.76
-			},
-			{
-				"col": "B",
-				"operator": "=",
-				"value": "Davis"
-			},
-			{
-				"col": "B",
-				"operator": "=",
-				"value": "ATP Cup"
 			}
 		],
 	"jump": [37, 162, 1352],
