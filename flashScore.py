@@ -452,8 +452,17 @@ def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
     r = requests.get(url)
     data = r.text
     soup = BeautifulSoup(data, "lxml")
-    data = soup.select("div#participant-page-data-results_s")[0].text
-    games = parseGames(data.encode('utf-8'), False, lastGames = lastGames)
+    #data = soup.select("div#participant-page-data-results_s")[0].text
+    scripts = soup.select("script")
+
+    for script in scripts:
+        scriptString = script.string
+        
+        if scriptString is not None and "results_s" in scriptString:
+            content = scriptString.split('cjs.initialFeeds["results_s"]')[1].split("data: `")[1].split("`,")[0]
+            break
+
+    games = parseGames(content.encode('utf-8'), False, lastGames = lastGames)
     
     for event in games:
         if event['game']:
