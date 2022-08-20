@@ -370,7 +370,7 @@ def parseStats(content):
 
             return stats
 
-    exit()
+    return False
 
 def getBreakData(game):
     url = "https://d.flashscore.com/x/feed/df_mh_1_" + game['id']
