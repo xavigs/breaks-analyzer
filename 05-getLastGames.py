@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 import requests
 from bs4 import BeautifulSoup
 import click
@@ -163,6 +163,10 @@ shownCompetitions = []
     help = "Limit date to get previous games", type = str, default = date.today().strftime("%Y-%m-%d"), show_default = True
 )
 @click.option(
+    '-t', '--tomorrow',
+    help = "Set tomorrow as limit date", type = str, default = "N", show_default = True
+)
+@click.option(
     '-s', '--sex',
     help = "Sex players to get previous games", type = str, default = "M", show_default = True
 )
@@ -175,7 +179,10 @@ shownCompetitions = []
     help = "Index player that we get previous games to", type = int, default = 200, show_default = True
 )
 
-def getLastGames(limit_date, sex, from_player, limit_player):
+def getLastGames(limit_date, tomorrow, sex, from_player, limit_player):
+    if tomorrow == "Y":
+        limit_date = str(date.today() + timedelta(1))
+
     currentYear = datetime.strptime(limit_date, "%Y-%m-%d").year
     limitYear = currentYear - 4
 
