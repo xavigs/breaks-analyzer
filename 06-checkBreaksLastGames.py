@@ -28,7 +28,7 @@ playersMissingObj = objects.PlayersMissing(breaksDB)
 
 def checkBreaks(sex, from_player, limit_player):
     if sex == "M":
-        players = playersObj.read()
+        players = playersObj.getMen()
     else:
         players = playersObj.getWomen()
 

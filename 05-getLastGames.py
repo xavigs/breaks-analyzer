@@ -187,7 +187,7 @@ def getLastGames(limit_date, tomorrow, sex, from_player, limit_player):
     limitYear = currentYear - 4
 
     if sex == "M":
-        players = playersObj.read()
+        players = playersObj.getMen()
     else:
         players = playersObj.getWomen()
 

@@ -64,8 +64,11 @@ class Players(MongoObject):
         MongoObject.__init__(self, db)
         self.collection = self.db['players']
 
+    def getMen(self):
+        return self.find_all([{'sex': 'M'}]).sort([("startingRanking", 1)])
+
     def getWomen(self):
-        return self.find_all([{'sex': 'W'}])
+        return self.find_all([{'sex': 'W'}]).sort([("startingRanking", 1)])
 
     def update(self, modifiedFields, conditions):
         player = self.find(conditions)
