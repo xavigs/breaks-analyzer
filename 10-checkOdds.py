@@ -142,7 +142,8 @@ def checkOdds(games_day, sex):
                 validData = True
                 '''print("### Page {}:".format(page))
                 print(data['results'])
-                printCollection(data['results'])'''
+                printCollection(data['results'])
+                exit()'''
 
                 if len(data['results']) > 0:
                     page += 1
@@ -213,14 +214,24 @@ def checkOdds(games_day, sex):
                 printCollection(markets)'''
 
                 if "results" in markets:
+                    '''print("# Response text:")
+                    print(response.text)
+                    print("# Markets:")
+                    print(markets)
+                    printCollection(markets)
+                    print(markets['results'][0]['main']['sp']['to_win_match']['odds'])
+                    print(markets['results'][0]['main']['sp']['to_win_match']['odds'][opponentIndex]['odds'])
+                    exit()'''
+                    opponentIndex = 1 - playerIndex
                     validData = True
 
                     if "others" in markets['results'][0]:
                         for othersContent in markets['results'][0]['others']:
                             if "first_set_player_to_break_serve" in othersContent['sp']:
                                 breakOdd = othersContent['sp']['first_set_player_to_break_serve']['odds'][playerIndex]['odds']
+                                opponentWinOdd = markets['results'][0]['main']['sp']['to_win_match']['odds'][opponentIndex]['odds']
                                 print(Fore.WHITE + Style.BRIGHT + "Break Odd: {}".format(breakOdd))
-                                gamesObj.update({'odd': float(breakOdd)}, [{'_id': gameDB['_id']}])
+                                gamesObj.update({'odd': float(breakOdd), 'opponentWinOdd': float(opponentWinOdd)}, [{'_id': gameDB['_id']}])
                 else:
                     print("⚠️  Hourly plan has been exceeded!")
                     rapidAPIKeyIndex += 1
