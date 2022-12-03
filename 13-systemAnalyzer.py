@@ -2,6 +2,12 @@
 import sys
 import openpyxl
 import json
+from utils import *
+from models import db, objects
+
+dbConnection = db.Database()
+breaksDB = dbConnection.connect()
+systemsObj = objects.Systems(breaksDB)
 
 def printArray(data):
     print("[")
@@ -37,7 +43,8 @@ SYSTEMS_TO_SHOW = (
     "Sistema Experimental VII",
     "Sistema Experimental VIII",
     "Sistema Experimental IX",
-    "Sistema Experimental X"
+    "Sistema Experimental X",
+    "Sistema Experimental XI"
 )
 systems = {}
 formula = {}
@@ -68,6 +75,8 @@ for system in parameters['systems']:
     systems[system['name']]['periods'] = {}
 
     if "future" in system:
+        systems[system['name']]['start'] = system['start-text']
+        systems[system['name']]['start-bank'] = system['start-bank']
         systems[system['name']]['future'] = {}
         systems[system['name']]['future']['units'] = 0
         systems[system['name']]['future']['num-picks'] = 0
@@ -227,6 +236,7 @@ for row in range(4, parameters['last-row'] + 1):
 
 for systemName, systemData in sorted(systems.items()):
     if "Sistema" in systemName:
+        origSystemName = systemName
         systemName = systemName.split("-")[1]
         print("\n~~ " + systemName + " ~~\n")
         print("\t* Unitats: " + str(round(systemData['units'],2)) + " uts.")
@@ -256,9 +266,15 @@ for systemName, systemData in sorted(systems.items()):
                     new_bank = bank + profit
                     print("\t\t-> " + periodData['name'] + "\t" + str(round(periodData['units'], 2)) + " uts.\t" + str(periodData['num-picks']) + " picks \tYield: " + str(periodData['yield']) + " %\t\tBank final: " + str(new_bank) + u" \u20ac")
                     bank = new_bank
+
+                    if periodData['name'] == systemData['start-bank']:
+                        systems[origSystemName]['initial-bank'] = bank
+
                     stake = round(bank / 40, 2)
-                except:
+                except Exception as e:
                     print("\t\t-> " + periodData['name'] + "\t" + str(round(periodData['units'], 2)) + " uts.\t" + str(periodData['num-picks']) + " picks \tYield: 0.00 %")
+        
+        systems[origSystemName]['end-bank'] = bank
 
         if "future" in systemData:
             print("\n\t* Dades futures:\n")
@@ -266,7 +282,24 @@ for systemName, systemData in sorted(systems.items()):
             print("\t\t-> Nº picks: " + str(systemData['future']['num-picks']))
             print("\t\t-> Yield: " + str(systemData['future']['yield']) + " %")
 
-#exit()
+# INSERT INTO DATABASE
+systemsObj.empty()
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemDB = {}
+        systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").split("-")[1]
+        if systemName.isnumeric():
+            systemName = "Sist. {}".format(systemName)
+        
+        systemDB['name'] = systemName
+        systemDB['start'] = systemData['start']
+        systemDB['num-picks'] = systemData['future']['num-picks']
+        systemDB['yield'] = systemData['future']['yield']
+        systemDB['start-bank'] = systemData['initial-bank']
+        systemDB['end-bank'] = systemData['end-bank']
+        systemDB['global'] = systemData['yield']
+        systemsObj.create(systemDB)
+
 print("\n~~ Intervals ~~\n")
 sys.stdout.write("------------")
 

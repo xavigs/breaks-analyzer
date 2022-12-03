@@ -8,6 +8,11 @@ import matplotlib.pyplot as plt
 from calendar import monthrange
 from colorama import init, Back, Fore, Style
 from utils import *
+from models import db, objects
+
+dbConnection = db.Database()
+breaksDB = dbConnection.connect()
+systemsObj = objects.Systems(breaksDB)
 
 init(autoreset = True)
 with open("parameters.json") as content:
@@ -31,7 +36,8 @@ SYSTEMS_TO_SHOW = (
     "Sistema Experimental VII",
     "Sistema Experimental VIII",
     "Sistema Experimental IX",
-    "Sistema Experimental X"
+    "Sistema Experimental X",
+    "Sistema Experimental XI"
 )
 systems = {}
 results = {}
@@ -210,6 +216,7 @@ for row in range(4, parameters['last-row'] + 1):
 
 for systemName, systemData in sorted(systems.items()):
     if "Sistema" in systemName:
+        origSystemName = systemName
         systemName = systemName.split("-")[1]
         yieldEval = round(systemData['yield'] > 20 and 1 or systemData['yield'] / 20, 2)
         print("\n~~ " + systemName + " ~~\n")
@@ -247,6 +254,13 @@ for systemName, systemData in sorted(systems.items()):
         print("\t* Mesos amb més del 10% de yield: {} ({})".format(plusMonths, plusEval))
         print("\t* Picks mensuals: {} ({})".format(monthlyPicks, picksEval))
         print("\t* Avaluació del sistema: {}{}{}".format(Style.BRIGHT, evalColor, evaluation))
+
+        # UPDATE DATABASE
+        systemName = origSystemName.replace("Sistema ", "").replace("Experimental", "Exp.").split("-")[1]
+        if systemName.isnumeric():
+            systemName = "Sist. {}".format(systemName)
+
+        systemsObj.update({'num-months': systemData['total-months'], 'positive-months': positiveMonths, '10plus-months': plusMonths}, [{'name': systemName}])
 
 print("\n~~ Intervals ~~\n")
 sys.stdout.write("------------")
