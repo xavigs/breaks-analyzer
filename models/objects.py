@@ -173,3 +173,9 @@ class Tournaments(MongoObject):
     def __init__(self, db):
         MongoObject.__init__(self, db)
         self.collection = self.db['tournaments']
+
+class Systems(MongoObject):
+
+    def __init__(self, db):
+        MongoObject.__init__(self, db)
+        self.collection = self.db['systems']
