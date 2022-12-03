@@ -6,150 +6,152 @@ from datetime import date, datetime
 
 BASE_URL = "https://www.tennisexplorer.com/"
 COMPETITIONS_TO_SKIP = (
-    "A Day at the Drive (Adelaide)",
-    "Abu Dhabi - exh.",
-    "Adria Tour",
-    "Adria Tour 2",
-    "Adria Tour 3",
-    "Adria Tour 4",
-    "Adriatic Tennis Series",
-    "Altec Styslinger Tennis Exhibition",
-    "AllAmerican Team Cup",
-    "Atlanta Open",
-    "Austrian Championship",
-    "Austrian Pro Series",
-    "Austrian Young Guns",
-    "Baltic Tennis League",
-    "Basel Open",
-    "Battle of Bradenton",
-    "Battle of the Brits",
-    "Battle of the Brits 2",
-    "Battle of the Brits 3",
-    "Bett",
-    "bett1 Aces",
-    "Boodles Tennis Challenge",
-    "Bratislava Open",
-    "British Tour",
-    "British Tour 2",
-    "British Tour 3",
-    "British Tour 4",
-    "British Tour 5",
-    "British Tour 6",
-    "British Tour 7",
-    "British Tour 8",
-    "British Tour 9",
-    "British Tour 10",
-    "British Tour 11",
-    "Budapest Kupa Exhibition Series",
-    "Bundesliga - men",
-    "Campionati Italiani Assoluti",
-    "Challenge Elite FFT",
-    "Challenge Elite FFT 2",
-    "Challenge Elite FFT 3",
-    "Copa del Rey",
-    "Cup of Friendship",
-    "CZE TA President's Cup",
-    "Czech league",
-    "Delray Beach - seniors",
-    "Diriyah Tennis Cup",
-    "DTB German Pro Series",
-    "East Coast Pro Series",
-    "Eastern European Championship",
-    "European Pro Tennis Series",
-    "Finnish Tennis Tour",
-    "FPT Portugal Series",
-    "FPT Portugal Series 2",
-    "FPT Portugal Series 3",
-    "FPT Portugal Series 4",
-    "Friendship Cup",
-    "GP de la Gruyere",
-    "Grand Slam Tennis Tours MatchPlay",
+    "A Day at the Drive (Adelaide)", # 29/01/2021
+    "Abu Dhabi - exh.", # 16/12/2021
+    "Adria Tour", # 03/07/2020
+    "Adria Tour 2", # 13/06/2020
+    "Adria Tour 3", # 20/06/2020
+    "Adria Tour 4", # 27/06/2020
+    "Adriatic Tennis Series", # 08/06/2020
+    "Altec Styslinger Tennis Exhibition", # 29/06/2020
+    "AllAmerican Team Cup", # 03/07/2020
+    "Atlanta Open", # 24/08/2020
+    "Austrian Championship", # 27/06/2021
+    "Austrian Pro Series", # 27/05/2020
+    "Austrian Young Guns", # 07/07/2020
+    "Baltic Tennis League", # 02/06/2020
+    "Basel Open", # 18/07/2020
+    "Battle of Bradenton", # 11/06/2020
+    "Battle of the Brits", # 23/06/2020
+    "Battle of the Brits 2", # 27/07/2020
+    "Battle of the Brits 3", # 20/12/2020
+    "Bett", # 17/07/2020
+    "bett1 Aces", # 13/07/2020
+    "Boodles Tennis Challenge", # 25/06/2019
+    "Bratislava Open", # 17/06/2020
+    "British Tour", # 03/07/2020
+    "British Tour 2", # 06/07/2020
+    "British Tour 3", # 09/07/2020
+    "British Tour 4", # 18/07/2020
+    "British Tour 5", # 23/07/2020
+    "British Tour 6", # 21/08/2020
+    "British Tour 7", # 28/08/2020
+    "British Tour 8", # 04/09/2020
+    "British Tour 9", # 02/10/2020
+    "British Tour 10", # 02/10/2020
+    "British Tour 11", # 18/12/2020
+    "Budapest Kupa Exhibition Series", # 22/05/2020
+    "Bundesliga - men", # 03/07/2022
+    "Campionati Italiani Assoluti", # 22/06/2020
+    "Challenge Elite FFT", # 06/07/2020
+    "Challenge Elite FFT 2", # 13/07/2020
+    "Challenge Elite FFT 3", # 20/07/2020
+    "Copa del Rey", # 21/08/2020
+    "Cup of Friendship", # 04/07/2020
+    "CZE TA President's Cup", # 26/05/2020
+    "Czech league", # 12/12/2021
+    "Delray Beach - seniors", # 06/01/2021
+    "Diriyah Tennis Cup", # 12/12/2019
+    "DTB German Pro Series", # 09/06/2020
+    "East Coast Pro Series", # 01/06/2020
+    "Eastern European Championship", # 15/06/2020
+    "European Pro Tennis Series", # 08/06/2020
+    "Finnish Tennis Tour", # 21/08/2020
+    "FPT Portugal Series", # 24/06/2020
+    "FPT Portugal Series 2", # 01/07/2020
+    "FPT Portugal Series 3", # 08/07/2020
+    "FPT Portugal Series 4", # 15/07/2020
+    "Friendship Cup", # 18/05/2020
+    "GP de la Gruyere", # 21/07/2020
+    "Grand Slam Tennis Tours MatchPlay", # 26/05/2020
     "Grand Slam Tennis Tours MatchPlay 2020",
     "Hawaii Open",
-    "HSC Cup Piestany",
-    "Hurlingham - exhibition",
-    "Indian Wells - pre-qualifier",
-    "International Premier League",
-    "International Tennis Series",
-    "Israel National Tennis Tour",
-    "Italian Championship",
-    "Italian National Tour",
-    "Kooyong - exh.",
-    "Laver Cup",
-    "Liga MAPFRE de Tenis",
-    "Liga MAPFRE de Tenis 2",
-    "Liga MAPFRE de Tenis 3",
-    "Liga MAPFRE de Tenis 4",
-    "Liga MAPFRE de Tenis 5",
-    "London - seniors",
-    "Macha Lake Open",
-    "Marbello Exhibition Series",
-    "Merko Cup",
-    "Moravia Open",
-    "National Championship",
-    "National Tennis Tour Switzerland",
+    "HSC Cup Piestany", # 23/07/2020
+    "Hurlingham - exhibition", # 21/06/2022
+    "International Premier League", # 27/07/2020
+    "International Tennis Series", # 18/04/2020
+    "Israel National Tennis Tour", # 23/06/2020
+    "Italian Championship", # 20/06/2020
+    "Italian National Tour", # 29/06/2020
+    "Kooyong - exh.", # 14/01/2020
+    "Laver Cup", # 23/09/2022
+    "Liga MAPFRE de Tenis", # 10/07/2020
+    "Liga MAPFRE de Tenis 2", # 15/07/2020
+    "Liga MAPFRE de Tenis 3", # 17/07/2020
+    "Liga MAPFRE de Tenis 4", # 22/07/2020
+    "Liga MAPFRE de Tenis 5", # 29/07/2020
+    "Liverpool - exhibition", # 16/06/2022
+    "London - seniors", # 25/11/2021
+    "Macha Lake Open", # 24/06/2020
+    "Marbello Exhibition Series", # 06/05/2020
+    "Merko Cup", # 29/07/2020
+    "Moravia Open", # 15/07/2020
+    "National Championship", # 11/07/2021
+    "National Tennis Tour Switzerland", # 01/07/2020
     "Netherlands - Championship",
-    "New Zealand Premier League",
-    "ÖTV Challenge Series",
-    "ÖTV Challenge Series 2",
-    "ÖTV Challenge Series 3",
-    "ÖTV Challenge Series 4",
-    "Peugeot Tennis Tour",
-    "Polish National Tour",
-    "Polish National Tour 2",
-    "Polish National Tour 3",
-    "Polish National Tour 4",
-    "Polish National Tour 5",
-    "Polish National Tour 6",
-    "Privatbanka Open",
-    "Securitas Pro Cup",
-    "SK Soccer Cup",
-    "Svijany Open",
-    "Swedish Summer Tour",
-    "Swiss Masters",
-    "Tennis Point Exhibition Series",
-    "Tennis Point Exhibition Series 2",
-    "Tennis Point Exhibition Series 3",
-    "Tennis Point Exhibition Series 4",
-    "Tennis Point Exhibition Series 5",
-    "Tennis Point Exhibition Series 6",
-    "Tennis Point Exhibition Series 7",
-    "Tennis Point Exhibition Series 8",
-    "Tennis Point Exhibition Series 9",
-    "Tennis Point Exhibition Series 10",
-    "Tennis Point Exhibition Series 11",
-    "Tennis Point Series (USA)",
-    "Tennis Point Series 2 (USA)",
-    "Tennisportalen Open",
-    "Thiem's Seven",
-    "Tie-Break Cup Zermatt",
-    "Tipsport Elite Trophy",
-    "Top League CTS",
-    "TPG Exhibition Series",
-    "UK Pro Series",
-    "UK Pro Series 2",
-    "UK Pro Series 3",
-    "UK Pro Series 4",
-    "UK Pro Series 5",
-    "Ultimate Tennis Showdown",
-    "Ultimate Tennis Showdown 2",
-    "Ultimate Tennis Showdown 3",
+    "New Zealand Premier League", # 03/06/2020
+    "ÖTV Challenge Series", # 06/07/2020
+    "ÖTV Challenge Series 2", # 13/07/2020
+    "ÖTV Challenge Series 3", # 20/07/2020
+    "ÖTV Challenge Series 4", # 27/07/2020
+    "Peugeot Tennis Tour", # 25/08/2020
+    "Polish National Tour", # 17/06/2020
+    "Polish National Tour 2", # 06/07/2020
+    "Polish National Tour 3", # 24/07/2020
+    "Polish National Tour 4", # 29/07/2020
+    "Polish National Tour 5", # 15/08/2020
+    "Polish National Tour 6", # 20/08/2020
+    "Privatbanka Open", # 09/07/2020
+    "Securitas Pro Cup", # 24/07/2020
+    "SK Soccer Cup", # 23/05/2020
+    "Svijany Open", # 29/07/2020
+    "Swedish Summer Tour", # 18/06/2020
+    "Swiss Masters", # 06/07/2020
+    "Tennis Point Exhibition Series", # 01/05/2020
+    "Tennis Point Exhibition Series 2", # 07/05/2020
+    "Tennis Point Exhibition Series 3", # 10/05/2020
+    "Tennis Point Exhibition Series 4", # 14/05/2020
+    "Tennis Point Exhibition Series 5", # 20/05/2020
+    "Tennis Point Exhibition Series 6", # 27/05/2020
+    "Tennis Point Exhibition Series 7", # 03/06/2020
+    "Tennis Point Exhibition Series 8", # 10/06/2020
+    "Tennis Point Exhibition Series 9", # 07/07/2020
+    "Tennis Point Exhibition Series 10", # 14/07/2020
+    "Tennis Point Exhibition Series 11", # 21/07/2020
+    "Tennis Point Series (USA)", # 14/05/2020
+    "Tennis Point Series 2 (USA)", # 22/05/2020
+    "Tennisportalen Open", # 26/06/2020
+    "Thiem's Seven", # 07/07/2020
+    "Tie-Break Cup Zermatt", # 09/07/2020
+    "Tipsport Elite Trophy", # 08/08/2020
+    "Top League CTS", # 11/06/2020
+    "TPG Exhibition Series", # 08/06/2020
+    "UK Pro Series", # 16/01/2022
+    "UK Pro Series 2", # 20/07/2020
+    "UK Pro Series 3", # 27/07/2020
+    "UK Pro Series 4", # 03/08/2020
+    "UK Pro Series 5", # 10/08/2020
+    "Ultimate Tennis Showdown", # 14/06/2020
+    "Ultimate Tennis Showdown 2", # 25/07/2020
+    "Ultimate Tennis Showdown 3", # 16/10/2020
     "Ultimate Tennis Showdown 2 2020",
-    "UTF Invitational",
-    "UTR Leschly Challenge",
-    "UTR Pro Match Series",
-    "UTR Pro Tennis Series",
-    "UTR Pro Tennis Series 2",
-    "UTR Pro Tennis Series 3",
-    "UTR Pro Tennis Series 4",
+    "UTF Invitational", # 09/06/2020
+    "UTR Leschly Challenge", # 31/05/2020
+    "UTR Pro Match Series", # 01/01/2022
+    "UTR Pro Tennis Series", # 09/05/2022
+    "UTR Pro Tennis Series 2", # 17/01/2022
+    "UTR Pro Tennis Series 3", # 13/12/2020
+    "UTR Pro Tennis Series 4", # 25/01/2021
     "UTR Pro Tennis Series 5",
-    "UTR Pro Tennis Series 6",
-    "UTR Pro Tennis Series 7",
-    "UTS Championship",
-    "Verbier Open",
-    "West Coast Pro Series",
-    "World TeamTennis",
-    "Zilina"
+    "UTR Pro Tennis Series 6", # 03/01/2022
+    "UTR Pro Tennis Series 7", # 28/03/2022
+    "UTR Pro Tennis Series 8", # 04/07/2022
+    "UTS Championship", # 24/05/2021
+    "Valencia challenge", # 05/06/2020
+    "Verbier Open", # 26/09/2020
+    "West Coast Pro Series", # 01/06/2020
+    "World TeamTennis", # 14/11/2021
+    "Zilina" # 30/07/2020
 )
 SEX_KEYWORDS = {'M': 'atp-men', 'W': 'wta-women'}
 SURFACE_ABBREVIATIONS = {
@@ -332,14 +334,27 @@ def getTournaments(sex, year):
             
             if len(rowHead) > 0:
                 tournamentElement = rowHead[0].select("a")[0]
-                tournamentPrize = int(row.select("td[class=tr]")[0].text.split(" ")[0].replace(",", ""))
+
+                if row.select("td[class^=tr]")[0].text != "-":
+                    tournamentPrize = int(row.select("td[class=tr]")[0].text.split(" ")[0].replace(",", ""))
+                else:
+                    tournamentPrize = 0
+
                 tournament['_id'] = tournamentElement['href'].split("/")[1]
                 tournament['sex'] = sex
-                tournament['name'] = tournamentElement.text
+                tournament['year'] = year
+                tournament['name'] = tournamentElement.text.strip()
 
                 if tournament['name'] not in COMPETITIONS_TO_SKIP:
-                    print(tournamentElement.text)
-                    tournament['surface'] = SURFACE_ABBREVIATIONS[row.select("td[class=s-color] span")[0]['title']]
+                    print(tournamentElement.text.strip())
+                    tagColor = row.select("td[class=s-color]")[0]
+                    tagColorHasChild = len(tagColor.find_all()) != 0
+                    print(tagColorHasChild)
+
+                    if tagColorHasChild:
+                        tournament['surface'] = SURFACE_ABBREVIATIONS[row.select("td[class=s-color] span")[0]['title']]
+                    else:
+                        tournament['surface'] = None
 
                     if " chall" in tournament['name']:
                         tournament['category'] = "CH"
@@ -348,18 +363,22 @@ def getTournaments(sex, year):
                     elif sex == "M":
                         tournament['category'] = "ATP"
 
-                        if tournamentPrize > 2000000:
+                        if tournamentPrize > 10000000:
                             tournament['subcategory'] = "GS"
-                        elif tournamentPrize > 1200000:
+                        elif tournamentPrize > 5000000:
+                            tournament['subcategory'] = "1000"
+                        elif tournamentPrize > 1300000:
                             tournament['subcategory'] = "500"
                         else:
                             tournament['subcategory'] = "250"
                     else:
                         tournament['category'] = "WTA"
 
-                        if tournamentPrize > 2000000:
+                        if tournamentPrize > 10000000:
                             tournament['subcategory'] = "GS"
-                        elif tournamentPrize > 1200000:
+                        elif tournamentPrize > 5000000:
+                            tournament['subcategory'] = "1000"
+                        elif tournamentPrize > 1300000:
                             tournament['subcategory'] = "500"
                         else:
                             tournament['subcategory'] = "250"
