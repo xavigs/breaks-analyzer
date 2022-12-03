@@ -2,8 +2,29 @@
 import openpyxl
 from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 from os.path import *
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from models import db, objects
+
+def getLastGames(player1, player2):
+    player1Nones = 0
+    player2Nones = 0
+
+    for indexGame, lastGame in enumerate(player1['lastGames']):
+        if lastGame['breakDone'] == 1 or indexGame > 1:
+            break
+        else:
+            player1Nones += 1
+
+    for indexGame, lastGame in enumerate(player2['lastGames']):
+        if lastGame['breakReceived'] == 1 or indexGame > 1:
+            break
+        else:
+            player2Nones += 1
+
+    if player1Nones == 0 and player2Nones == 0:
+        return "OK"
+    else:
+        return "{}{}".format(player1Nones, player2Nones)
 
 dbConnection = db.Database()
 breaksDB = dbConnection.connect()
@@ -11,6 +32,7 @@ gamesObj = objects.Games(breaksDB)
 tournamentsObj = objects.Tournaments(breaksDB)
 playersObj = objects.Players(breaksDB)
 dayDateTime = date.today()
+#dayDateTime += timedelta(1)
 dayString = dayDateTime.strftime("%Y-%m-%d")
 filepath = "xlsx/{}.xlsx".format(dayString)
 
@@ -74,7 +96,10 @@ for gameIndex, game in enumerate(games):
     player1 = playersObj.find([{'_id': game['player1ID']}])
     player2 = playersObj.find([{'_id': game['player2ID']}])
 
-    if tournament['category'] == "ATP":
+    if tournament is None:
+        tournament = {'category': "ITF", 'surface': "I", 'country': "spain"}
+        categoryKey = "ITF"
+    elif tournament['category'] == "ATP":
         categoryKey = "ATP-{}".format(tournament['subcategory'])
     else:
         categoryKey = tournament['category']
@@ -102,11 +127,17 @@ for gameIndex, game in enumerate(games):
     worksheet['F{}'.format(numRow)] = " ".join(game['FS-player2'].split(" ")[0:-1])
     worksheet['F{}'.format(numRow)].font = fontRegularBlack
     worksheet['F{}'.format(numRow)].alignment = alignmentLeft
-    worksheet['G{}'.format(numRow)] = "OK"
-    worksheet['G{}'.format(numRow)].font = fontRegularWhite
+    lastGames = getLastGames(player1, player2)
+    worksheet['G{}'.format(numRow)] = lastGames
     worksheet['G{}'.format(numRow)].alignment = alignmentCenter
-    worksheet['G{}'.format(numRow)].fill = PatternFill(start_color = "34a853", end_color = "34a853", fill_type = "solid")
-    worksheet['H{}'.format(numRow)] = 1.01
+
+    if lastGames == "OK":
+        worksheet['G{}'.format(numRow)].font = fontRegularWhite
+        worksheet['G{}'.format(numRow)].fill = PatternFill(start_color = "34a853", end_color = "34a853", fill_type = "solid")
+    else:
+        worksheet['G{}'.format(numRow)].font = fontRegularBlack
+
+    worksheet['H{}'.format(numRow)] = game['opponentWinOdd']
     worksheet['H{}'.format(numRow)].font = fontRegularBlack
     worksheet['H{}'.format(numRow)].alignment = alignmentCenter
 
