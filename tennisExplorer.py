@@ -16,6 +16,7 @@ COMPETITIONS_TO_SKIP = (
     "Altec Styslinger Tennis Exhibition", # 29/06/2020
     "AllAmerican Team Cup", # 03/07/2020
     "Atlanta Open", # 24/08/2020
+    "Austrian Bundesliga", # 22/05/2022
     "Austrian Championship", # 27/06/2021
     "Austrian Pro Series", # 27/05/2020
     "Austrian Young Guns", # 07/07/2020
@@ -95,6 +96,7 @@ COMPETITIONS_TO_SKIP = (
     "ÖTV Challenge Series 3", # 20/07/2020
     "ÖTV Challenge Series 4", # 27/07/2020
     "Peugeot Tennis Tour", # 25/08/2020
+    "Polish national championship", # 10/07/2022
     "Polish National Tour", # 17/06/2020
     "Polish National Tour 2", # 06/07/2020
     "Polish National Tour 3", # 24/07/2020
@@ -107,6 +109,7 @@ COMPETITIONS_TO_SKIP = (
     "Svijany Open", # 29/07/2020
     "Swedish Summer Tour", # 18/06/2020
     "Swiss Masters", # 06/07/2020
+    "Swiss Nationalliga A", # 07/05/2022
     "Tennis Point Exhibition Series", # 01/05/2020
     "Tennis Point Exhibition Series 2", # 07/05/2020
     "Tennis Point Exhibition Series 3", # 10/05/2020
