@@ -43,6 +43,7 @@ COMPETITIONS_TO_SKIP = (
     "British Tour 11", # 18/12/2020
     "Budapest Kupa Exhibition Series", # 22/05/2020
     "Bundesliga - men", # 03/07/2022
+    "Bundesliga - women", # 08/05/2022
     "Campionati Italiani Assoluti", # 22/06/2020
     "Challenge Elite FFT", # 06/07/2020
     "Challenge Elite FFT 2", # 13/07/2020
@@ -62,7 +63,9 @@ COMPETITIONS_TO_SKIP = (
     "FPT Portugal Series 2", # 01/07/2020
     "FPT Portugal Series 3", # 08/07/2020
     "FPT Portugal Series 4", # 15/07/2020
+    "France - Championship", # 20/11/2022
     "Friendship Cup", # 18/05/2020
+    "German Championships", # 06/12/2022
     "GP de la Gruyere", # 21/07/2020
     "Grand Slam Tennis Tours MatchPlay", # 26/05/2020
     "Grand Slam Tennis Tours MatchPlay 2020",
