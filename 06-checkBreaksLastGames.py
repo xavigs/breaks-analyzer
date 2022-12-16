@@ -67,7 +67,7 @@ def checkBreaks(sex, from_player, limit_player):
                 playersMissingObj.create(playerMissing)
                 error = True
         
-        if not error and player['flashScoreId'] != "":
+        if not error and player['flashScoreId'] != "" and len(lastGames):
             lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
             #lastGamesBreaks = flashScore.newCheckBreaksLastGamesByPlayer(player['flashScoreId'], lastGames)
             playersObj.updateBreakData(player['_id'], lastGamesBreaks)
