@@ -20,11 +20,16 @@ playersMissingObj = objects.PlayersMissing(breaksDB)
 )
 @click.option(
     '-l', '--limit-player',
-    help = "Index player that we check breaks to", type = int, default = 200, show_default = True
+    help = "Index player that we check breaks to", type = int, default = 999999, show_default = True
 )
 
 def getBreakDataFromSofaScore(sex, from_player, limit_player):
-    players = playersObj.find_all([{'sex': sex}, {'definedGames': {"$lt": 8}}, {'startingRanking': {"$gt": from_player}}, {'startingRanking': {'$lte': limit_player }}])
+    if from_player == 0 and limit_player == 999999:
+        players = playersObj.find_all([{'sex': sex}, {'definedGames': {"$lt": 8}}])
+    elif from_player > 0 and limit_player == 999999:
+        players = playersObj.find_all([{'sex': sex}, {'definedGames': {"$lt": 8}}, {'startingRanking': {"$gt": from_player}}])
+    elif from_player > 0 and limit_player < 999999:
+        players = playersObj.find_all([{'sex': sex}, {'definedGames': {"$lt": 8}}, {'startingRanking': {"$gt": from_player}}, {'startingRanking': {'$lte': limit_player }}])
     
     for player in players:
         playerMissingDB = playersMissingObj.find([{'sex': sex}, {'playerRanking': player['startingRanking']}])
@@ -59,6 +64,14 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
                 elif "sofaScoreID" in opponent:
                     previousGame['opponent'] = opponent['sofaScoreID']
                 else:
+                    playerMissing = {
+                        'sex': sex,
+                        'opponent': game['opponent'],
+                        'player': player['tennisExplorerName'],
+                        'playerRanking': player['startingRanking'],
+                        'sofaScoreID': opponent['startingRanking']
+                    }
+                    playersMissingObj.create(playerMissing)
                     print("⚠️  The opponent {} does not have sofaScoreID.".format(game['opponent']))
 
                 previousGame['date'] = game['time']

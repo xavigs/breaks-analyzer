@@ -22,17 +22,28 @@ playersMissingObj = objects.PlayersMissing(breaksDB)
 )
 @click.option(
     '-l', '--limit-player',
-    help = "Index player that we check breaks to", type = int, default = 200, show_default = True
+    help = "Index player that we check breaks to", type = int, default = 999999, show_default = True
 )
 
 
 def checkBreaks(sex, from_player, limit_player):
-    if sex == "M":
-        players = playersObj.getMen()
-    else:
-        players = playersObj.getWomen()
+    if from_player == 0 and limit_player == 999999:
+        if sex == "M":
+            players = playersObj.getMenWithLastGames()
+        else:
+            players = playersObj.getWomenWithLastGames()
+    elif from_player > 0 and limit_player == 999999:
+        if sex == "M":
+            players = playersObj.getMenWithLastGames(from_player)
+        else:
+            players = playersObj.getWomenWithLastGames(from_player)
+    elif from_player > 0 and limit_player < 999999:
+        if sex == "M":
+            players = playersObj.getMenWithLastGames(from_player, limit_player)
+        else:
+            players = playersObj.getWomenWithLastGames(from_player, limit_player)
 
-    for player in players[from_player:limit_player]:
+    for player in players:
         rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
         print("\n" + "-" * (rankingNameLength + 25))
         print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].encode('utf-8').upper()))

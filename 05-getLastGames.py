@@ -96,7 +96,7 @@ invalidCompetitions = (
     "Moravia Open", # 15/07/2020
     "National Championship", # 11/07/2021
     "National Tennis Tour Switzerland", # 01/07/2020
-    "Netherlands - Championship",
+    "Netherlands - Championship", # 13/12/2022
     "New Zealand Premier League", # 03/06/2020
     "ÖTV Challenge Series", # 06/07/2020
     "ÖTV Challenge Series 2", # 13/07/2020
@@ -159,8 +159,10 @@ invalidCompetitions = (
     "UTS Championship", # 24/05/2021
     "Valencia challenge", # 05/06/2020
     "Verbier Open", # 26/09/2020
+    "Waikiki Cup", # 18/12/2022
     "West Coast Pro Series", # 01/06/2020
     "World TeamTennis", # 14/11/2021
+    "World Tennis League", # 19/12/2022
     "Zilina" # 30/07/2020
 )
 shownCompetitions = []
@@ -184,7 +186,7 @@ shownCompetitions = []
 )
 @click.option(
     '-l', '--limit-player',
-    help = "Index player that we get previous games to", type = int, default = 200, show_default = True
+    help = "Index player that we get previous games to", type = int, default = 999999, show_default = True
 )
 
 def getLastGames(limit_date, tomorrow, sex, from_player, limit_player):
@@ -194,12 +196,26 @@ def getLastGames(limit_date, tomorrow, sex, from_player, limit_player):
     currentYear = datetime.strptime(limit_date, "%Y-%m-%d").year
     limitYear = currentYear - 4
 
-    if sex == "M":
-        players = playersObj.getMen()
-    else:
-        players = playersObj.getWomen()
+    if from_player == 0 and limit_player == 999999:
+        if sex == "M":
+            players = playersObj.getMenWithSofaScoreID()
+        else:
+            players = playersObj.getWomenWithSofaScoreID()
+    elif from_player > 0 and limit_player == 999999:
+        if sex == "M":
+            players = playersObj.getMenWithSofaScoreID(from_player)
+        else:
+            players = playersObj.getWomenWithSofaScoreID(from_player)
+    elif from_player > 0 and limit_player < 999999:
+        if sex == "M":
+            players = playersObj.getMenWithSofaScoreID(from_player, limit_player)
+        else:
+            players = playersObj.getWomenWithSofaScoreID(from_player, limit_player)
+    
+    print("{} players are going to be analyzed.".format(len(list(players))))
+    players.rewind()
 
-    for player in players[from_player:limit_player]:
+    for player in players:
         rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
         print("\n" + "-" * (rankingNameLength + 25))
         print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].encode('utf-8').upper()))
