@@ -70,6 +70,18 @@ class Players(MongoObject):
     def getWomen(self):
         return self.find_all([{'sex': 'W'}]).sort([("startingRanking", 1)])
 
+    def getMenWithSofaScoreID(self, from_player = 0, limit_player = 999999):
+        return self.find_all([{'sex': 'M'}, {'startingRanking': {'$gt': from_player}}, {'startingRanking': {'$lte': limit_player}}, {'sofaScoreID': {'$exists': True}}]).sort([("startingRanking", 1)])
+    
+    def getWomenWithSofaScoreID(self, from_player = 0, limit_player = 999999):
+        return self.find_all([{'sex': 'W'}, {'startingRanking': {'$gt': from_player}}, {'startingRanking': {'$lte': limit_player}}, {'sofaScoreID': {'$exists': True}}]).sort([("startingRanking", 1)])
+
+    def getMenWithLastGames(self, from_player = 0, limit_player = 999999):
+        return self.find_all([{'sex': 'M'}, {'startingRanking': {'$gt': from_player}}, {'startingRanking': {'$lte': limit_player}}, {'lastGames': {'$exists': True}}]).sort([("startingRanking", 1)])
+    
+    def getWomenWithLastGames(self, from_player = 0, limit_player = 999999):
+        return self.find_all([{'sex': 'W'}, {'startingRanking': {'$gt': from_player}}, {'startingRanking': {'$lte': limit_player}}, {'lastGames': {'$exists': True}}]).sort([("startingRanking", 1)])
+
     def update(self, modifiedFields, conditions):
         player = self.find(conditions)
         update = False
@@ -78,14 +90,18 @@ class Players(MongoObject):
             if modifiedFields['flashScoreName'] == player['tennisExplorerName'] or modifiedFields['flashScoreName'].lower() == player['tennisExplorerName'].lower():
                 update = True
             else:
-                origText = ("-", "'", "Soonwoo", "Augustin", "Miljan", "Khumoyun", "Mathieu", "Damian", "Alejandro", "Slobodchikov", "Martinavarro", "Lukas", "Denis", "Nikita", "Jurabek", "Laurynas", "Volodymyr", "Uzhylovskyi", "Kiyamov", "Dzhanashiya", "Alexander", "Yasha", "Kosuke", "Wei Qiang", "Joan", "Prashanth", "Domenico", "Choudhary", "Tukhula", "Sander", "Jeffrey", "A.", "Shonigmatjon", "Shofayziyev", "Worovin", "Stamatios", "Oliver", "Vliegen", "Daria", "Victoria", "Liudmila", "Lesia", "Aleksandra", "Katerina", "Allie", "Tatjana", "Sofia", "Yvonne", "Peangtarn", "Plipuech", "Ilona", "Thaisa", "Zarycka", "Jasmin", "Yeonwoo", "Chiara", "Garbiela", "Tiffany", "Jundakate", "Karpovich", "Sawatdee", "Qyinlomo")
-                newText = (" ", "", "Soon Woo", "Agustin", "Milan", "Khumoun", "Matthieu", "Damien", "Alex", "Slobodshikov", "Martinavarr", "Lucas", "Denys", "Mykyta", "Djurabeck", "Laurinas", "Vladimir", "Uzhylovsky", "Kiuamov", "Dzhanashia", "Sander", "Yankel", "Kousuke", "Weiqiang", "Joao", "Prasanth", "Mirko", "Chaudary", "Tuki", "A.", "Chuan En", "Aleksandar", "Nigmat", "Shofayziev", "Woravin", "Stamatis", "Olivier", "Minarik", "Darya", "Viktoria", "Ludmilla", "Lesya", "Alexandra", "Kateryna", "Alexandra", "Tatiana", "Sophia", "Ivonne", "Peangthan", "Pliphuech", "Ylona", "Thasa", "Zarytska", "Jazmin", "Yeon Woo", "Chi Chi", "Gabriela", "Tina Nadine", "Jandakate", "Mogilnitskaya", "Sawasdee", "Oyinlomo")
+                origText = ("-", "'", "Soonwoo", "Augustin", "Miljan", "Khumoyun", "Mathieu", "Damian", "Alejandro", "Slobodchikov", "Martinavarro", "Lukas", "Denis", "Nikita", "Jurabek", "Laurynas", "Volodymyr", "Uzhylovskyi", "Kiyamov", "Dzhanashiya", "Alexander", "Yasha", "Kosuke", "Wei Qiang", "Joan", "Prashanth", "Domenico", "Choudhary", "Tukhula", "Sander", "Jeffrey", "A.", "Shonigmatjon", "Shofayziyev", "Worovin", "Stamatios", "Oliver", "Vliegen", "Daria", "Victoria", "Liudmila", "Lesia", "Aleksandra", "Katerina", "Allie", "Tatjana", "Sofia", "Yvonne", "Peangtarn", "Plipuech", "Ilona", "Thaisa", "Zarycka", "Jasmin", "Yeonwoo", "Chiara", "Garbiela", "Tiffany", "Jundakate", "Karpovich", "Sawatdee", "Qyinlomo", "Moeller", "Ghedjemis", "Rayan", "Maksim", "Hong kit", "Yecong", "Isarow", "Tagushi", "Minh Tuan", "Al Azmeh", "Leevi", "Coco", "Ekaterina", "Nadiya", "Nicole", "Young Suh", "Jr.", "Melissa")
+                newText = (" ", "", "Soon Woo", "Agustin", "Milan", "Khumoun", "Matthieu", "Damien", "Alex", "Slobodshikov", "Martinavarr", "Lucas", "Denys", "Mykyta", "Djurabeck", "Laurinas", "Vladimir", "Uzhylovsky", "Kiuamov", "Dzhanashia", "Sander", "Yankel", "Kousuke", "Weiqiang", "Joao", "Prasanth", "Mirko", "Chaudary", "Tuki", "A.", "Chuan En", "Aleksandar", "Nigmat", "Shofayziev", "Woravin", "Stamatis", "Olivier", "Minarik", "Darya", "Viktoria", "Ludmilla", "Lesya", "Alexandra", "Kateryna", "Alexandra", "Tatiana", "Sophia", "Ivonne", "Peangthan", "Pliphuech", "Ylona", "Thasa", "Zarytska", "Jazmin", "Yeon Woo", "Chi Chi", "Gabriela", "Tina Nadine", "Jandakate", "Mogilnitskaya", "Sawasdee", "Oyinlomo", "Moller", "Roumane", "Rayane", "Maxim", "Hong Kit Jack", "Ye Cong", "Isaro", "Taguchi", "Minhtuan", "Alazmeh", "Levi", "Cori", "Tatiana", "Nadya", "Nikol", "Youngsuh", "", "Melisa")
                 flashScoreName = modifiedFields['flashScoreName']
                 tennisExplorerName = unicodedata.normalize('NFKD', player['tennisExplorerName']).encode('ascii', 'ignore')
 
                 for index in range(0, len(origText)):
                     flashScoreName = flashScoreName.replace(origText[index], newText[index])
                     tennisExplorerName = tennisExplorerName.replace(origText[index], newText[index])
+
+                '''print(flashScoreName)
+                print(tennisExplorerName)
+                exit()'''
 
                 if flashScoreName == tennisExplorerName or tennisExplorerName in flashScoreName or flashScoreName in tennisExplorerName or flashScoreName.lower() == tennisExplorerName.lower():
                     update = True
@@ -95,6 +111,8 @@ class Players(MongoObject):
 
                     if len(flashScoreNameParts) == 3 and flashScoreNameParts[0] + " " + flashScoreNameParts[2] == tennisExplorerName:
                         update = True
+                    elif len(flashScoreNameParts) == 2 and flashScoreNameParts[1] + " " + flashScoreNameParts[0] == tennisExplorerName:
+                        update = True    
                     elif len(flashScoreNameParts) == 4 and flashScoreNameParts[0] + " " + flashScoreNameParts[2] + " " + flashScoreNameParts[3] == tennisExplorerName:
                         update = True
                     elif len(tennisExplorerNameParts) == 4 and tennisExplorerNameParts[0] + " " + tennisExplorerNameParts[2] + " " + tennisExplorerNameParts[3] == flashScoreName:
@@ -121,12 +139,21 @@ class Players(MongoObject):
                         update = True
                     elif len(flashScoreNameParts) == 5 and flashScoreNameParts[3] + " " + flashScoreNameParts[4] + " " + flashScoreNameParts[0] + " " + flashScoreNameParts[1] + " " + flashScoreNameParts[2] == tennisExplorerName:
                         update = True
+                    elif len(tennisExplorerNameParts) == 4 and tennisExplorerNameParts[0] + " " + tennisExplorerNameParts[1] + " " + tennisExplorerNameParts[3] == flashScoreName:
+                        update = True
+                    elif len(flashScoreNameParts) == 3 and flashScoreNameParts[2] + " " + flashScoreNameParts[0] + " " + flashScoreNameParts[1] == tennisExplorerName:
+                        update = True
+                    elif len(tennisExplorerNameParts) == 4 and tennisExplorerNameParts[2] + " " + tennisExplorerNameParts[0] + " " + tennisExplorerNameParts[1] == flashScoreName:
+                        update = True
+                    elif len(tennisExplorerNameParts) == 5 and tennisExplorerNameParts[4] + " " + tennisExplorerNameParts[3] == flashScoreName:
+                        update = True
         
             if update:
                 MongoObject.update(self, modifiedFields, conditions)
+                return True
             else:
                 print("# The player " + modifiedFields['flashScoreName'] + " (" + str(conditions[0]['startingRanking']) + ") has not updated")
-                exit()
+                return False
         else:
             MongoObject.update(self, modifiedFields, conditions)
     
