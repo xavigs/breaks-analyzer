@@ -228,10 +228,13 @@ def checkOdds(games_day, sex):
                     if "others" in markets['results'][0]:
                         for othersContent in markets['results'][0]['others']:
                             if "first_set_player_to_break_serve" in othersContent['sp']:
-                                breakOdd = othersContent['sp']['first_set_player_to_break_serve']['odds'][playerIndex]['odds']
-                                opponentWinOdd = markets['results'][0]['main']['sp']['to_win_match']['odds'][opponentIndex]['odds']
-                                print(Fore.WHITE + Style.BRIGHT + "Break Odd: {}".format(breakOdd))
-                                gamesObj.update({'odd': float(breakOdd), 'opponentWinOdd': float(opponentWinOdd)}, [{'_id': gameDB['_id']}])
+                                try:
+                                    breakOdd = othersContent['sp']['first_set_player_to_break_serve']['odds'][playerIndex]['odds']
+                                    opponentWinOdd = markets['results'][0]['main']['sp']['to_win_match']['odds'][opponentIndex]['odds']
+                                    print(Fore.WHITE + Style.BRIGHT + "Break Odd: {}".format(breakOdd))
+                                    gamesObj.update({'odd': float(breakOdd), 'opponentWinOdd': float(opponentWinOdd)}, [{'_id': gameDB['_id']}])
+                                except:
+                                    continue
                 else:
                     print("⚠️  Hourly plan has been exceeded!")
                     rapidAPIKeyIndex += 1
