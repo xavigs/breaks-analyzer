@@ -32,7 +32,7 @@ gamesObj = objects.Games(breaksDB)
 tournamentsObj = objects.Tournaments(breaksDB)
 playersObj = objects.Players(breaksDB)
 dayDateTime = date.today()
-#dayDateTime += timedelta(1)
+dayDateTime += timedelta(1)
 dayString = dayDateTime.strftime("%Y-%m-%d")
 filepath = "xlsx/{}.xlsx".format(dayString)
 
@@ -120,7 +120,10 @@ for gameIndex, game in enumerate(games):
     worksheet['D{}'.format(numRow)] = tournament['surface']
     worksheet['D{}'.format(numRow)].font = fontRegularWhite
     worksheet['D{}'.format(numRow)].alignment = alignmentCenter
-    worksheet['D{}'.format(numRow)].fill = PatternFill(start_color = surfaces[tournament['surface']], end_color = surfaces[tournament['surface']], fill_type = "solid")
+
+    if tournament['surface'] is not None:
+        worksheet['D{}'.format(numRow)].fill = PatternFill(start_color = surfaces[tournament['surface']], end_color = surfaces[tournament['surface']], fill_type = "solid")
+        
     worksheet['E{}'.format(numRow)] = " ".join(game['FS-player1'].split(" ")[0:-1])
     worksheet['E{}'.format(numRow)].font = fontBoldBlack
     worksheet['E{}'.format(numRow)].alignment = alignmentLeft
