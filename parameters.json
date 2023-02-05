@@ -1,5 +1,5 @@
 {
-	"last-row": 1880,
+	"last-row": 3020,
 	"formula":
 		[
 			{
@@ -157,7 +157,63 @@
 				"keyword": "2022-06",
 				"name": "Jun-22",
 				"first-row": 1757,
-				"last-row": 1880,
+				"last-row": 1921,
+				"type": 1
+			},
+			{
+				"keyword": "2022-07",
+				"name": "Jul-22",
+				"first-row": 1922,
+				"last-row": 2050,
+				"type": 1
+			},
+			{
+				"keyword": "2022-08",
+				"name": "Ago-22",
+				"first-row": 2051,
+				"last-row": 2187,
+				"type": 1
+			},
+			{
+				"keyword": "2022-09",
+				"name": "Set-22",
+				"first-row": 2188,
+				"last-row": 2340,
+				"type": 1
+			},
+			{
+				"keyword": "2022-10",
+				"name": "Oct-22",
+				"first-row": 2341,
+				"last-row": 2554,
+				"type": 1
+			},
+			{
+				"keyword": "2022-11",
+				"name": "Nov-22",
+				"first-row": 2555,
+				"last-row": 2728,
+				"type": 1
+			},
+			{
+				"keyword": "2022-12",
+				"name": "Des-22",
+				"first-row": 2729,
+				"last-row": 2777,
+				"type": 1
+			},
+			{
+				"keyword": "2023-01",
+				"name": "Gen-23",
+				"first-row": 2778,
+				"last-row": 3004,
+				"type": 1
+			},
+			{
+				"keyword": "2023-02",
+				"name": "Feb-23",
+				"first-row": 3005,
+				"last-row": 3020,
 				"type": 1
 			}
 
@@ -177,6 +233,8 @@
 				"name": "03-Sistema 1",
 				"future": 304,
 				"start-date": "2020-10-28",
+				"start-text": "Nov-20",
+				"start-bank": "Oct-20",
 				"conditions":
 					[
 						[
@@ -197,6 +255,8 @@
 				"name": "04-Sistema 3",
 				"future": 304,
 				"start-date": "2020-10-28",
+				"start-text": "Nov-20",
+				"start-bank": "Oct-20",
 				"conditions":
 					[
 						[
@@ -234,6 +294,8 @@
 				"name": "01-Sistema NAS",
 				"future": 191,
 				"start-date": "2020-09-30",
+				"start-text": "Oct-20",
+				"start-bank": "Mar+Set-20",
 				"conditions":
 					[
 						[
@@ -268,6 +330,8 @@
 				"name": "02-Sistema JUAS",
 				"future": 229,
 				"start-date": "2020-10-13",
+				"start-text": "Oct-20 (1/2)",
+				"start-bank": "Mar+Set-20",
 				"conditions":
 					[
 						[
@@ -346,6 +410,8 @@
 				"name": "05-Sistema JIXTA",
 				"future": 497,
 				"start-date": "2021-01-21",
+				"start-text": "Gen-21 (1/3)",
+				"start-bank": "Des-20",
 				"conditions":
 					[
 						[
@@ -453,6 +519,8 @@
 				"name": "06-Sistema D1SITIS",
 				"future": 497,
 				"start-date": "2021-01-21",
+				"start-text": "Gen-21 (1/3)",
+				"start-bank": "Des-20",
 				"conditions":
 					[
 						[
@@ -485,6 +553,8 @@
 				"name": "07-Sistema Experimental",
 				"future": 635,
 				"start-date": "2021-02-28",
+				"start-text": "Mar-21",
+				"start-bank": "Feb-21",
 				"conditions":
 					[
 						[
@@ -578,6 +648,8 @@
 				"name": "08-Sistema Experimental I",
 				"future": 635,
 				"start-date": "2021-02-28",
+				"start-text": "Mar-21",
+				"start-bank": "Feb-21",
 				"conditions":
 					[
 						[
@@ -654,6 +726,8 @@
 				"name": "09-Sistema Experimental II",
 				"future": 736,
 				"start-date": "2021-03-19",
+				"start-text": "Mar-21 (1/2)",
+				"start-bank": "Feb-21",
 				"conditions":
 					[
 						[
@@ -812,6 +886,8 @@
 				"name": "10-Sistema Experimental III",
 				"future": 791,
 				"start-date": "2021-04-01",
+				"start-text": "Abr-21",
+				"start-bank": "Mar-21",
 				"conditions":
 					[
 						[
@@ -956,6 +1032,8 @@
 				"name": "11-Sistema Experimental IV",
 				"future": 1018,
 				"start-date": "2021-06-01",
+				"start-text": "Jun-21",
+				"start-bank": "Mai-21",
 				"conditions":
 					[
 						[
@@ -1027,6 +1105,8 @@
 				"name": "12-Sistema Experimental V",
 				"future": 1484,
 				"start-date": "2022-03-27",
+				"start-text": "Abr-22",
+				"start-bank": "Mar-22",
 				"conditions":
 					[
                         [
@@ -1093,6 +1173,8 @@
 				"name": "13-Sistema Experimental VI",
 				"future": 1484,
 				"start-date": "2022-03-27",
+				"start-text": "Abr-22",
+				"start-bank": "Mar-22",
 				"conditions":
 					[
                         [
@@ -1176,6 +1258,8 @@
 				"name": "14-Sistema Experimental VII",
 				"future": 1484,
 				"start-date": "2022-03-27",
+				"start-text": "Abr-22",
+				"start-bank": "Mar-22",
 				"conditions":
 					[
                         [
@@ -1283,6 +1367,8 @@
 				"name": "15-Sistema Experimental VIII",
 				"future": 1484,
 				"start-date": "2022-03-27",
+				"start-text": "Abr-22",
+				"start-bank": "Mar-22",
 				"conditions":
 					[
                         [
@@ -1424,6 +1510,8 @@
 				"name": "16-Sistema Experimental IX",
 				"future": 1580,
 				"start-date": "2022-04-26",
+				"start-text": "Mai-22",
+				"start-bank": "Abr-22",
 				"conditions":
 					[
                         [
@@ -1507,6 +1595,8 @@
 				"name": "17-Sistema Experimental X",
 				"future": 1618,
 				"start-date": "2022-05-03",
+				"start-text": "Mai-22",
+				"start-bank": "Abr-22",
 				"conditions":
 					[
                         [
@@ -1531,6 +1621,62 @@
                                 "col": "C",
                                 "operator": "=",
                                 "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "17-Sistema Experimental XI",
+				"future": 2362,
+				"start-date": "2022-10-04",
+				"start-text": "Oct-22",
+				"start-bank": "Set-22",
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "N",
+                                "operator": ">=",
+                                "value": 1.60
                             },
                             {
                                 "col": "I",
