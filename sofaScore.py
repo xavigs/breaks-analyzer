@@ -113,3 +113,33 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                     break
 
     return breakData
+
+def getDailyPlayersData(day):
+    players = []
+    url = "{}{}{}".format(BASE_URL, "sport/tennis/scheduled-events/", day)
+    print(url)
+    dataJSON = getJSONFromURL(url)
+    
+    for dailyGame in dataJSON['events']:
+        urlGame = "{}{}{}".format(BASE_URL, "event/", dailyGame['id'])
+        print(urlGame)
+        gameJSON = getJSONFromURL(urlGame)
+
+        if "Doubles" not in gameJSON['event']['tournament']['name'] and "Mixed" not in gameJSON['event']['tournament']['name']:
+            if "ranking" in gameJSON['event']['homeTeam']:
+                player = {
+                    'name': gameJSON['event']['homeTeam']['slug'],
+                    'ranking': gameJSON['event']['homeTeam']['ranking'],
+                    'sofaScoreID': gameJSON['event']['homeTeam']['id']
+                }
+                players.append(player)
+            
+            if "ranking" in gameJSON['event']['awayTeam']:
+                player = {
+                    'name': gameJSON['event']['awayTeam']['slug'],
+                    'ranking': gameJSON['event']['awayTeam']['ranking'],
+                    'sofaScoreID': gameJSON['event']['awayTeam']['id']
+                }
+                players.append(player)
+
+    return players
