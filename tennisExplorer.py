@@ -92,7 +92,7 @@ COMPETITIONS_TO_SKIP = (
     "Moravia Open", # 15/07/2020
     "National Championship", # 11/07/2021
     "National Tennis Tour Switzerland", # 01/07/2020
-    "Netherlands - Championship",
+    "Netherlands - Championship", # 13/12/2022
     "New Zealand Premier League", # 03/06/2020
     "ÖTV Challenge Series", # 06/07/2020
     "ÖTV Challenge Series 2", # 13/07/2020
@@ -155,8 +155,10 @@ COMPETITIONS_TO_SKIP = (
     "UTS Championship", # 24/05/2021
     "Valencia challenge", # 05/06/2020
     "Verbier Open", # 26/09/2020
+    "Waikiki Cup", # 18/12/2022
     "West Coast Pro Series", # 01/06/2020
     "World TeamTennis", # 14/11/2021
+    "World Tennis League", # 19/12/2022
     "Zilina" # 30/07/2020
 )
 SEX_KEYWORDS = {'M': 'atp-men', 'W': 'wta-women'}
