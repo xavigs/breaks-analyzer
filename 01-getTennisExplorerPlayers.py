@@ -19,7 +19,7 @@ for category in categories:
     end = False
 
     while not end:
-        print("# Extracting " + categories['category'] + " players from the page " + str(page))
+        print("# Extracting {} players from the page {}".format(category['category'], page))
         url = category['URL_BASE'] + str(page)
         r = requests.get(url)
         data = r.text
