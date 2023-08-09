@@ -8,6 +8,7 @@ from models import db, objects
 
 dbConnection = db.Database()
 breaksDB = dbConnection.connect()
+playersMissingObj = objects.PlayersMissing(breaksDB)
 playersObj = objects.Players(breaksDB)
 invalidCompetitions = (
     "A Day at the Drive (Adelaide)", # 29/01/2021
@@ -156,6 +157,7 @@ invalidCompetitions = (
     "UTR Pro Tennis Series 6", # 03/01/2022
     "UTR Pro Tennis Series 7", # 28/03/2022
     "UTR Pro Tennis Series 8", # 04/07/2022
+    "UTR Pro Tennis Series 9",
     "UTS Championship", # 24/05/2021
     "Valencia challenge", # 05/06/2020
     "Verbier Open", # 26/09/2020
@@ -190,6 +192,8 @@ shownCompetitions = []
 )
 
 def getLastGames(limit_date, tomorrow, sex, from_player, limit_player):
+    playersMissingObj.empty()
+
     if tomorrow == "Y":
         limit_date = str(date.today() + timedelta(1))
 
@@ -211,7 +215,7 @@ def getLastGames(limit_date, tomorrow, sex, from_player, limit_player):
             players = playersObj.getMenWithSofaScoreID(from_player, limit_player)
         else:
             players = playersObj.getWomenWithSofaScoreID(from_player, limit_player)
-    
+
     print("{} players are going to be analyzed.".format(len(list(players))))
     players.rewind()
 
@@ -228,7 +232,7 @@ def getLastGames(limit_date, tomorrow, sex, from_player, limit_player):
             print(url)
             soup = BeautifulSoup(requests.get(url).text, "lxml")
             table = soup.select("div[id=matches-" + str(year) + "-1-data]")
-            
+
             if len(table) > 0:
                 schedule = table[0].select("tr")
                 noMatches = schedule[0].select("td.first.tl")
@@ -267,7 +271,7 @@ def getLastGames(limit_date, tomorrow, sex, from_player, limit_player):
                                 numPlayer = player1 == player['tennisExplorerKeyword'] and 1 or 2
                                 previousGame['opponent'] = numPlayer == 1 and player2 or player1
                                 score = game.select("td")[4].select("a")[0].text.split(", ")
-                                
+
                                 if score[0] != "":
                                     set1 = score[0].split("-")
                                     playerGames = numPlayer == 1 and int(set1[0]) or int(set1[1])
@@ -279,7 +283,7 @@ def getLastGames(limit_date, tomorrow, sex, from_player, limit_player):
                                     elif opponentGames > 10:
                                         numGames = opponentGames // 10
                                         opponentGames = numGames
-                                    
+
                                     if playerGames - opponentGames >= 2:
                                         previousGame['breakDone'] = 1
                                         previousGame['breakReceived'] = -1
@@ -300,9 +304,9 @@ def getLastGames(limit_date, tomorrow, sex, from_player, limit_player):
 
                                     if len(lastGames) == 8:
                                         break
-            
+
             year -= 1
-        
+
         updatedPlayer = {}
         updatedPlayer['lastGames'] = lastGames
         updatedPlayer['definedGames'] = 0

@@ -30,10 +30,10 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
         players = playersObj.find_all([{'sex': sex}, {'definedGames': {"$lt": 8}}, {'startingRanking': {"$gt": from_player}}])
     elif from_player > 0 and limit_player < 999999:
         players = playersObj.find_all([{'sex': sex}, {'definedGames': {"$lt": 8}}, {'startingRanking': {"$gt": from_player}}, {'startingRanking': {'$lte': limit_player }}])
-    
+
     for player in players:
         playerMissingDB = playersMissingObj.find([{'sex': sex}, {'playerRanking': player['startingRanking']}])
-        
+
         if playerMissingDB is None:
             rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
             print("\n" + "-" * (rankingNameLength + 25))
@@ -43,7 +43,7 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
             else:
                 playerName = player['tennisExplorerName']
 
-            print("|          ({}) {}          |".format(player['startingRanking'], playerName.upper()))
+            print(u"|          ({}) {}          |".format(player['startingRanking'], playerName.upper()))
             print("-" * (rankingNameLength + 25))
             lastGames = {'definedGames': player['definedGames'], 'games': []}
             error = False
@@ -78,7 +78,7 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
                 previousGame['breakDone'] = game['breakDone']
                 previousGame['breakReceived'] = game['breakReceived']
                 lastGames['games'].append(previousGame)
-            
+
             if not error:
                 lastGamesBreaks = sofaScore.checkBreaksUndefinedGamesByPlayer(player['sofaScoreID'], lastGames)
                 playersObj.updateBreakData(player['_id'], lastGamesBreaks)
