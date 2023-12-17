@@ -5,6 +5,7 @@ import pycurl
 from io import BytesIO
 import certifi
 from utils import *
+import urllib2, urllib
 from datetime import datetime
 import time, pytz
 import json
@@ -141,7 +142,7 @@ def getPreviousGames(idGame, homeKeyword, awayKeyword):
                 soup = BeautifulSoup(data, "lxml")
                 data = soup.select("div#participant-page-data-results_s")[0].text
                 games['home'] = parseGames(data.encode('utf-8'), False)
-                
+
                 # Away player
                 url = "https://www.flashscore.es/jugador/" + awayKeyword + "/" + idAwayPlayer + "/resultados"
                 r = requests.get(url)
@@ -235,7 +236,7 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
                             uTimeDateTime = datetime.fromtimestamp(game['utime'])
                             uTimeDateTime = OLD_TIMEZONE.localize(uTimeDateTime).astimezone(NEW_TIMEZONE)
                             game['date'] = uTimeDateTime.strftime("%Y-%m-%d")
-                            
+
                             if game['date'] > firstGameDate:
                                 break
 
@@ -291,19 +292,19 @@ def parseGames(content, future, playerKeyword = None, lastGames = None):
                     found = index
                     itemsFound += 1
                     break
-            
+
             newLastGame = {'index': found}
 
             if found > -1:
                 newLastGame['game'] = game
             else:
                 newLastGame['game'] = False
-            
+
             newLastGames.append(newLastGame)
-            
+
             if itemsFound == 8:
                 break
-        
+
         return newLastGames
 
     #printCollection(rows)
@@ -316,7 +317,7 @@ def parseStats(content):
     awayBreaks = 0
     rows = content.split(JS_ROW_END)
     hasStats = False
-    
+
     for row in rows:
         row = row.split(JS_CELL_END)
         index = row[0].split(JS_INDEX)
@@ -328,7 +329,7 @@ def parseStats(content):
 
         if len(index) > 1 and index[1] != "":
             indexValue = index[1]
-        
+
         if indexName != "" and indexValue != "":
             if indexName == STATS_SET:
                 if indexValue == "Set 1":
@@ -357,7 +358,7 @@ def parseStats(content):
                                     homeBreaks += 1
                                 else:
                                     awayBreaks += 1
-                    
+
                     indexGame += 1
 
         elif indexName == STATS_ENDGAME and "stats" in locals():
@@ -413,14 +414,14 @@ def parseRanking(content):
     typeValue = None
     rows = content.split(JS_ROW_END)
     validFields = (RANKING_PLAYER_NAME, RANKING_PLAYER_ID, RANKING_POSITION)
-    
+
     for row in rows:
         row = row.split(JS_CELL_END)
-        
+
         for cell in row:
             if JS_INDEX in cell:
                 indexName, indexValue = cell.split(JS_INDEX)
-                
+
                 if indexName == RANKING_REGISTER and indexValue == RANKING_PLAYER:
                     player = {}
                 elif indexName == RANKING_PLAYER_TAG and indexValue == RANKING_PLAYER_NAME:
@@ -457,13 +458,22 @@ def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
 
     for script in scripts:
         scriptString = script.string
-        
+
         if scriptString is not None and "results_s" in scriptString:
             content = scriptString.split('cjs.initialFeeds["results_s"]')[1].split("data: `")[1].split("`,")[0]
             break
 
-    games = parseGames(content.encode('utf-8'), False, lastGames = lastGames)
-    
+    try:
+        games = parseGames(content.encode('utf-8'), False, lastGames = lastGames)
+    except:
+        games = []
+        url = 'https://www.basketme.com/crawlers/tipster/sendFlashScoreWrongURL.php'
+        data = [('player', "{} - {}".format(playerID, playerName))]
+        data = urllib.urlencode(data)
+        req = urllib2.Request(url, data)
+        req.add_header("Content-type", "application/x-www-form-urlencoded")
+        page = urllib2.urlopen(req).read()
+
     for event in games:
         if event['game']:
             gameBreakData = {}
@@ -498,7 +508,7 @@ def newCheckBreaksLastGamesByPlayer(playerID, lastGames):
         content = soup.select("p")[0].text.encode('utf-8')
         games = parseGames(content, False, lastGames = lastGames)
         numPage += 1
-    
+
     for event in games:
         if event['game']:
             gameBreakData = {}
