@@ -32,7 +32,7 @@ gamesObj = objects.Games(breaksDB)
 tournamentsObj = objects.Tournaments(breaksDB)
 playersObj = objects.Players(breaksDB)
 dayDateTime = date.today()
-dayDateTime += timedelta(1)
+#dayDateTime += timedelta(1)
 dayString = dayDateTime.strftime("%Y-%m-%d")
 filepath = "xlsx/{}.xlsx".format(dayString)
 
@@ -78,7 +78,7 @@ categories = {
     'WTA': {'backColor': "7814ff", 'foreFont': fontRegularWhite}
 }
 categoriesToCombine = ["CH", "ITF"]
-surfaces = {'D': "788575", 'T': "ff7500", 'H': "74ae30", 'I': "618cb1"}
+surfaces = {'D': "788575", 'T': "ff7500", 'H': "74ae30", 'I': "618cb1", 'M': "008f70"}
 
 worksheet = workbook.active
 worksheet.title = "Daily games"
@@ -89,6 +89,7 @@ worksheet['A1'].alignment = alignmentCenter
 worksheet['A1'].border = rightBorder
 worksheet['A1'].fill = PatternFill(start_color = "ffd966", end_color = "ffd966", fill_type = "solid")
 games = gamesObj.find_all([{'gameDay': dayString, 'odd': {"$exists": True, "$gte": 1.57}}])
+print("Nº picks: {}".format(games.count()))
 
 for gameIndex, game in enumerate(games):
     numRow = gameIndex + 1
@@ -97,7 +98,7 @@ for gameIndex, game in enumerate(games):
     player2 = playersObj.find([{'_id': game['player2ID']}])
 
     if tournament is None:
-        tournament = {'category': "ITF", 'surface': "I", 'country': "spain"}
+        tournament = {'category': "ITF", 'surface': "M", 'country': "spain"}
         categoryKey = "ITF"
     elif tournament['category'] == "ATP":
         categoryKey = "ATP-{}".format(tournament['subcategory'])
@@ -123,7 +124,7 @@ for gameIndex, game in enumerate(games):
 
     if tournament['surface'] is not None:
         worksheet['D{}'.format(numRow)].fill = PatternFill(start_color = surfaces[tournament['surface']], end_color = surfaces[tournament['surface']], fill_type = "solid")
-        
+
     worksheet['E{}'.format(numRow)] = " ".join(game['FS-player1'].split(" ")[0:-1])
     worksheet['E{}'.format(numRow)].font = fontBoldBlack
     worksheet['E{}'.format(numRow)].alignment = alignmentLeft
@@ -133,6 +134,7 @@ for gameIndex, game in enumerate(games):
     lastGames = getLastGames(player1, player2)
     worksheet['G{}'.format(numRow)] = lastGames
     worksheet['G{}'.format(numRow)].alignment = alignmentCenter
+    worksheet['G{}'.format(numRow)].number_format = "@"
 
     if lastGames == "OK":
         worksheet['G{}'.format(numRow)].font = fontRegularWhite
