@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 from datetime import date, datetime, timedelta
-import requests
-from bs4 import BeautifulSoup
 import click
 from utils import *
 from models import db, objects
@@ -230,7 +228,7 @@ def getLastGames(limit_date, tomorrow, sex, from_player, limit_player):
         while len(lastGames) < 8 and year > limitYear:
             url = "https://www.tennisexplorer.com/player/" + player['tennisExplorerKeyword'] + "?annual=" + str(year)
             print(url)
-            soup = BeautifulSoup(requests.get(url).text, "lxml")
+            soup = getSoup(url)
             table = soup.select("div[id=matches-" + str(year) + "-1-data]")
 
             if len(table) > 0:

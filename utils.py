@@ -1,8 +1,13 @@
+import requests
+from bs4 import BeautifulSoup
+from random import randint
+from time import sleep
+
 def printCollectionContent(openings, level, levelIdentation, identation, key, value):
-    print "{}{}[{}] =>".format(levelIdentation, identation, key),
+    print u"{}{}[{}] =>".format(levelIdentation, identation, key),
 
     if type(value).__name__ not in openings:
-        print(str(value))
+        print(u"{}".format(value))
     else:
         printCollection(value, level + 1)
 
@@ -50,3 +55,22 @@ def getKeywordFromString(text):
 def getStringFromKeyword(text):
     string = text.replace("-", " ").title()
     return string
+
+def getSoup(url):
+    headersSoup = {"User-Agent" : "BreakSystem Scraper/1.0"}
+    tried = 0
+
+    while tried < 3:
+        try:
+            response = requests.get(url, headers=headersSoup)
+            tried = 3
+        except Exception as e:
+            tried += 1
+            sleep(randint(3, 5))
+
+            if tried == 3:
+                print("[ERROR] Connection error for the website {}: {}".format(url, e))
+                exit()
+
+    soup = BeautifulSoup(response.content, "lxml")
+    return soup
