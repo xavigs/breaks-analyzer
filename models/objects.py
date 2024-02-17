@@ -15,7 +15,7 @@ class MongoObject:
 
             for document in documentsDB:
                 documents.append(document)
-            
+
             return documents
         else:
             return self.collection.find_one({'_id': id})
@@ -24,11 +24,11 @@ class MongoObject:
         if conditions is None:
             return self.collection.find()
         else:
-            return self.collection.find({'$and': conditions})
-    
+            return self.collection.find({'$and': conditions}, no_cursor_timeout=True)
+
     def find(self, conditions):
         return self.collection.find_one({'$and': conditions})
-        
+
     def create(self, document):
         if "id" in document:
             document['_id'] = document['id']
@@ -38,17 +38,17 @@ class MongoObject:
             existingObject = self.collection.find_one({'_id': document['_id']})
         else:
             existingObject = None
-        
+
         if existingObject is None:
             self.collection.insert_one(document)
-    
+
     def update(self, modifiedFields, conditions):
         document = self.collection.find_one({"$and": conditions})
         self.collection.update_one({'_id': document['_id']}, {'$set': modifiedFields})
 
     def delete(self, conditions):
         return self.collection.delete_many({'$and': conditions})
-    
+
     def empty(self):
         self.collection.delete_many({})
 
@@ -72,20 +72,20 @@ class Players(MongoObject):
 
     def getMenWithSofaScoreID(self, from_player = 0, limit_player = 999999):
         return self.find_all([{'sex': 'M'}, {'startingRanking': {'$gt': from_player}}, {'startingRanking': {'$lte': limit_player}}, {'sofaScoreID': {'$exists': True}}]).sort([("startingRanking", 1)])
-    
+
     def getWomenWithSofaScoreID(self, from_player = 0, limit_player = 999999):
         return self.find_all([{'sex': 'W'}, {'startingRanking': {'$gt': from_player}}, {'startingRanking': {'$lte': limit_player}}, {'sofaScoreID': {'$exists': True}}]).sort([("startingRanking", 1)])
 
     def getMenWithLastGames(self, from_player = 0, limit_player = 999999):
         return self.find_all([{'sex': 'M'}, {'startingRanking': {'$gt': from_player}}, {'startingRanking': {'$lte': limit_player}}, {'lastGames': {'$exists': True}}]).sort([("startingRanking", 1)])
-    
+
     def getWomenWithLastGames(self, from_player = 0, limit_player = 999999):
         return self.find_all([{'sex': 'W'}, {'startingRanking': {'$gt': from_player}}, {'startingRanking': {'$lte': limit_player}}, {'lastGames': {'$exists': True}}]).sort([("startingRanking", 1)])
 
     def update(self, modifiedFields, conditions):
         player = self.find(conditions)
         update = False
-        
+
         if "flashScoreName" in modifiedFields:
             if modifiedFields['flashScoreName'] == player['tennisExplorerName'] or modifiedFields['flashScoreName'].lower() == player['tennisExplorerName'].lower():
                 update = True
@@ -112,7 +112,7 @@ class Players(MongoObject):
                     if len(flashScoreNameParts) == 3 and flashScoreNameParts[0] + " " + flashScoreNameParts[2] == tennisExplorerName:
                         update = True
                     elif len(flashScoreNameParts) == 2 and flashScoreNameParts[1] + " " + flashScoreNameParts[0] == tennisExplorerName:
-                        update = True    
+                        update = True
                     elif len(flashScoreNameParts) == 4 and flashScoreNameParts[0] + " " + flashScoreNameParts[2] + " " + flashScoreNameParts[3] == tennisExplorerName:
                         update = True
                     elif len(tennisExplorerNameParts) == 4 and tennisExplorerNameParts[0] + " " + tennisExplorerNameParts[2] + " " + tennisExplorerNameParts[3] == flashScoreName:
@@ -147,7 +147,7 @@ class Players(MongoObject):
                         update = True
                     elif len(tennisExplorerNameParts) == 5 and tennisExplorerNameParts[4] + " " + tennisExplorerNameParts[3] == flashScoreName:
                         update = True
-        
+
             if update:
                 MongoObject.update(self, modifiedFields, conditions)
                 return True
@@ -156,7 +156,7 @@ class Players(MongoObject):
                 return False
         else:
             MongoObject.update(self, modifiedFields, conditions)
-    
+
     def updateBreakData(self, playerID, lastGamesBreaks):
         #printCollection(lastGamesBreaks)
         player = self.read(playerID)
@@ -164,7 +164,7 @@ class Players(MongoObject):
         modifiedFields = {'definedGames': lastGamesBreaks['definedGames'], 'lastGames': player['lastGames']}
         indexToSubstract = 0
         #printCollection(modifiedFields)
-        
+
         for lastGameBreaks in lastGamesBreaks['games']:
             if "toDelete" in lastGameBreaks:
                 del modifiedFields['lastGames'][lastGameBreaks['index'] - indexToSubstract]
@@ -175,9 +175,9 @@ class Players(MongoObject):
 
                 if modifiedFields['lastGames'][lastGameBreaks['index'] - indexToSubstract]['breakReceived'] == -1:
                     modifiedFields['lastGames'][lastGameBreaks['index'] - indexToSubstract]['breakReceived'] = lastGameBreaks['breakReceived']
-        
+
         self.update(modifiedFields, conditions)
-    
+
     def printBreakData(self, playerID):
         player = self.read(playerID)
         if player['definedGames'] < 8:
