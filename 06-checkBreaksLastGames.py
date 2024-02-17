@@ -43,6 +43,9 @@ def checkBreaks(sex, from_player, limit_player):
         else:
             players = playersObj.getWomenWithLastGames(from_player, limit_player)
 
+    print(players)
+    print(type(players))
+
     for player in players:
         rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
         print("\n" + "-" * (rankingNameLength + 25))
@@ -77,7 +80,7 @@ def checkBreaks(sex, from_player, limit_player):
                 }
                 playersMissingObj.create(playerMissing)
                 error = True
-        
+
         if not error and player['flashScoreId'] != "" and len(lastGames):
             lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
             #lastGamesBreaks = flashScore.newCheckBreaksLastGamesByPlayer(player['flashScoreId'], lastGames)
