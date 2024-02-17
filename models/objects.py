@@ -24,7 +24,7 @@ class MongoObject:
         if conditions is None:
             return self.collection.find()
         else:
-            return self.collection.find({'$and': conditions}, no_cursor_timeout=True)
+            return self.collection.find({'$and': conditions})
 
     def find(self, conditions):
         return self.collection.find_one({'$and': conditions})

@@ -43,9 +43,6 @@ def checkBreaks(sex, from_player, limit_player):
         else:
             players = playersObj.getWomenWithLastGames(from_player, limit_player)
 
-    print(players)
-    print(type(players))
-
     for player in players:
         rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
         print("\n" + "-" * (rankingNameLength + 25))
