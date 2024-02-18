@@ -450,9 +450,7 @@ def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
     playerKeyword = getKeywordFromString(playerName)
     url = "https://www.flashscore.com/player/" + playerKeyword + "/" + playerID + "/results"
     print(url)
-    r = requests.get(url)
-    data = r.text
-    soup = BeautifulSoup(data, "lxml")
+    soup = getSoup(url)
     #data = soup.select("div#participant-page-data-results_s")[0].text
     scripts = soup.select("script")
 
