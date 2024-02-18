@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Breaks Players Management</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+        <style>
+          body
+          {
+            background-color: #202020;
+            color: #ccc;
+            font-family: 'Ubuntu', sans-serif;
+          }
+          h2
+          {
+            color: #fff;
+            font-size: 24px;
+          }
+          input[type=text]
+          {
+            background-color: #202020;
+            border: solid #ef0 1px;
+            color: #ccc;
+            font-size: 20px;
+            margin-bottom: 15px;
+            margin-top: 5px;
+            width: 100%;
+          }
+          label
+          {
+            font-size: 20px;
+          }
+          button
+          {
+            font-size: 20px;
+            padding: 8px 15px;
+          }
+          .container
+          {
+            margin-left: auto;
+            margin-right: auto;
+            width: 95%;
+          }
+        </style>
+    </head>
+    <body>
+        <h2>New player creation</h2>
+        <div class="container">
+          {% csrf_token %}
+          <label>Tennis Explorer URL:</label><br />
+          <input type="text" id="newPlayerTennisExplorerURL" name="newPlayerTennisExplorerURL" />
+          <label>Flash Score URL:</label><br />
+          <input type="text" id="newPlayerFlashScoreURL" name="newPlayerFlashScoreURL" />
+          <label>Sofa Score URL:</label><br />
+          <input type="text" id="newPlayerSofaScoreURL" name="newPlayerSofaScoreURL" />
+          <button onclick="createPlayer()">Create player</button>
+        </div><hr>
+        <p id="output"></p>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+        <script>
+          function createPlayer()
+          {
+            if ($("#newPlayerTennisExplorerURL").val())
+            {
+              $.ajax({
+                type: "POST",
+                url: "{% url 'saveNewPlayerURL' %}",
+                data: {'tennisExplorerURL': $("#newPlayerTennisExplorerURL").val(), 'flashScoreURL': $("#newPlayerFlashScoreURL").val(), 'sofaScoreURL': $("#newPlayerSofaScoreURL").val(), 'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()},
+                success: function(result)
+                {
+                  console.log(result);
+                }
+              });
+            }
+          }
+        </script>
+    </body>
+</html>
