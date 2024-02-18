@@ -56,8 +56,10 @@ def getStringFromKeyword(text):
     string = text.replace("-", " ").title()
     return string
 
-def getSoup(url):
-    headersSoup = {"User-Agent" : "BreakSystem Scraper/1.0"}
+def getSoup(url, headersSoup=None):
+    if headersSoup is None:
+        headersSoup = {"User-Agent" : "BreakSystem Scraper/1.0"}
+        
     tried = 0
 
     while tried < 3:

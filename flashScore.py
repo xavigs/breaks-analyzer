@@ -86,9 +86,7 @@ def getSoup(url):
         'TE':'Trailers'
     }
 
-    r = requests.get(url, headers = headersDict)
-    data = r.text
-    return BeautifulSoup(data, "lxml")
+    return utilsGetSoup(url, headersDict)
 
 def getUnauthorizedContent(url):
     data = BytesIO()
