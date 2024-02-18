@@ -5,6 +5,7 @@ import pycurl
 from io import BytesIO
 import certifi
 from utils import *
+from utils import getSoup as utilsGetSoup
 import urllib2, urllib
 from datetime import datetime
 import time, pytz
@@ -450,7 +451,7 @@ def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
     playerKeyword = getKeywordFromString(playerName)
     url = "https://www.flashscore.com/player/" + playerKeyword + "/" + playerID + "/results"
     print(url)
-    soup = getSoup(url)
+    soup = utilsGetSoup(url)
     #data = soup.select("div#participant-page-data-results_s")[0].text
     scripts = soup.select("script")
 
