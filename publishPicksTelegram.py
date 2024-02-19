@@ -48,7 +48,8 @@ for pick in picks:
     pickDate = datetime.strptime(pickDate, '%d %b. %H:%M')
     pickDate = pickDate.replace(year=today.year)
 
-    if pickDate > today''' or numPicks < 1''':
+    #if pickDate > today or numPicks < 1:
+    if pickDate > today:
         # Future pick
         pickDB = {}
         numPickString = str(numPick)
