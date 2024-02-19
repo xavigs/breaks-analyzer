@@ -206,3 +206,9 @@ class Systems(MongoObject):
     def __init__(self, db):
         MongoObject.__init__(self, db)
         self.collection = self.db['systems']
+
+class PicksTelegram(MongoObject):
+
+    def __init__(self, db):
+        MongoObject.__init__(self, db)
+        self.collection = self.db['picksTelegram']
