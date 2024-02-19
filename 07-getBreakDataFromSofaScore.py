@@ -86,9 +86,9 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
                         playersObj.updateBreakData(player['_id'], lastGamesBreaks)
                         playersObj.printBreakData(player['_id'])
             break
-        except:
+        except Exception as e:
             if i == 2:
-                raise
+                print(e)
             continue
 
 if __name__ == '__main__':
