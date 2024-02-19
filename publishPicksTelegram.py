@@ -51,8 +51,8 @@ for pick in picks:
     pickDate = datetime.strptime(pickDate, '%d %b. %H:%M')
     pickDate = pickDate.replace(year=today.year)
 
-    if pickDate > today or numPicks < 1:
-        # Future or first pick
+    if pickDate > today''' or numPicks < 1''':
+        # Future pick
         pickDB = {}
         numPickString = str(numPick)
         numPickEmoji = ''
