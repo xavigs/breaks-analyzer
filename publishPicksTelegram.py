@@ -6,6 +6,7 @@ import json
 from bs4 import BeautifulSoup
 import telegram
 from models import db, objects
+from credentials import *
 
 # Database connection
 dbConnection = db.Database()
@@ -14,11 +15,7 @@ picksTelegramObj = objects.PicksTelegram(breaksDB)
 tournamentsObj = objects.Tournaments(breaksDB)
 
 # Credentials
-TOKEN = '6976497176:AAEL9sNN9ysFrycNN1TmOS0Z68pAyqIzAYU'
-bot = telegram.Bot(token=TOKEN)
-channelID = '-1001505314231'
-#channelID = '222946111'
-tipsterlandID = '16775'
+bot = telegram.Bot(token=TELEGRAM_TOKEN)
 
 # Constants and variables
 emojisNumbers = ('0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣')
@@ -29,12 +26,12 @@ FLAGS = {
 }
 
 async def send(imageURL, message):
-    await bot.send_photo(chat_id=channelID, photo=imageURL, caption=message, parse_mode=telegram.constants.ParseMode.MARKDOWN_V2)
+    await bot.send_photo(chat_id=TELEGRAM_CHANNEL_ID, photo=imageURL, caption=message, parse_mode=telegram.constants.ParseMode.MARKDOWN_V2)
 
 # Get Tipsterland picks
 picksTelegramDB = picksTelegramObj.find_all()
 numPublishedPicks = len(list(picksTelegramDB))
-url = 'https://www.tipsterland.com/api/picks/cards?tipster_id={}&month=2&year=2024&pending=false&requestId=1&page=1'.format(tipsterlandID)
+url = 'https://www.tipsterland.com/api/picks/cards?tipster_id={}&month=2&year=2024&pending=false&requestId=1&page=1'.format(TIPSTERLAND_ID)
 jsonContent = json.loads(requests.get(url).text)
 soup = BeautifulSoup(jsonContent['data'], 'lxml')
 picks = soup.select('div[class*=x-pick-card]')
