@@ -1,10 +1,11 @@
+from __future__ import print_function
 import requests
 from bs4 import BeautifulSoup
 from random import randint
 from time import sleep
 
 def printCollectionContent(openings, level, levelIdentation, identation, key, value):
-    print u"{}{}[{}] =>".format(levelIdentation, identation, key),
+    print(u"{}{}[{}] =>".format(levelIdentation, identation, key), end="")
 
     if type(value).__name__ not in openings:
         print(u"{}".format(value))
@@ -59,7 +60,7 @@ def getStringFromKeyword(text):
 def getSoup(url, headersSoup=None):
     if headersSoup is None:
         headersSoup = {"User-Agent" : "BreakSystem Scraper/1.0"}
-        
+
     tried = 0
 
     while tried < 3:
