@@ -5,6 +5,7 @@ from random import randint
 import requests
 import json
 from utils import *
+from models import db, objects
 
 BASE_URL = "https://api.sofascore.com/api/v1/"
 HEADERS = {
@@ -24,7 +25,19 @@ HEADERS = {
 }
 
 def getJSONFromURL(url):
-    content = requests.request("GET", url, data = "", headers = HEADERS).text
+    tried = 0
+
+    while tried < 3:
+        try:
+            content = requests.request("GET", url, data = "", headers = HEADERS).text
+            tried = 3
+        except Exception as e:
+            tried += 1
+            sleep(randint(3, 5))
+
+            if tried == 3:
+                print("[ERROR] Connection error for the website {}: {}".format(url, e))
+                return False
     #print(content)
 
     try:
@@ -41,7 +54,7 @@ def getPlayers(fromID = 1, toID = None):
         print("# Analyzing the team with ID {}...".format(currentID))
         url = "{}{}".format(BASE_URL, currentID)
         dataJSON = getJSONFromURL(url)
-        
+
         if dataJSON:
             print("PLAYER!!!")
 
@@ -53,6 +66,11 @@ def getPlayers(fromID = 1, toID = None):
         time.sleep(secondsToWait)
 
 def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
+    dbConnection = db.Database()
+    breaksDB = dbConnection.connect()
+    playersObj = objects.Players(breaksDB)
+    playersMissingObj = objects.PlayersMissing(breaksDB)
+
     breakData = {'definedGames': lastGames['definedGames'], 'games': []}
 
     for indexGame, game in enumerate(lastGames['games']):
@@ -60,12 +78,14 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
             url = "{}{}{}".format(BASE_URL, "sport/tennis/scheduled-events/", game['date'])
             print(url)
             dataJSON = getJSONFromURL(url)
-            
+            found = False
+
             for dailyGame in dataJSON['events']:
                 homePlayer = dailyGame['homeTeam']['id']
                 awayPlayer = dailyGame['awayTeam']['id']
-                
+
                 if homePlayer == playerID and awayPlayer == game['opponent'] or homePlayer == game['opponent'] and awayPlayer == playerID:
+                    found = True
                     urlGame = "{}{}{}".format(BASE_URL, "event/", dailyGame['id'])
                     print(urlGame)
                     gameJSON = getJSONFromURL(urlGame)
@@ -82,7 +102,7 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                         urlStats = "{}{}{}{}".format(BASE_URL, "event/", dailyGame['id'], "/statistics")
                         print(urlStats)
                         statsJSON = getJSONFromURL(urlStats)
-                        
+
                         if "statistics" in statsJSON:
                             for phase in statsJSON['statistics']:
                                 if phase['period'] == "1ST":
@@ -102,7 +122,7 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                                                         else:
                                                             breakItem['breakDone'] = int(item['away']) > 0 and 1 or 0
                                                             breakItem['breakReceived'] = int(item['home']) > 0 and 1 or 0
-                                                        
+
                                                         breakData['definedGames'] += 1
 
                                                     breakData['games'].append(breakItem)
@@ -112,6 +132,10 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
 
                     break
 
+            if not found:
+                print('Matx no trobat, merci')
+                #return False
+
     return breakData
 
 def getDailyPlayersData(day):
@@ -119,7 +143,7 @@ def getDailyPlayersData(day):
     url = "{}{}{}".format(BASE_URL, "sport/tennis/scheduled-events/", day)
     print(url)
     dataJSON = getJSONFromURL(url)
-    
+
     for dailyGame in dataJSON['events']:
         urlGame = "{}{}{}".format(BASE_URL, "event/", dailyGame['id'])
         print(urlGame)
@@ -133,7 +157,7 @@ def getDailyPlayersData(day):
                     'sofaScoreID': gameJSON['event']['homeTeam']['id']
                 }
                 players.append(player)
-            
+
             if "ranking" in gameJSON['event']['awayTeam']:
                 player = {
                     'name': gameJSON['event']['awayTeam']['slug'],
