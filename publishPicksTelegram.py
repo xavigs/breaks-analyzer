@@ -22,7 +22,8 @@ emojisNumbers = ('0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣
 weekdays = ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo')
 SURFACES = {'I': 'Pista dura indoor', 'D': 'Pista dura outdoor', 'T': 'Tierra batida', 'H': 'Hierba', 'M': 'Moqueta'}
 FLAGS = {
-    'germany': '🇩🇪'
+    'germany': '🇩🇪',
+    'qatar': '🇶🇦'
 }
 
 async def send(imageURL, message):
@@ -66,6 +67,10 @@ for pick in picks:
 
         if category == 'ITF':
             tournament = tournamentsObj.find([{'category': 'ITF'}, {'name': {'$regex': tournamentName}}])
+        elif category[:3] == 'ATP':
+            categoryParts = category.split('-')
+            subcategory = categoryParts[1]
+            tournament = tournamentsObj.find([{'category': 'ATP'}, {'subcategory': subcategory} {'name': {'$regex': tournamentName}}])
 
         country = tournament['country']
 
