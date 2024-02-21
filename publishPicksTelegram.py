@@ -110,3 +110,5 @@ for pick in picks:
             numPick += 1
 
     numPicks += 1
+
+print("The processed have been completed successfully")
