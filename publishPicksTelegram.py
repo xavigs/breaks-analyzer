@@ -93,7 +93,7 @@ for pick in picks:
             imageURL = pickSoup.select_one('img[class=pick-image]')['src']
 
             # Send message to Telegram
-            message = '{} *{}*\n\n🏆 {} {}\n📌 {}\n🎾 {}\n⏰ {}\n💰 @{}'.format(numPickEmoji, re.escape(pickDB['pick']), pickDB['competition'], flag, SURFACES[tournament['surface']], pickDB['event'], re.escape(pickDB['date']), pickDB['odd'])
+            message = '{} *{}*\n\n🏆 {} {}\n📌 {}\n🎾 {}\n⏰ {}\n💰 @{}'.format(numPickEmoji, re.escape(pickDB['pick']), re.escape(pickDB['competition']), flag, SURFACES[tournament['surface']], pickDB['event'], re.escape(pickDB['date']), pickDB['odd'])
             print(message)
             asyncio.run(send(imageURL, message))
 
