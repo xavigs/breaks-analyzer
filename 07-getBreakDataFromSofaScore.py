@@ -45,7 +45,7 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
             else:
                 playerName = player['tennisExplorerName']
 
-            print(u"|          ({}) {}          |".format(player['startingRanking'], playerName.upper()))
+            print(u"|          ({}) {}          |".format(player['startingRanking'], playerName.upper()).encode('utf-8'))
             print("-" * (rankingNameLength + 25))
             lastGames = {'definedGames': player['definedGames'], 'games': []}
             error = False
