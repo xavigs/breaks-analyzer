@@ -70,7 +70,7 @@ for pick in picks:
         elif category[:3] == 'ATP':
             categoryParts = category.split('-')
             subcategory = categoryParts[1]
-            tournament = tournamentsObj.find([{'category': 'ATP'}, {'subcategory': subcategory} {'name': {'$regex': tournamentName}}])
+            tournament = tournamentsObj.find([{'category': 'ATP'}, {'subcategory': subcategory}, {'name': {'$regex': tournamentName}}])
 
         country = tournament['country']
 
