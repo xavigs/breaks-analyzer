@@ -23,7 +23,8 @@ weekdays = ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Do
 SURFACES = {'I': 'Pista dura indoor', 'D': 'Pista dura outdoor', 'T': 'Tierra batida', 'H': 'Hierba', 'M': 'Moqueta'}
 FLAGS = {
     'germany': '🇩🇪',
-    'qatar': '🇶🇦'
+    'qatar': '🇶🇦',
+    'tunisia': '🇹🇳'
 }
 
 async def send(imageURL, message):
@@ -76,6 +77,8 @@ for pick in picks:
 
         if country in FLAGS:
             flag = FLAGS[country]
+        else:
+            flag = ''
 
         pickDB['event'] = pick.select_one('div[class=pick-card-event]').text.strip()
         weekday = weekdays[pickDate.weekday()]
