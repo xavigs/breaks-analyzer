@@ -24,7 +24,8 @@ SURFACES = {'I': 'Pista dura indoor', 'D': 'Pista dura outdoor', 'T': 'Tierra ba
 FLAGS = {
     'germany': '🇩🇪',
     'qatar': '🇶🇦',
-    'tunisia': '🇹🇳'
+    'tunisia': '🇹🇳',
+    'uae': '🇦🇪'
 }
 
 async def send(imageURL, message):
