@@ -95,6 +95,10 @@ for pick in picks:
             pickSoup = BeautifulSoup(r.text, 'lxml')
             imageURL = pickSoup.select_one('img[class=pick-image]')['src']
 
+            if 'tipsterland.com' not in imageURL:
+                imageURL = 'https://www.tipsterland.com{}'.format(imageURL)
+                print('Image URL: {}'.format(imageURL))
+
             # Send message to Telegram
             message = '{} *{}*\n\n🏆 {} {}\n📌 {}\n🎾 {}\n⏰ {}\n💰 @{}'.format(numPickEmoji, re.escape(pickDB['pick']), re.escape(pickDB['competition']), flag, SURFACES[tournament['surface']], pickDB['event'], re.escape(pickDB['date']), pickDB['odd'])
             print(message)
