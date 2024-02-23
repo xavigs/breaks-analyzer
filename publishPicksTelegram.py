@@ -1,6 +1,6 @@
 import asyncio
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 import requests
 import json
 from bs4 import BeautifulSoup
@@ -47,7 +47,7 @@ for pick in picks:
     pickDateParts[0] = pickDateParts[0].zfill(2)
     pickDateParts[1] = pickDateParts[1].title()
     pickDate = ' '.join(pickDateParts)
-    pickDate = datetime.strptime(pickDate, '%d %b. %H:%M')
+    pickDate = datetime.strptime(pickDate, '%d %b. %H:%M') + timedelta(hours=1)
     pickDate = pickDate.replace(year=today.year)
 
     #if pickDate > today or numPicks < 1:
