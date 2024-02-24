@@ -23,6 +23,7 @@ weekdays = ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Do
 SURFACES = {'I': 'Pista dura indoor', 'D': 'Pista dura outdoor', 'T': 'Tierra batida', 'H': 'Hierba', 'M': 'Moqueta'}
 FLAGS = {
     'germany': '🇩🇪',
+    'mexico': '🇲🇽',
     'qatar': '🇶🇦',
     'tunisia': '🇹🇳',
     'uae': '🇦🇪'
@@ -96,7 +97,7 @@ for pick in picks:
             pickSoup = BeautifulSoup(r.text, 'lxml')
             imageURL = pickSoup.select_one('img[class=pick-image]')['src']
 
-            if 'tipsterland.com' not in imageURL:
+            if 'http' not in imageURL:
                 imageURL = 'https://www.tipsterland.com{}'.format(imageURL)
                 print('Image URL: {}'.format(imageURL))
 
