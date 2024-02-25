@@ -2,6 +2,8 @@
 import sys
 import openpyxl
 import json
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 from utils import *
 from models import db, objects
 
@@ -27,24 +29,22 @@ with open("parameters.json") as content:
 
 # Variables
 SYSTEMS_TO_SHOW = (
-    "Sistema 1",
     "Sistema 3",
     "Sistema NAS",
-    "Sistema JUAS",
     "Sistema D1SITIS",
-    "Sistema JIXTA",
     "Sistema Experimental",
     "Sistema Experimental I",
     "Sistema Experimental II",
-    "Sistema Experimental III",
     "Sistema Experimental IV",
     "Sistema Experimental V",
     "Sistema Experimental VI",
     "Sistema Experimental VII",
-    "Sistema Experimental VIII",
     "Sistema Experimental IX",
     "Sistema Experimental X",
-    "Sistema Experimental XI"
+    "Sistema Experimental XI",
+    "Sistema Experimental XII",
+    "Sistema Experimental XIII",
+    "Sistema Experimental XIV"
 )
 systems = {}
 formula = {}
@@ -67,6 +67,10 @@ for system in parameters['systems']:
     systems[system['name']]['300'] = 0.0
     systems[system['name']]['350'] = 0.0
     systems[system['name']]['400'] = 0.0
+    systems[system['name']]['450'] = 0.0
+    systems[system['name']]['500'] = 0.0
+    systems[system['name']]['550'] = 0.0
+    systems[system['name']]['600'] = 0.0
     systems[system['name']]['units'] = 0.0
     systems[system['name']]['num-picks'] = 0
     systems[system['name']]['total-months'] = 0
@@ -98,41 +102,45 @@ for system in parameters['systems']:
         systems[system['name']]['periods'][period['keyword']]['num-picks'] = 0
 
 # Open Workbook
-workbook = openpyxl.load_workbook(filename = "Breaks 1r set.xlsx", data_only = True)
+workbook = openpyxl.load_workbook(filename = "Breaks 1r set.xlsx", read_only = True, data_only = True)
 
 # Get Sheet Object by names
 sheet = workbook['Break']
 
-for row in range(4, parameters['last-row'] + 1):
-    if sheet['A' + str(row)].value is not None:
-        date = sheet['A' + str(row)].value
+for row in sheet.iter_rows(min_row = 4, max_row = parameters['last-row']):
+    rowNumber = row[0].row
+    print("Reading the row nº {}...".format(rowNumber))
 
-    if not row in parameters['jump']:
+    if row[0].value is not None:
+        date = row[0].value
+
+    if not rowNumber in parameters['jump']:
         valid = True
 
         for criteria in parameters['dismiss']:
-            if criteria['operator'] == "=":
-                if sheet[criteria['col'] + str(row)].value == criteria['value']:
-                    valid = False
-                    break
-            elif criteria['operator'] == "<":
-                if sheet[criteria['col'] + str(row)].value < criteria['value']:
-                    valid = False
-                    break
-            elif criteria['operator'] == ">":
-                if sheet[criteria['col'] + str(row)].value > criteria['value']:
-                    valid = False
-                    break
-            elif criteria['operator'] == ">=":
-                if sheet[criteria['col'] + str(row)].value >= criteria['value']:
-                    valid = False
-                    break
-            elif criteria['operator'] == "<>":
-                if sheet[criteria['col'] + str(row)].value != criteria['value']:
-                    valid = False
-                    break
+            column = ord(criteria['col']) - 65
 
-        #if valid or not valid:
+            if criteria['operator'] == "=":
+                if row[column].value == criteria['value']:
+                    valid = False
+                    break
+                elif criteria['operator'] == "<":
+                    if row[column].value < criteria['value']:
+                        valid = False
+                        break
+                elif criteria['operator'] == ">":
+                    if row[column].value > criteria['value']:
+                        valid = False
+                        break
+                elif criteria['operator'] == ">=":
+                    if row[column].value >= criteria['value']:
+                        valid = False
+                        break
+                elif criteria['operator'] == "<>":
+                    if row[column].value != criteria['value']:
+                        valid = False
+                        break
+
         if valid:
             found = False
 
@@ -144,20 +152,22 @@ for row in range(4, parameters['last-row'] + 1):
                     satisfiedConditions = 0
 
                     for condition in conditionGroup:
+                        column = ord(condition['col']) - 65
+
                         if condition['operator'] == "=":
-                            if sheet[condition['col'] + str(row)].value == condition['value']:
+                            if row[column].value == condition['value']:
                                 satisfiedConditions += 1
                         elif condition['operator'] == "<":
-                            if sheet[condition['col'] + str(row)].value < condition['value']:
+                            if row[column].value < condition['value']:
                                 satisfiedConditions += 1
                         elif condition['operator'] == ">":
-                            if sheet[condition['col'] + str(row)].value > condition['value']:
+                            if row[column].value > condition['value']:
                                 satisfiedConditions += 1
                         elif condition['operator'] == ">=":
-                            if sheet[condition['col'] + str(row)].value >= condition['value']:
+                            if row[column].value >= condition['value']:
                                 satisfiedConditions += 1
                         elif condition['operator'] == "<>":
-                            if sheet[condition['col'] + str(row)].value != condition['value']:
+                            if row[column].value != condition['value']:
                                 satisfiedConditions += 1
 
                     if numConditions == satisfiedConditions:
@@ -167,15 +177,15 @@ for row in range(4, parameters['last-row'] + 1):
                 if validForSystem:
                     game = {}
                     game['date'] = date
-                    game['player'] = sheet['E' + str(row)].value
-                    game['opponent'] = sheet['F' + str(row)].value
-                    game['odd'] = sheet['K' + str(row)].value
-                    game['result'] = sheet['O' + str(row)].value
+                    game['player'] = row[4].value
+                    game['opponent'] = row[5].value
+                    game['odd'] = row[10].value
+                    game['result'] = row[14].value
 
                     # Balance
-                    if sheet['O' + str(row)].value == "L":
+                    if row[14].value == "L":
                         balance = -1
-                    elif sheet['O' + str(row)].value == "N":
+                    elif row[14].value == "N":
                         balance = 0
                     else:
                         balance = game['odd'] - 1
@@ -205,8 +215,16 @@ for row in range(4, parameters['last-row'] + 1):
                         systems[system['name']]['350'] = systems[system['name']]['yield']
                     elif systems[system['name']]['num-picks'] == 400:
                         systems[system['name']]['400'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 450:
+                        systems[system['name']]['450'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 500:
+                        systems[system['name']]['500'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 550:
+                        systems[system['name']]['550'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 600:
+                        systems[system['name']]['600'] = systems[system['name']]['yield']
 
-                    if "future" in system and row >= system['future']:
+                    if "future" in system and rowNumber >= system['future']:
                         systems[system['name']]['future']['units'] += balance
                         systems[system['name']]['future']['num-picks'] += 1
                         systems[system['name']]['future']['yield'] = round(systems[system['name']]['future']['units'] * 100 / systems[system['name']]['future']['num-picks'], 2)
@@ -222,18 +240,139 @@ for row in range(4, parameters['last-row'] + 1):
                             formula['yield'] = round(formula['units'] * 100 / formula['stake'], 2)
 
                             for period in parameters['periods']:
-                                if row >= period['first-row'] and row <= period['last-row'] and period['type'] == 1:
+                                if rowNumber >= period['first-row'] and rowNumber <= period['last-row'] and period['type'] == 1:
                                     formula['periods'][period['keyword']]['units'] += balance * formulaSystem['stake']
                                     formula['periods'][period['keyword']]['num-picks'] += 1
                                     formula['periods'][period['keyword']]['stake'] += formulaSystem['stake']
                                     formula['periods'][period['keyword']]['yield'] = round(formula['periods'][period['keyword']]['units'] * 100 / formula['periods'][period['keyword']]['stake'], 2)
 
                     for period in parameters['periods']:
-                        if row >= period['first-row'] and row <= period['last-row']:
+                        if rowNumber >= period['first-row'] and rowNumber <= period['last-row']:
                             systems[system['name']]['periods'][period['keyword']]['units'] += balance
                             systems[system['name']]['periods'][period['keyword']]['num-picks'] += 1
                             systems[system['name']]['periods'][period['keyword']]['yield'] = round(systems[system['name']]['periods'][period['keyword']]['units'] * 100 / systems[system['name']]['periods'][period['keyword']]['num-picks'], 2)
 
+'''
+    PLOTLY!!!!!
+'''
+sistemes = ['Sistema 1'] * 20
+factors = ['Yield:<br>21,0%', 'Monthly picks:<br>18,5', 'Positive months:<br>8', 'Plus 10% months:<br>5', 'Empty']
+
+# Dades de gràfics donut per cada sistema
+donut_data = [[15, 35, 25, 20, 5], [20, 30, 25, 25, 0], [10, 40, 30, 20, 0], [30, 20, 15, 35, 0],
+              [25, 25, 30, 20, 0], [18, 22, 30, 30, 0], [12, 28, 30, 30, 0], [22, 28, 20, 30, 0],
+              [35, 15, 25, 25, 0], [20, 30, 25, 25, 0], [10, 40, 30, 20, 0], [30, 20, 15, 35, 0],
+              [25, 25, 30, 20, 0], [18, 22, 30, 30, 0], [12, 28, 30, 30, 0], [22, 28, 20, 30, 0],
+              [35, 15, 25, 25, 0], [20, 30, 25, 25, 0], [10, 40, 30, 20, 0], [30, 20, 15, 35, 0]]
+
+# Creació de la graella de subgràfics
+'''specs = [[{'type': 'domain'}] * 5 for _ in range(4)]
+specs[0][0] = {'type': 'scatter'}  # Assignar el tipus 'scatter' a la primera cel·la
+print(specs)
+exit()'''
+#specs = [[{'type': 'scatter'}, {'type': 'pie'}] for _ in range(4)]
+#specs = [[{"type": "pie"}] * 20, [{"type": "scatter"}]]
+#specs=[[{"type": "xy"}, {"type": "polar"}], [{"type": "domain"}, {"type": "scene"}]],
+#specs=[[{"type": "xy"}, {"type": "pie"}]]
+specs = [[{'type': 'pie'}] * 5 for _ in range(4)]
+fig = make_subplots(rows=4, cols=5, subplot_titles=SYSTEMS_TO_SHOW, specs=specs)
+#fig = make_subplots(rows=4, cols=5, subplot_titles=sistemes)
+
+# Afegir gràfics donut i gestionar clics
+for i in range(4):
+    for j in range(5):
+        idx = i * 5 + j
+        donut_fig = go.Figure(go.Pie(labels=factors, values=donut_data[idx], hole=0.6, hoverinfo="percent", textinfo="label", marker_colors=["#001440", "#fd5300", "#104fb1", "#fdc505", "#ffffff"]))
+        donut_fig.update_layout(title_text=sistemes[idx], showlegend=False, annotations=[dict(text=f"<b>{f}</b>", x=0.5, y=-0.1, font=dict(size=10), showarrow=False) for f in factors])
+        #fig.add_trace(go.Scatter(), row=i + 1, col=j + 1)
+        fig.add_trace(donut_fig['data'][0], row=i + 1, col=j + 1)
+        button = dict(label=f'Detall {sistemes[idx]}', method='update', args=[{'visible': [False] * len(sistemes) * 2}, {'visible': [idx * 2 + 1, idx * 2]}])
+        #fig.update_layout(updatemenus=[dict(type='buttons', showactive=False, buttons=[button])])
+
+# Configurar esdeveniments de clic
+'''for i, sistema in enumerate(sistemes):
+    button = dict(label=f'Detall {sistema}', method='update', args=[{'visible': [False] * len(sistemes)}, {'visible': [idx == i for idx in range(len(sistemes))]}])
+    fig.update_layout(updatemenus=[dict(type='buttons', showactive=False, buttons=[button])])'''
+
+# Afegir gràfics de barres amb línia superposada pel detall
+'''detall_fig = go.Figure()
+
+# Dades de gràfic de barres i línia per detall del sistema
+bar_data = [20, 30, 25, 25]
+line_data = [15, 25, 20, 35]
+
+detall_fig.add_trace(go.Bar(x=factors, y=bar_data, name='Barres'))
+detall_fig.add_trace(go.Scatter(x=factors, y=line_data, mode='lines', name='Línia'))'''
+
+# Actualitzar títols i mostrar gràfics
+fig.update_layout(title={'text': '<b>System analysis</b>', 'font': {'size': 24}}, title_x=0.5, showlegend=False)
+#detall_fig.update_layout(title_text='System detail', showlegend=True)
+
+#fig.show()
+#detall_fig.show()
+
+'''
+    END PLOTLY!!!
+'''
+
+# Show charts
+plotPySystems = []
+
+for systemName, systemData in sorted(systems.items()):
+    if 'Sistema' in systemName:
+        origSystemName = systemName
+        systemName = systemName.split("-")[1]
+        plotPySystems.append(systemName)
+
+specs = [[{'type': 'pie'}] * 5 for _ in range(5)]
+fig = make_subplots(rows=5, cols=5, subplot_titles=plotPySystems, specs=specs)
+i = 0
+j = 0
+
+for systemName, systemData in sorted(systems.items()):
+    if 'Sistema' in systemName:
+        monthlyPicks = round(systemData['num-picks'] / systemData['total-months'], 2)
+        positiveMonths = 0
+        plusMonths = 0
+
+        for period in systemData['periods']:
+            if systemData['periods'][period]['type'] == 1 and systemData['periods'][period]['units'] > 0:
+                positiveMonths += 1
+
+                if systemData['periods'][period]['yield'] >= 10:
+                    plusMonths += 1
+
+        factors = ['Yield:<br>{}%'.format(systemData['yield']), 'Monthly picks:<br>{}'.format(monthlyPicks), 'Positive months:<br>{}'.format(positiveMonths), 'Plus 10% months:<br>{}'.format(plusMonths), 'Empty']
+        yieldPct = float(systemData['yield'])
+        positiveMonthsEval = round(positiveMonths * 25.0 / systemData['total-months'], 2)
+        plusMonthsEval = round(plusMonths * 25.0 / systemData['total-months'], 2)
+
+        if yieldPct < 20.0:
+            yieldEval = round(yieldPct * 25.0 / 20.0, 2)
+        else:
+            yieldEval = 25.0
+
+        if monthlyPicks < 20.0:
+            monthlyPicksEval = round(monthlyPicks * 25.0 / 20.0, 2)
+        else:
+            monthlyPicksEval = 25.0
+
+        empty = 100.0 - yieldEval - monthlyPicksEval - positiveMonthsEval - plusMonthsEval
+
+        donut_data = [yieldEval, monthlyPicksEval, positiveMonthsEval, plusMonthsEval, empty]
+        donut_fig = go.Figure(go.Pie(labels=factors, values=donut_data, hole=0.6, hoverinfo="percent", textinfo="label", marker_colors=["#001440", "#fd5300", "#104fb1", "#fdc505", "#ffffff"]))
+        donut_fig.update_layout(title_text=systemName, showlegend=False, annotations=[dict(text=f"<b>{f}</b>", x=0.5, y=-0.1, font=dict(size=10), showarrow=False) for f in factors])
+        fig.add_trace(donut_fig['data'][0], row=i + 1, col=j + 1)
+        j += 1
+
+        if j == 5:
+            j = 0
+            i += 1
+
+fig.update_layout(title={'text': '<b>System analysis</b>', 'font': {'size': 24}}, title_x=0.5, showlegend=False)
+fig.show()
+exit()
+# Show text in terminal
 for systemName, systemData in sorted(systems.items()):
     if "Sistema" in systemName:
         origSystemName = systemName
@@ -252,6 +391,7 @@ for systemName, systemData in sorted(systems.items()):
                 if systemData['periods'][period]['yield'] >= 10:
                     plusMonths += 1
 
+        print("\t* Mesos totals: {}".format(systemData['total-months']))
         print("\t* Mesos positius: " + str(positiveMonths))
         print("\t* Mesos amb més del 10% de yield: " + str(plusMonths))
         print("\t* Picks mensuals: " + str(round(systemData['num-picks'] / systemData['total-months'], 2)))
@@ -273,7 +413,7 @@ for systemName, systemData in sorted(systems.items()):
                     stake = round(bank / 40, 2)
                 except Exception as e:
                     print("\t\t-> " + periodData['name'] + "\t" + str(round(periodData['units'], 2)) + " uts.\t" + str(periodData['num-picks']) + " picks \tYield: 0.00 %")
-        
+
         systems[origSystemName]['end-bank'] = bank
 
         if "future" in systemData:
@@ -290,7 +430,7 @@ for systemName, systemData in sorted(systems.items()):
         systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").split("-")[1]
         if systemName.isnumeric():
             systemName = "Sist. {}".format(systemName)
-        
+
         systemDB['name'] = systemName
         systemDB['start'] = systemData['start']
         systemDB['num-picks'] = systemData['future']['num-picks']
@@ -608,6 +748,122 @@ for systemName, systemData in sorted(systems.items()):
             systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
             sys.stdout.write(" " + str(systemData['400']) + " %")
             leftChars = len(systemName) - len(str(systemData['400']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    450   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['450']) + " %")
+            leftChars = len(systemName) - len(str(systemData['450']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    500   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['500']) + " %")
+            leftChars = len(systemName) - len(str(systemData['500']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    550   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['550']) + " %")
+            leftChars = len(systemName) - len(str(systemData['550']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    600   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['600']) + " %")
+            leftChars = len(systemName) - len(str(systemData['600']))
 
             for i in range(1, leftChars):
                 sys.stdout.write(" ")
