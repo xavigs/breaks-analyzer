@@ -1,5 +1,5 @@
 {
-	"last-row": 3020,
+	"last-row": 6383,
 	"formula":
 		[
 			{
@@ -213,15 +213,110 @@
 				"keyword": "2023-02",
 				"name": "Feb-23",
 				"first-row": 3005,
-				"last-row": 3020,
+				"last-row": 3195,
+				"type": 1
+			},
+			{
+				"keyword": "2023-03",
+				"name": "Mar-23",
+				"first-row": 3196,
+				"last-row": 3362,
+				"type": 1
+			},
+			{
+				"keyword": "2023-04",
+				"name": "Abr-23",
+				"first-row": 3363,
+				"last-row": 3559,
+				"type": 1
+			},
+			{
+				"keyword": "2023-05",
+				"name": "Mai-23",
+				"first-row": 3560,
+				"last-row": 3801,
+				"type": 1
+			},
+			{
+				"keyword": "2023-06",
+				"name": "Jun-23",
+				"first-row": 3802,
+				"last-row": 4176,
+				"type": 1
+			},
+			{
+				"keyword": "2023-07",
+				"name": "Jul-23",
+				"first-row": 4177,
+				"last-row": 4378,
+				"type": 1
+			},
+			{
+				"keyword": "2023-08",
+				"name": "Ago-23",
+				"first-row": 4379,
+				"last-row": 4692,
+				"type": 1
+			},
+			{
+				"keyword": "2023-09",
+				"name": "Set-23",
+				"first-row": 4693,
+				"last-row": 4928,
+				"type": 1
+			},
+			{
+				"keyword": "2023-10",
+				"name": "Oct-23",
+				"first-row": 4929,
+				"last-row": 5258,
+				"type": 1
+			},
+			{
+				"keyword": "2023-11",
+				"name": "Nov-23",
+				"first-row": 5259,
+				"last-row": 5506,
+				"type": 1
+			},
+			{
+				"keyword": "2023-12",
+				"name": "Des-23",
+				"first-row": 5507,
+				"last-row": 5580,
+				"type": 1
+			},
+			{
+				"keyword": "2024-01",
+				"name": "Gen-24",
+				"first-row": 5581,
+				"last-row": 5953,
+				"type": 1
+			},
+			{
+				"keyword": "2024-02",
+				"name": "Feb-24",
+				"first-row": 5954,
+				"last-row": 6380,
+				"type": 1
+			},
+			{
+				"keyword": "2024-03",
+				"name": "Mar-24",
+				"first-row": 6381,
+				"last-row": 6383,
 				"type": 1
 			}
-
 		],
 	"dismiss":
 		[
 			{
 				"col": "B",
+				"operator": "=",
+				"value": "GS"
+			},
+			{
+				"col": "C",
 				"operator": "=",
 				"value": "GS"
 			}
@@ -1719,6 +1814,245 @@
                             }
                         ]
                     ]
+			},
+			{
+				"name": "17-Sistema Experimental XII",
+				"future": 3560,
+				"start-date": "2023-05-01",
+				"start-text": "Mai-23",
+				"start-bank": "Abr-23",
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.20
+                            }
+                        ],
+                        [
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ]
+
+                    ]
+			},
+			{
+				"name": "18-Sistema Experimental XIII",
+				"future": 4379,
+				"start-date": "2023-08-01",
+				"start-text": "Ago-23",
+				"start-bank": "Jul-23",
+				"conditions":
+					[
+          	[
+                {
+                    "col": "H",
+                    "operator": "<",
+                    "value": 1.20
+                },
+                {
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.20
+                }
+            ]
+        ]
+			},
+			{
+				"name": "19-Sistema Experimental XIV",
+				"future": 5119,
+				"start-date": "2023-10-21",
+				"start-text": "Nov-23",
+				"start-bank": "Oct-23",
+				"conditions":
+					[
+						[
+								{
+										"col": "B",
+										"operator": "=",
+										"value": "ITF"
+								},
+								{
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.00
+                }
+						],
+						[
+								{
+										"col": "C",
+										"operator": "=",
+										"value": "ITF"
+								},
+								{
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.00
+                }
+						],
+						[
+								{
+										"col": "B",
+										"operator": "=",
+										"value": "ATP"
+								},
+								{
+										"col": "C",
+										"operator": "=",
+										"value": 250
+								},
+								{
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.00
+                }
+						],
+						[
+                {
+                    "col": "H",
+                    "operator": "<",
+                    "value": 1.20
+                },
+                {
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.20
+                }
+            ],
+						[
+                {
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.20
+                },
+								{
+										"col": "I",
+										"operator": "=",
+										"value": "S"
+								},
+								{
+										"col": "J",
+										"operator": "=",
+										"value": "N"
+								}
+            ]
+        ]
+			},
+			{
+				"name": "19-Sistema Experimental XV",
+				"future": 6381,
+				"start-date": "2024-03-01",
+				"start-text": "Mar-24",
+				"start-bank": "Feb-24",
+				"conditions":
+					[
+						[
+								{
+										"col": "B",
+										"operator": "=",
+										"value": "ITF"
+								},
+								{
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.00
+                }
+						],
+						[
+								{
+										"col": "C",
+										"operator": "=",
+										"value": "ITF"
+								},
+								{
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.00
+                }
+						],
+						[
+                {
+                    "col": "H",
+                    "operator": "<",
+                    "value": 1.20
+                },
+                {
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.20
+                }
+            ]
+        ]
 			},
 			{
 				"name": "Valor >= 1,60 + Quota > 2,00",
