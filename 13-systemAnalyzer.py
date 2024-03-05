@@ -316,7 +316,7 @@ fig.update_layout(title={'text': '<b>System analysis</b>', 'font': {'size': 24}}
 '''
 
 # Show charts
-plotPySystems = []
+'''plotPySystems = []
 
 for systemName, systemData in sorted(systems.items()):
     if 'Sistema' in systemName:
@@ -371,7 +371,8 @@ for systemName, systemData in sorted(systems.items()):
 
 fig.update_layout(title={'text': '<b>System analysis</b>', 'font': {'size': 24}}, title_x=0.5, showlegend=False)
 fig.show()
-exit()
+exit()'''
+
 # Show text in terminal
 for systemName, systemData in sorted(systems.items()):
     if "Sistema" in systemName:
