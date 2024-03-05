@@ -52,7 +52,7 @@ def getMissingPlayers(day, sex):
             error['player'] = game['player1']
             error['ranking'] = 0
             errors.append(error)
-        elif player is not None and "lastGames" not in player and game['player1'] not in missingPlayers:
+        elif player is not None and "lastGames" not in player and "sofaScoreID" not in player and game['player1'] not in missingPlayers:
             missingPlayers[game['player1']] = player['startingRanking']
             error = {}
             error['type'] = "lastGames"
@@ -83,7 +83,7 @@ def getMissingPlayers(day, sex):
             error['player'] = game['player2']
             error['ranking'] = 0
             errors.append(error)
-        elif opponent is not None and "lastGames" not in opponent and game['player2'] not in missingPlayers:
+        elif opponent is not None and "lastGames" not in opponent and "sofaScoreID" not in opponent and game['player2'] not in missingPlayers:
             missingPlayers[game['player2']] = opponent['startingRanking']
             error = {}
             error['type'] = "lastGames"
@@ -113,7 +113,10 @@ def getMissingPlayers(day, sex):
         if error['type'] == "db":
             print(Fore.GREEN + Style.BRIGHT + "[DATABASE] " + Fore.RESET + Style.NORMAL + "El jugador {} no està introduït a la base de dades.".format(error['player']))
         elif error['type'] == "playersMissing":
-            print(Fore.YELLOW + Style.BRIGHT + "[MISSING-OPPONENTS] " + Fore.RESET + Style.NORMAL + "Al jugador {} ({}) li falten {} rivals que es troben a playersMissing.".format(error['player'], error['ranking'], error['count']))
+            if error['count'] > 1:
+                print(Fore.YELLOW + Style.BRIGHT + "[MISSING-OPPONENTS] " + Fore.RESET + Style.NORMAL + "Al jugador {} ({}) li falten {} rivals que es troben a playersMissing.".format(error['player'], error['ranking'], error['count']))
+            else:
+                print(Fore.YELLOW + Style.BRIGHT + "[MISSING-OPPONENTS] " + Fore.WHITE + "Al jugador {} ({}) li falten {} rivals que es troben a playersMissing.".format(error['player'], error['ranking'], error['count']))
         elif error['type'] == "lastGames":
             print(Fore.RED + Style.BRIGHT + "[LAST-GAMES] " + Fore.RESET + Style.NORMAL + "El jugador {} ({}) no té el camp lastGames definit.".format(error['player'], error['ranking']))
         else:
