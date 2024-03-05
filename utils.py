@@ -5,7 +5,7 @@ from random import randint
 from time import sleep
 
 def printCollectionContent(openings, level, levelIdentation, identation, key, value):
-    print(u"{}{}[{}] =>".format(levelIdentation, identation, key), end="")
+    print(u"{}{}[{}] =>".format(levelIdentation, identation, key), end=" ")
 
     if type(value).__name__ not in openings:
         print(u"{}".format(value))
