@@ -20,24 +20,22 @@ with open("parameters.json") as content:
 
 # Variables
 SYSTEMS_TO_SHOW = (
-    "Sistema 1",
     "Sistema 3",
     "Sistema NAS",
-    "Sistema JUAS",
     "Sistema D1SITIS",
-    "Sistema JIXTA",
     "Sistema Experimental",
     "Sistema Experimental I",
     "Sistema Experimental II",
-    "Sistema Experimental III",
     "Sistema Experimental IV",
     "Sistema Experimental V",
     "Sistema Experimental VI",
     "Sistema Experimental VII",
-    "Sistema Experimental VIII",
     "Sistema Experimental IX",
     "Sistema Experimental X",
-    "Sistema Experimental XI"
+    "Sistema Experimental XI",
+    "Sistema Experimental XII",
+    "Sistema Experimental XIII",
+    "Sistema Experimental XIV"
 )
 systems = {}
 results = {}
@@ -79,6 +77,10 @@ for system in parameters['systems']:
         systems[system['name']]['300'] = "?"
         systems[system['name']]['350'] = "?"
         systems[system['name']]['400'] = "?"
+        systems[system['name']]['450'] = "?"
+        systems[system['name']]['500'] = "?"
+        systems[system['name']]['550'] = "?"
+        systems[system['name']]['600'] = "?"
 
         for period in parameters['periods']:
             systems[system['name']]['periods'][period['keyword']] = {}
@@ -99,47 +101,50 @@ for system in parameters['systems']:
                 systems[system['name']]['total-months'] += systemMonthPct
 
 # Open Workbook
-workbook = openpyxl.load_workbook(filename = "Breaks 1r set.xlsx", data_only = True)
+workbook = openpyxl.load_workbook(filename = "Breaks 1r set.xlsx", read_only = True)
 
 # Get Sheet Object by names
 sheet = workbook['Break']
 
-for row in range(4, parameters['last-row'] + 1):
-    if sheet['A' + str(row)].value is not None:
-        date = sheet['A' + str(row)].value
+for row in sheet.iter_rows(min_row = 4, max_row = parameters['last-row']):
+    rowNumber = row[0].row
+    print("Reading the row nº {}...".format(rowNumber))
 
-    if not row in parameters['jump']:
-        valid = True
+    if row[0].value is not None:
+        date = row[0].value
 
+    if not rowNumber in parameters['jump']:
         valid = True
 
         for criteria in parameters['dismiss']:
+            column = ord(criteria['col']) - 65
+
             if criteria['operator'] == "=":
-                if sheet[criteria['col'] + str(row)].value == criteria['value']:
+                if row[column].value == criteria['value']:
                     valid = False
                     break
-            elif criteria['operator'] == "<":
-                if sheet[criteria['col'] + str(row)].value < criteria['value']:
-                    valid = False
-                    break
-            elif criteria['operator'] == ">":
-                if sheet[criteria['col'] + str(row)].value > criteria['value']:
-                    valid = False
-                    break
-            elif criteria['operator'] == ">=":
-                if sheet[criteria['col'] + str(row)].value >= criteria['value']:
-                    valid = False
-                    break
-            elif criteria['operator'] == "<>":
-                if sheet[criteria['col'] + str(row)].value != criteria['value']:
-                    valid = False
-                    break
+                elif criteria['operator'] == "<":
+                    if row[column].value < criteria['value']:
+                        valid = False
+                        break
+                elif criteria['operator'] == ">":
+                    if row[column].value > criteria['value']:
+                        valid = False
+                        break
+                elif criteria['operator'] == ">=":
+                    if row[column].value >= criteria['value']:
+                        valid = False
+                        break
+                elif criteria['operator'] == "<>":
+                    if row[column].value != criteria['value']:
+                        valid = False
+                        break
 
         if valid:
             found = False
 
             for system in parameters['systems']:
-                if "future" in system and row >= system['future']:
+                if "future" in system and rowNumber >= system['future']:
                     validForSystem = False
 
                     for conditionGroup in system['conditions']:
@@ -147,20 +152,22 @@ for row in range(4, parameters['last-row'] + 1):
                         satisfiedConditions = 0
 
                         for condition in conditionGroup:
+                            column = ord(condition['col']) - 65
+
                             if condition['operator'] == "=":
-                                if sheet[condition['col'] + str(row)].value == condition['value']:
+                                if row[column].value == condition['value']:
                                     satisfiedConditions += 1
                             elif condition['operator'] == "<":
-                                if sheet[condition['col'] + str(row)].value < condition['value']:
+                                if row[column].value < condition['value']:
                                     satisfiedConditions += 1
                             elif condition['operator'] == ">":
-                                if sheet[condition['col'] + str(row)].value > condition['value']:
+                                if row[column].value > condition['value']:
                                     satisfiedConditions += 1
                             elif condition['operator'] == ">=":
-                                if sheet[condition['col'] + str(row)].value >= condition['value']:
+                                if row[column].value >= condition['value']:
                                     satisfiedConditions += 1
                             elif condition['operator'] == "<>":
-                                if sheet[condition['col'] + str(row)].value != condition['value']:
+                                if row[column].value != condition['value']:
                                     satisfiedConditions += 1
 
                         if numConditions == satisfiedConditions:
@@ -170,15 +177,15 @@ for row in range(4, parameters['last-row'] + 1):
                     if validForSystem:
                         game = {}
                         game['date'] = date
-                        game['player'] = sheet['E' + str(row)].value
-                        game['opponent'] = sheet['F' + str(row)].value
-                        game['odd'] = sheet['K' + str(row)].value
-                        game['result'] = sheet['O' + str(row)].value
+                        game['player'] = row[4].value
+                        game['opponent'] = row[5].value
+                        game['odd'] = row[10].value
+                        game['result'] = row[14].value
 
                         # Balance
-                        if sheet['O' + str(row)].value == "L":
+                        if row[14].value == "L":
                             balance = -1
-                        elif sheet['O' + str(row)].value == "N":
+                        elif row[14].value == "N":
                             balance = 0
                         else:
                             balance = game['odd'] - 1
@@ -207,9 +214,17 @@ for row in range(4, parameters['last-row'] + 1):
                             systems[system['name']]['350'] = systems[system['name']]['yield']
                         elif systems[system['name']]['num-picks'] == 400:
                             systems[system['name']]['400'] = systems[system['name']]['yield']
+                        elif systems[system['name']]['num-picks'] == 450:
+                            systems[system['name']]['450'] = systems[system['name']]['yield']
+                        elif systems[system['name']]['num-picks'] == 500:
+                            systems[system['name']]['500'] = systems[system['name']]['yield']
+                        elif systems[system['name']]['num-picks'] == 550:
+                            systems[system['name']]['550'] = systems[system['name']]['yield']
+                        elif systems[system['name']]['num-picks'] == 600:
+                            systems[system['name']]['600'] = systems[system['name']]['yield']
 
                         for period in parameters['periods']:
-                            if row >= period['first-row'] and row <= period['last-row']:
+                            if rowNumber >= period['first-row'] and rowNumber <= period['last-row']:
                                 systems[system['name']]['periods'][period['keyword']]['units'] += balance
                                 systems[system['name']]['periods'][period['keyword']]['num-picks'] += 1
                                 systems[system['name']]['periods'][period['keyword']]['yield'] = round(systems[system['name']]['periods'][period['keyword']]['units'] * 100 / systems[system['name']]['periods'][period['keyword']]['num-picks'], 2)
@@ -233,9 +248,15 @@ for systemName, systemData in sorted(systems.items()):
                 if systemData['periods'][period]['yield'] >= 10:
                     plusMonths += systemData['periods'][period]['month-portion']
 
-        positiveEval = round(positiveMonths / float(systemData['total-months']), 2)
-        plusEval = round(plusMonths / float(systemData['total-months']), 2)
-        monthlyPicks = round(systemData['num-picks'] / systemData['total-months'], 2)
+        if systemData['total-months'] == 0:
+            positiveEval = 0
+            plusEval = 0
+            monthlyPicks = 0
+        else:
+            positiveEval = round(positiveMonths / float(systemData['total-months']), 2)
+            plusEval = round(plusMonths / float(systemData['total-months']), 2)
+            monthlyPicks = round(systemData['num-picks'] / systemData['total-months'], 2)
+
         picksEval = round(monthlyPicks > 20 and 1 or monthlyPicks / 20, 2)
         evaluation = round(positiveEval * 4 + yieldEval * 3 + plusEval * 2 + picksEval, 1)
 
@@ -570,6 +591,122 @@ for systemName, systemData in sorted(systems.items()):
             systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
             sys.stdout.write(" " + str(systemData['400']) + " %")
             leftChars = len(systemName) - len(str(systemData['400']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    450   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['450']) + " %")
+            leftChars = len(systemName) - len(str(systemData['450']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    500   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['500']) + " %")
+            leftChars = len(systemName) - len(str(systemData['500']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    550   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['550']) + " %")
+            leftChars = len(systemName) - len(str(systemData['550']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    600   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['600']) + " %")
+            leftChars = len(systemName) - len(str(systemData['600']))
 
             for i in range(1, leftChars):
                 sys.stdout.write(" ")
