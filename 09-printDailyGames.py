@@ -45,16 +45,19 @@ def printDailyGames(games_day, sex):
                 if len(player['lastGames']) > indexGame:
                     playerGame = player['lastGames'][indexGame]
                     opponentDB = playersObj.read(playerGame['opponent'])
+                    opponentName = ""
+                    numSpacesAfterPlayer1 = 0
+                    breakDoneChar = ""
 
                     if opponentDB is None:
                         print("❌ The opponent {} is not into the database.".format(playerGame['opponent']))
-                        exit()
+                        #exit()
                     else:
                         if "flashScoreName" in opponentDB and opponentDB['flashScoreName'] != "":
                             opponentName = opponentDB['flashScoreName']
                         else:
                             opponentName = opponentDB['tennisExplorerName']
-                            
+
                         numSpacesAfterPlayer1 = 37 - len(opponentName)
 
                         if not "breakDone" in playerGame:
@@ -67,7 +70,7 @@ def printDailyGames(games_day, sex):
                             else:
                                 breakDoneChar = "?"
 
-                    print " {}   {}".format(playerGame['time'], opponentName) + " " * numSpacesAfterPlayer1 + breakDoneChar + " " * 6 + "|",
+                    print u" {}   {}".format(playerGame['time'], opponentName) + " " * numSpacesAfterPlayer1 + breakDoneChar + " " * 6 + "|",
                 else:
                     print(" " * 50)
 
@@ -77,7 +80,7 @@ def printDailyGames(games_day, sex):
 
                     if opponentDB is None:
                         print("❌ The opponent {} is not into the database.".format(playerGame['opponent']))
-                        exit()
+                        #exit()
                     else:
                         if "flashScoreName" in opponentDB and opponentDB['flashScoreName'] != "":
                             opponentName = opponentDB['flashScoreName']
@@ -85,7 +88,7 @@ def printDailyGames(games_day, sex):
                             opponentName = opponentDB['tennisExplorerName']
 
                         numSpacesAfterPlayer1 = 37 - len(opponentName)
-                        
+
                         if not "breakReceived" in playerGame:
                             breakReceivedChar = "?"
                         else:
@@ -96,17 +99,17 @@ def printDailyGames(games_day, sex):
                             else:
                                 breakReceivedChar = "?"
 
-                    print("{}   {}".format(playerGame['time'], opponentName) + " " * numSpacesAfterPlayer1 + breakReceivedChar)
+                    print(u"{}   {}".format(playerGame['time'], opponentName) + " " * numSpacesAfterPlayer1 + breakReceivedChar)
                 else:
                     print(" " * 50)
-            
+
             if game['profitable']:
                 bgColor = Back.GREEN
             else:
                 bgColor = Back.MAGENTA
 
             print(bgColor + Fore.BLACK + " TOTAL" + " " * 8 + "{}/{}".format(game['playerData']['totalBreaksDone'], game['playerData']['totalGames']) + " " * 33 + "{}%".format(game['playerData']['probability']) + " " * 5 + "| TOTAL" + " " * 8 + "{}/{}".format(game['opponentData']['totalBreaksReceived'], game['opponentData']['totalGames']) + " " * 35 + "{}%".format(game['opponentData']['probability']) + " " * 7)
-    
+
     print("")
 
 if __name__ == '__main__':
