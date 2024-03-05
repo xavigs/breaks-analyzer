@@ -26,6 +26,7 @@ FLAGS = {
     'germany': '🇩🇪',
     'mexico': '🇲🇽',
     'qatar': '🇶🇦',
+    'rwanda': '🇷🇼',
     'switzerland': '🇨🇭',
     'tunisia': '🇹🇳',
     'uae': '🇦🇪'
