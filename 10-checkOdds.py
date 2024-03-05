@@ -94,11 +94,11 @@ def getPlayerRatio(name1, name2):
     totalRatios = 0.0
 
     for name1Part in name1Parts:
-        name1Part = str(name1Part)
+        name1Part = u"{}".format(name1Part)
         maxRatio = 0.0
 
         for name2Part in name2Parts:
-            name2Part = str(name2Part)
+            name2Part = u"{}".format(name2Part)
 
             if lev.ratio(name1Part, name2Part) > maxRatio:
                 maxRatio = lev.ratio(name1Part, name2Part)
