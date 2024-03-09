@@ -83,6 +83,10 @@ for pick in picks:
             tournament = tournamentsObj.find([{'category': 'ATP'}, {'subcategory': subcategory}, {'name': {'$regex': tournamentName}}])
         elif category == 'Challenger':
             tournament = tournamentsObj.find([{'category': 'CH'}, {"$or": [{'name': {'$regex': '{} challenger'.format(tournamentName)}}, {'name': {'$regex': '{} chall.'.format(tournamentName)}}]}])
+        elif category == 'Masters':
+            tournamentName = ' '.join(tournamentParts[3:])
+            print(tournamentName)
+            tournament = tournamentsObj.find([{'category': 'ATP'}, {'subcategory': '1000'}, {'name': {'$regex': tournamentName}}])
 
         country = tournament['country']
 
