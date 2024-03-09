@@ -31,7 +31,8 @@ FLAGS = {
     'rwanda': '🇷🇼',
     'switzerland': '🇨🇭',
     'tunisia': '🇹🇳',
-    'uae': '🇦🇪'
+    'uae': '🇦🇪',
+    'usa': '🇺🇸'
 }
 
 async def send(imageURL, message):
