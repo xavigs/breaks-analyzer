@@ -160,14 +160,14 @@ def analyzeSystems(num_picks):
 
     for systemName, systemData in sorted(systems.items()):
         if "Sistema" in systemName:
-            if systems[system['name']]['temp-num-picks'] > 0:
-                periodName = '{}-{}'.format(str(systems[system['name']]['num-picks'] - num_picks + 1).zfill(4), str(systems[system['name']]['num-picks']).zfill(4))
-                systems[system['name']]['periods'][periodName] = {
-                    'units': systems[system['name']]['temp-units'],
-                    'num-picks': systems[system['name']]['temp-num-picks'],
-                    'yield': round(systems[system['name']]['temp-units'] * 100 / systems[system['name']]['temp-num-picks'], 2)
+            if systems[systemName]['temp-num-picks'] > 0:
+                periodName = '{}-{}'.format(str(systems[systemName]['num-picks'] - num_picks + 1).zfill(4), str(systems[systemName]['num-picks']).zfill(4))
+                systems[systemName]['periods'][periodName] = {
+                    'units': systems[systemName]['temp-units'],
+                    'num-picks': systems[systemName]['temp-num-picks'],
+                    'yield': round(systems[systemName]['temp-units'] * 100 / systems[systemName]['temp-num-picks'], 2)
                 }
-                systems[system['name']]['total-periods'] += 1
+                systems[systemName]['total-periods'] += 1
 
             origSystemName = systemName
             systemName = systemName.split("-")[1]
