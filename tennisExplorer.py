@@ -15,6 +15,7 @@ COMPETITIONS_TO_SKIP = (
     "Adriatic Tennis Series", # 08/06/2020
     "Altec Styslinger Tennis Exhibition", # 29/06/2020
     "AllAmerican Team Cup", # 03/07/2020
+    "Asian Games", # 24/09/2023
     "Atlanta Open", # 24/08/2020
     "Austrian Bundesliga", # 22/05/2022
     "Austrian Championship", # 27/06/2021
@@ -98,6 +99,8 @@ COMPETITIONS_TO_SKIP = (
     "ÖTV Challenge Series 2", # 13/07/2020
     "ÖTV Challenge Series 3", # 20/07/2020
     "ÖTV Challenge Series 4", # 27/07/2020
+    "Pacific Games", # 22/11/2023
+    "Pan American Games", # 24/10/2023
     "Peugeot Tennis Tour", # 25/08/2020
     "Polish national championship", # 10/07/2022
     "Polish National Tour", # 17/06/2020
@@ -152,6 +155,7 @@ COMPETITIONS_TO_SKIP = (
     "UTR Pro Tennis Series 6", # 03/01/2022
     "UTR Pro Tennis Series 7", # 28/03/2022
     "UTR Pro Tennis Series 8", # 04/07/2022
+    "UTR Pro Tennis Series 9",
     "UTS Championship", # 24/05/2021
     "Valencia challenge", # 05/06/2020
     "Verbier Open", # 26/09/2020
@@ -339,7 +343,7 @@ def getTournaments(sex, year):
         if not "month" in row['class']:
             tournament = {}
             rowHead = row.select("th")
-            
+
             if len(rowHead) > 0:
                 tournamentElement = rowHead[0].select("a")[0]
 
@@ -371,7 +375,7 @@ def getTournaments(sex, year):
                     elif sex == "M":
                         tournament['category'] = "ATP"
 
-                        if tournamentPrize > 10000000:
+                        if tournamentPrize > 12000000:
                             tournament['subcategory'] = "GS"
                         elif tournamentPrize > 5000000:
                             tournament['subcategory'] = "1000"
@@ -382,7 +386,7 @@ def getTournaments(sex, year):
                     else:
                         tournament['category'] = "WTA"
 
-                        if tournamentPrize > 10000000:
+                        if tournamentPrize > 12000000:
                             tournament['subcategory'] = "GS"
                         elif tournamentPrize > 5000000:
                             tournament['subcategory'] = "1000"
@@ -395,5 +399,5 @@ def getTournaments(sex, year):
                     soup = BeautifulSoup(requests.get(urlTournament).text, "lxml")
                     tournament['country'] = getKeywordFromString(soup.select("h1")[0].text.split(" (")[1].split(")")[0])
                     tournaments.append(tournament)
-    
+
     return tournaments
