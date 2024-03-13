@@ -44,6 +44,7 @@ def getJSONFromURL(url):
         jsonContent = json.loads(content)
         return jsonContent
     except:
+        print("[ERROR] The player with the URL {} has not been JSON loaded".format(url))
         return False
 
 def getPlayers(fromID = 1, toID = None):
@@ -103,7 +104,7 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                         print(urlStats)
                         statsJSON = getJSONFromURL(urlStats)
 
-                        if "statistics" in statsJSON:
+                        if type(statsJSON) != "bool" and "statistics" in statsJSON:
                             for phase in statsJSON['statistics']:
                                 if phase['period'] == "1ST":
                                     for group in phase['groups']:
