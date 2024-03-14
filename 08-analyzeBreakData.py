@@ -108,7 +108,7 @@ def analyzeBreakData(day, sex):
     if currentTime < '12:00':
         os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/10-checkOdds.py')
     else:
-        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/10-checkOdds -d {}'.format(tomorrow))
+        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/10-checkOdds.py -d {}'.format(tomorrow))
 
 if __name__ == '__main__':
     analyzeBreakData()
