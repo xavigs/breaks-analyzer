@@ -22,6 +22,7 @@ gamesObj = objects.Games(breaksDB)
 )
 
 def analyzeBreakData(day, sex):
+    gamesObj.delete([{'gameDay': day}])
     sexKeywords = {'M': 'men', 'W': 'women'}
     dailyGames = tennisExplorer.getDailyGames(day, sexKeywords[sex])
     gamesToAnalyze = [] 
