@@ -3,7 +3,13 @@ import openpyxl
 from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 from os.path import *
 from datetime import date, datetime, timedelta
+import json
 import click
+import email, smtplib, ssl
+from email import encoders
+from email.mime.base import MIMEBase
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from models import db, objects
 
 def getLastGames(player1, player2):
@@ -43,6 +49,7 @@ def writeXLSX(day):
     dayString = day
     dayDateTime = datetime.strptime(dayString, '%Y-%m-%d')
     filepath = "xlsx/{}.xlsx".format(dayString)
+    picksToBet = []
 
     if isfile(filepath):
         workbook = openpyxl.load_workbook(filepath)
@@ -202,8 +209,59 @@ def writeXLSX(day):
         worksheet['N{}'.format(numRow)].alignment = alignmentCenter
         worksheet['N{}'.format(numRow)].number_format = "#,##0.00"
 
+        if game['odd'] > 2.20 and game['opponentWinOdd'] < 1.20:
+            picksToBet.append({
+                'player': game['FS-player1'],
+                'opponent': game['FS-player2'],
+                'odd': game['odd']
+            })
+
     worksheet.merge_cells('A1:A{}'.format(numRow))
     workbook.save(filepath)
+
+    # Send e-mail
+    subject = 'Breaks {}'.format(dayString)
+    body = json.dumps(picksToBet)
+    sender_email = 'd_masterweb@hotmail.com'
+    receiver_email = 'xaviergs1984@gmail.com'
+
+    # Create a multipart message and set headers
+    message = MIMEMultipart()
+    message['From'] = sender_email
+    message['To'] = receiver_email
+    message['Subject'] = subject
+
+    # Add body to email
+    message.attach(MIMEText(body, 'plain'))
+
+    # Open XLSX file in binary mode
+    with open(filepath, 'rb') as attachment:
+        # Add file as application/octet-stream
+        # Email client can usually download this automatically as attachment
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload(attachment.read())
+
+    # Encode file in ASCII characters to send by email    
+    encoders.encode_base64(part)
+
+    # Add header as key/value pair to attachment part
+    part.add_header(
+        'Content-Disposition',
+        'attachment; filename={}'.format(filepath)
+    )
+
+    # Add attachment to message and convert message to string
+    message.attach(part)
+    text = message.as_string()
+
+    # Log in to server using secure context and send email
+    context = ssl.create_default_context()
+    server = smtplib.SMTP('smtp-mail.outlook.com', 587)
+    server.ehlo()  # send the extended hello to our server
+    server.starttls()  # tell server we want to communicate with TLS encryption
+    server.login(sender_email, 'juxtedev1984')
+    server.sendmail(sender_email, receiver_email, text)
+    server.quit()
 
     '''
         # TODO

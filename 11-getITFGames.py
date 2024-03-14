@@ -70,5 +70,13 @@ def getITFGames(day):
                 else:
                     print("NONE!!!")
 
+    currentTime = datetime.now().strftime('%H:%M')
+    tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+
+    if currentTime < '12:00':
+        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/12-writeXLSX.py')
+    else:
+        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/12-writeXLSX.py -d {}'.format(tomorrow))
+
 if __name__ == '__main__':
     getITFGames()
