@@ -81,57 +81,58 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
             dataJSON = getJSONFromURL(url)
             found = False
 
-            for dailyGame in dataJSON['events']:
-                homePlayer = dailyGame['homeTeam']['id']
-                awayPlayer = dailyGame['awayTeam']['id']
+            if type(dataJSON) != False:
+                for dailyGame in dataJSON['events']:
+                    homePlayer = dailyGame['homeTeam']['id']
+                    awayPlayer = dailyGame['awayTeam']['id']
 
-                if homePlayer == playerID and awayPlayer == game['opponent'] or homePlayer == game['opponent'] and awayPlayer == playerID:
-                    found = True
-                    urlGame = "{}{}{}".format(BASE_URL, "event/", dailyGame['id'])
-                    print(urlGame)
-                    gameJSON = getJSONFromURL(urlGame)
+                    if homePlayer == playerID and awayPlayer == game['opponent'] or homePlayer == game['opponent'] and awayPlayer == playerID:
+                        found = True
+                        urlGame = "{}{}{}".format(BASE_URL, "event/", dailyGame['id'])
+                        print(urlGame)
+                        gameJSON = getJSONFromURL(urlGame)
 
-                    if "period1" in gameJSON['event']['homeScore']:
-                        wonGamesHome = gameJSON['event']['homeScore']['period1']
-                        wonGamesAway = gameJSON['event']['awayScore']['period1']
+                        if "period1" in gameJSON['event']['homeScore']:
+                            wonGamesHome = gameJSON['event']['homeScore']['period1']
+                            wonGamesAway = gameJSON['event']['awayScore']['period1']
 
-                        if abs(wonGamesHome - wonGamesAway) > 1 and max(wonGamesHome, wonGamesAway) > 5 or max(wonGamesHome, wonGamesAway) == 7:
-                            setFinished = True
-                        else:
-                            setFinished = False
+                            if abs(wonGamesHome - wonGamesAway) > 1 and max(wonGamesHome, wonGamesAway) > 5 or max(wonGamesHome, wonGamesAway) == 7:
+                                setFinished = True
+                            else:
+                                setFinished = False
 
-                        urlStats = "{}{}{}{}".format(BASE_URL, "event/", dailyGame['id'], "/statistics")
-                        print(urlStats)
-                        statsJSON = getJSONFromURL(urlStats)
+                            urlStats = "{}{}{}{}".format(BASE_URL, "event/", dailyGame['id'], "/statistics")
+                            print(urlStats)
+                            statsJSON = getJSONFromURL(urlStats)
 
-                        if type(statsJSON) != "bool" and "statistics" in statsJSON:
-                            for phase in statsJSON['statistics']:
-                                if phase['period'] == "1ST":
-                                    for group in phase['groups']:
-                                        if group['groupName'] == "Return":
-                                            for item in group['statisticsItems']:
-                                                if item['name'] == "Break points converted":
-                                                    breakItem = {'index': indexGame}
+                            if type(statsJSON) != "bool" and "statistics" in statsJSON:
+                                for phase in statsJSON['statistics']:
+                                    if phase['period'] == "1ST":
+                                        for group in phase['groups']:
+                                            if group['groupName'] == "Return":
+                                                for item in group['statisticsItems']:
+                                                    if item['name'] == "Break points converted":
+                                                        breakItem = {'index': indexGame}
 
-                                                    if not setFinished and (int(item['home']) == 0 or int(item['away']) == 0):
-                                                        # Player retired during the 1st set without break for both players
-                                                        breakItem['toDelete'] = True
-                                                    else:
-                                                        if homePlayer == playerID:
-                                                            breakItem['breakDone'] = int(item['home']) > 0 and 1 or 0
-                                                            breakItem['breakReceived'] = int(item['away']) > 0 and 1 or 0
+                                                        if not setFinished and (int(item['home']) == 0 or int(item['away']) == 0):
+                                                            # Player retired during the 1st set without break for both players
+                                                            breakItem['toDelete'] = True
                                                         else:
-                                                            breakItem['breakDone'] = int(item['away']) > 0 and 1 or 0
-                                                            breakItem['breakReceived'] = int(item['home']) > 0 and 1 or 0
+                                                            if homePlayer == playerID:
+                                                                breakItem['breakDone'] = int(item['home']) > 0 and 1 or 0
+                                                                breakItem['breakReceived'] = int(item['away']) > 0 and 1 or 0
+                                                            else:
+                                                                breakItem['breakDone'] = int(item['away']) > 0 and 1 or 0
+                                                                breakItem['breakReceived'] = int(item['home']) > 0 and 1 or 0
 
-                                                        breakData['definedGames'] += 1
+                                                            breakData['definedGames'] += 1
 
-                                                    breakData['games'].append(breakItem)
-                    else:
-                        # El matx s'ha d'eliminar
-                        x = 1
+                                                        breakData['games'].append(breakItem)
+                        else:
+                            # El matx s'ha d'eliminar
+                            x = 1
 
-                    break
+                        break
 
             if not found:
                 print('Matx no trobat, merci')
