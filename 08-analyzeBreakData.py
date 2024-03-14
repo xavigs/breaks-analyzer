@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
+import os
 from datetime import date, datetime, timedelta
 import click
 import tennisExplorer
@@ -100,6 +101,14 @@ def analyzeBreakData(day, sex):
                     gamesToAnalyze.append(gameDocument)
 
     printCollection(gamesToAnalyze)
+
+    currentTime = datetime.now().strftime('%H:%M')
+    tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+
+    if currentTime < '12:00':
+        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/10-checkOdds.py')
+    else:
+        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/10-checkOdds -d {}'.format(tomorrow))
 
 if __name__ == '__main__':
     analyzeBreakData()

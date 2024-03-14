@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import os
+from datetime import datetime, timedelta
 import click
 import sofaScore
 from utils import *
@@ -85,6 +87,14 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
                 lastGamesBreaks = sofaScore.checkBreaksUndefinedGamesByPlayer(player['sofaScoreID'], lastGames)
                 playersObj.updateBreakData(player['_id'], lastGamesBreaks)
                 playersObj.printBreakData(player['_id'])
+
+    currentTime = datetime.now().strftime('%H:%M')
+    tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+
+    if currentTime < '12:00':
+        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/08-analyzeBreakData.py')
+    else:
+        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/08-analyzeBreakData.py -d {}'.format(tomorrow))
 
 if __name__ == '__main__':
     getBreakDataFromSofaScore()
