@@ -92,9 +92,9 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
     tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
 
     if currentTime < '12:00':
-        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/08-analyzeBreakData.py')
+        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/08-analyzeBreakData.py > /tmp/breaks-8M.log')
     else:
-        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/08-analyzeBreakData.py -d {}'.format(tomorrow))
+        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/08-analyzeBreakData.py -d {} > /tmp/breaks-8M.log'.format(tomorrow))
 
 if __name__ == '__main__':
     getBreakDataFromSofaScore()

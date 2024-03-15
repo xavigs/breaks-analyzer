@@ -247,9 +247,9 @@ def checkOdds(games_day, sex):
     tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
 
     if currentTime < '12:00':
-        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/11-getITFGames.py')
+        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/11-getITFGames.py > /tmp/breaks-11M.log')
     else:
-        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/11-getITFGames.py -d {}'.format(tomorrow))
+        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/11-getITFGames.py -d {} > /tmp/breaks-11M.log'.format(tomorrow))
 
 if __name__ == '__main__':
     checkOdds()
