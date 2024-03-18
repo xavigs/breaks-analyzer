@@ -48,7 +48,7 @@ playersObj = objects.Players(breaksDB)
 def writeXLSX(day):
     dayString = day
     dayDateTime = datetime.strptime(dayString, '%Y-%m-%d')
-    filepath = "xlsx/{}.xlsx".format(dayString)
+    filepath = "/home/juxtelab/breaks-analyzer/xlsx/{}.xlsx".format(dayString)
     picksToBet = []
 
     if isfile(filepath):
