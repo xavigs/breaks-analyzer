@@ -15,6 +15,17 @@ dbConnection = db.Database()
 breaksDB = dbConnection.connect()
 gamesObj = objects.Games(breaksDB)
 
+def executeNextScript():
+    currentTime = datetime.now().strftime('%H:%M')
+    tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+    currentPath = os.getcwd()
+    pythonPath = '/root/.virtualenvs/breaks/bin/python'
+
+    if currentTime < '12:00':
+        os.system('{} {}/11-getITFGames.py > /tmp/breaks-11M.log'.format(pythonPath, currentPath))
+    else:
+        os.system('{} {}/11-getITFGames.py -d {} > /tmp/breaks-11M.log'.format(pythonPath, currentPath, tomorrow))
+
 def matchNames(gamesBet365, gameDB):
     maxRatio = 0
     indexMaxRatio = -1
@@ -241,15 +252,7 @@ def checkOdds(games_day, sex):
                     rapidAPIKeyIndex += 1
 
                     if len(RAPIDAPI_KEYS) == rapidAPIKeyIndex:
-                        exit()
-
-    currentTime = datetime.now().strftime('%H:%M')
-    tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
-
-    if currentTime < '12:00':
-        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/11-getITFGames.py > /tmp/breaks-11M.log')
-    else:
-        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/11-getITFGames.py -d {} > /tmp/breaks-11M.log'.format(tomorrow))
+                        executeNextScript()
 
 if __name__ == '__main__':
     checkOdds()
