@@ -92,7 +92,7 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                         print(urlGame)
                         gameJSON = getJSONFromURL(urlGame)
 
-                        if "period1" in gameJSON['event']['homeScore']:
+                        if type(gameJSON) != "bool" and period1" in gameJSON['event']['homeScore']:
                             wonGamesHome = gameJSON['event']['homeScore']['period1']
                             wonGamesAway = gameJSON['event']['awayScore']['period1']
 
