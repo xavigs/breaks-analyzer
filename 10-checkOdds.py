@@ -253,6 +253,7 @@ def checkOdds(games_day, sex):
 
                     if len(RAPIDAPI_KEYS) == rapidAPIKeyIndex:
                         executeNextScript()
+                        exit()
 
 if __name__ == '__main__':
     checkOdds()
