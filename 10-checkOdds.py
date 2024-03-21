@@ -255,5 +255,7 @@ def checkOdds(games_day, sex):
                         executeNextScript()
                         exit()
 
+    executeNextScript()
+
 if __name__ == '__main__':
     checkOdds()
