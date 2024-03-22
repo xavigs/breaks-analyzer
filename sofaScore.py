@@ -81,8 +81,8 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
             dataJSON = getJSONFromURL(url)
             found = False
 
-            if type(dataJSON) != "bool":
-                for dailyGame in dataJSON['events']:
+            if type(dataJSON) != "bool" and 'events' in dataJSON:
+                for dailyGame in dataJSON['events'] and 'events' in dataJSON:
                     homePlayer = dailyGame['homeTeam']['id']
                     awayPlayer = dailyGame['awayTeam']['id']
 
