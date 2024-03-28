@@ -81,7 +81,7 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
             dataJSON = getJSONFromURL(url)
             found = False
 
-            if type(dataJSON) != "bool" and 'events' in dataJSON:
+            if not isinstance(dataJSON, bool) and 'events' in dataJSON:
                 for dailyGame in dataJSON['events']:
                     homePlayer = dailyGame['homeTeam']['id']
                     awayPlayer = dailyGame['awayTeam']['id']
@@ -92,7 +92,7 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                         print(urlGame)
                         gameJSON = getJSONFromURL(urlGame)
 
-                        if type(gameJSON) != "bool" and "period1" in gameJSON['event']['homeScore']:
+                        if not isinstance(gameJSON, bool) and "period1" in gameJSON['event']['homeScore']:
                             wonGamesHome = gameJSON['event']['homeScore']['period1']
                             wonGamesAway = gameJSON['event']['awayScore']['period1']
 
@@ -105,7 +105,7 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                             print(urlStats)
                             statsJSON = getJSONFromURL(urlStats)
 
-                            if type(statsJSON) != "bool" and "statistics" in statsJSON:
+                            if not isinstance(statsJSON, bool) and "statistics" in statsJSON:
                                 for phase in statsJSON['statistics']:
                                     if phase['period'] == "1ST":
                                         for group in phase['groups']:
