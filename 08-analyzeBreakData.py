@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import division
 import os
+import socket
 from datetime import date, datetime, timedelta
 import click
 import tennisExplorer
@@ -23,7 +24,6 @@ gamesObj = objects.Games(breaksDB)
 )
 
 def analyzeBreakData(day, sex):
-    gamesObj.delete([{'gameDay': day}])
     sexKeywords = {'M': 'men', 'W': 'women'}
     dailyGames = tennisExplorer.getDailyGames(day, sexKeywords[sex])
     gamesToAnalyze = [] 
@@ -104,11 +104,18 @@ def analyzeBreakData(day, sex):
 
     currentTime = datetime.now().strftime('%H:%M')
     tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+    machineName = socket.gethostname()
+    currentPath = os.getcwd()
+
+    if machineName == 'juxtelab-pc':
+        pythonPath = 'python'
+    else:
+        pythonPath = '/root/.virtualenvs/breaks/bin/python'
 
     if currentTime < '12:00':
-        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/10-checkOdds.py > /tmp/breaks-10M.log')
+        os.system('python {}/10-checkOdds.py > /tmp/breaks-10M.log'.format(currentPath))
     else:
-        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/10-checkOdds.py -d {} > /tmp/breaks-10M.log'.format(tomorrow))
+        os.system('python {}/10-checkOdds.py -d {} > /tmp/breaks-10M.log'.format(currentPath, tomorrow))
 
 if __name__ == '__main__':
     analyzeBreakData()

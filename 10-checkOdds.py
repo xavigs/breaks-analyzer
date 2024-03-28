@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import socket
 from datetime import date, datetime, timedelta
 import re
 import requests
@@ -18,8 +19,13 @@ gamesObj = objects.Games(breaksDB)
 def executeNextScript():
     currentTime = datetime.now().strftime('%H:%M')
     tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+    machineName = socket.gethostname()
     currentPath = os.getcwd()
-    pythonPath = '/root/.virtualenvs/breaks/bin/python'
+
+    if machineName == 'juxtelab-pc':
+        pythonPath = 'python'
+    else:
+        pythonPath = '/root/.virtualenvs/breaks/bin/python'
 
     if currentTime < '12:00':
         os.system('{} {}/11-getITFGames.py > /tmp/breaks-11M.log'.format(pythonPath, currentPath))

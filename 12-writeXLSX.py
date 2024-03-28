@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import openpyxl
 from openpyxl.styles import Alignment, Font, PatternFill, Border, Side
 from os.path import *
@@ -48,7 +49,8 @@ playersObj = objects.Players(breaksDB)
 def writeXLSX(day):
     dayString = day
     dayDateTime = datetime.strptime(dayString, '%Y-%m-%d')
-    filepath = "/home/juxtelab/breaks-analyzer/xlsx/{}.xlsx".format(dayString)
+    currentPath = os.getcwd()
+    filepath = '{}/xlsx/{}.xlsx'.format(currentPath, dayString)
     picksToBet = []
 
     if isfile(filepath):
@@ -220,6 +222,7 @@ def writeXLSX(day):
     workbook.save(filepath)
 
     # Send e-mail
+    print('Let\'s go to send e-mail')
     subject = 'Breaks {}'.format(dayString)
     body = json.dumps(picksToBet)
     sender_email = 'd_masterweb@hotmail.com'
@@ -260,7 +263,8 @@ def writeXLSX(day):
     server.ehlo()  # send the extended hello to our server
     server.starttls()  # tell server we want to communicate with TLS encryption
     server.login(sender_email, 'juxtedev1984')
-    server.sendmail(sender_email, receiver_email, text)
+    response = server.sendmail(sender_email, receiver_email, text)
+    print(response)
     server.quit()
 
     '''

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import socket
 from datetime import date, datetime, timedelta
 import click
 import itfTennis
@@ -72,8 +73,13 @@ def getITFGames(day):
 
     currentTime = datetime.now().strftime('%H:%M')
     tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+    machineName = socket.gethostname()
     currentPath = os.getcwd()
-    pythonPath = '/root/.virtualenvs/breaks/bin/python'
+
+    if machineName == 'juxtelab-pc':
+        pythonPath = 'python'
+    else:
+        pythonPath = '/root/.virtualenvs/breaks/bin/python'
 
     if currentTime < '12:00':
         os.system('{} {}/12-writeXLSX.py > /tmp/breaks-12M.log'.format(pythonPath, currentPath))

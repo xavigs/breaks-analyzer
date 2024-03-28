@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+import socket
 from datetime import datetime, timedelta
 import click
 import sofaScore
@@ -90,11 +91,18 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
 
     currentTime = datetime.now().strftime('%H:%M')
     tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
+    machineName = socket.gethostname()
+    currentPath = os.getcwd()
+
+    if machineName == 'juxtelab-pc':
+        pythonPath = 'python'
+    else:
+        pythonPath = '/root/.virtualenvs/breaks/bin/python'
 
     if currentTime < '12:00':
-        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/08-analyzeBreakData.py > /tmp/breaks-8M.log')
+        os.system('{} {}/08-analyzeBreakData.py > /tmp/breaks-8M.log'.format(pythonPath, currentPath))
     else:
-        os.system('/root/.virtualenvs/breaks/bin/python /home/juxtelab/breaks-analyzer/08-analyzeBreakData.py -d {} > /tmp/breaks-8M.log'.format(tomorrow))
+        os.system('{} {}/08-analyzeBreakData.py -d {} > /tmp/breaks-8M.log'.format(pythonPath, currentPath, tomorrow))
 
 if __name__ == '__main__':
     getBreakDataFromSofaScore()
