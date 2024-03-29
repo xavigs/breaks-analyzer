@@ -74,7 +74,8 @@ def getITFGames(day):
     currentTime = datetime.now().strftime('%H:%M')
     tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
     machineName = socket.gethostname()
-    currentPath = os.getcwd()
+    currentPath = os.path.dirname(os.path.abspath(__file__))
+    print('Current path: {}'.format(currentPath))
 
     if machineName == 'juxtelab-pc':
         pythonPath = 'python'
