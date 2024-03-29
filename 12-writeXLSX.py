@@ -49,7 +49,7 @@ playersObj = objects.Players(breaksDB)
 def writeXLSX(day):
     dayString = day
     dayDateTime = datetime.strptime(dayString, '%Y-%m-%d')
-    currentPath = os.getcwd()
+    currentPath = os.path.dirname(os.path.abspath(__file__))
     filepath = '{}/xlsx/{}.xlsx'.format(currentPath, dayString)
     picksToBet = []
 
