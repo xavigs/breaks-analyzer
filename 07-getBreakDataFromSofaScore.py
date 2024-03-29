@@ -93,6 +93,7 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
     tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
     machineName = socket.gethostname()
     currentPath = os.getcwd()
+    print('Current path: {}'.format(currentPath))
 
     if machineName == 'juxtelab-pc':
         pythonPath = 'python'
@@ -100,9 +101,13 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
         pythonPath = '/root/.virtualenvs/breaks/bin/python'
 
     if currentTime < '12:00':
-        os.system('{} {}/08-analyzeBreakData.py > /tmp/breaks-8M.log 2>&1'.format(pythonPath, currentPath))
+        script = '{} {}/08-analyzeBreakData.py > /tmp/breaks-8M.log 2>&1'.format(pythonPath, currentPath)
+        
     else:
-        os.system('{} {}/08-analyzeBreakData.py -d {} > /tmp/breaks-8M.log 2>&1'.format(pythonPath, currentPath, tomorrow))
+        script = '{} {}/08-analyzeBreakData.py -d {} > /tmp/breaks-8M.log 2>&1'.format(pythonPath, currentPath, tomorrow)
+    
+    print('Executing script {}...'.format(script))
+    os.system(script)
 
 if __name__ == '__main__':
     getBreakDataFromSofaScore()
