@@ -28,9 +28,9 @@ def executeNextScript():
         pythonPath = '/root/.virtualenvs/breaks/bin/python'
 
     if currentTime < '12:00':
-        os.system('{} {}/11-getITFGames.py > /tmp/breaks-11M.log'.format(pythonPath, currentPath))
+        os.system('{} {}/11-getITFGames.py > /tmp/breaks-11M.log 2>&1'.format(pythonPath, currentPath))
     else:
-        os.system('{} {}/11-getITFGames.py -d {} > /tmp/breaks-11M.log'.format(pythonPath, currentPath, tomorrow))
+        os.system('{} {}/11-getITFGames.py -d {} > /tmp/breaks-11M.log 2>&1'.format(pythonPath, currentPath, tomorrow))
 
 def matchNames(gamesBet365, gameDB):
     maxRatio = 0

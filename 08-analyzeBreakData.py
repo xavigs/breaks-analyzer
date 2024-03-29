@@ -113,9 +113,9 @@ def analyzeBreakData(day, sex):
         pythonPath = '/root/.virtualenvs/breaks/bin/python'
 
     if currentTime < '12:00':
-        os.system('python {}/10-checkOdds.py > /tmp/breaks-10M.log'.format(currentPath))
+        os.system('python {}/10-checkOdds.py > /tmp/breaks-10M.log 2>&1'.format(currentPath))
     else:
-        os.system('python {}/10-checkOdds.py -d {} > /tmp/breaks-10M.log'.format(currentPath, tomorrow))
+        os.system('python {}/10-checkOdds.py -d {} > /tmp/breaks-10M.log 2>&1'.format(currentPath, tomorrow))
 
 if __name__ == '__main__':
     analyzeBreakData()

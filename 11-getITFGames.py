@@ -82,9 +82,9 @@ def getITFGames(day):
         pythonPath = '/root/.virtualenvs/breaks/bin/python'
 
     if currentTime < '12:00':
-        os.system('{} {}/12-writeXLSX.py > /tmp/breaks-12M.log'.format(pythonPath, currentPath))
+        os.system('{} {}/12-writeXLSX.py > /tmp/breaks-12M.log 2>&1'.format(pythonPath, currentPath))
     else:
-        os.system('{} {}/12-writeXLSX.py -d {} > /tmp/breaks-12M.log'.format(pythonPath, currentPath, tomorrow))
+        os.system('{} {}/12-writeXLSX.py -d {} > /tmp/breaks-12M.log 2>&1'.format(pythonPath, currentPath, tomorrow))
 
 if __name__ == '__main__':
     getITFGames()

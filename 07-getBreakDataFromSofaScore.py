@@ -100,9 +100,9 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
         pythonPath = '/root/.virtualenvs/breaks/bin/python'
 
     if currentTime < '12:00':
-        os.system('{} {}/08-analyzeBreakData.py > /tmp/breaks-8M.log'.format(pythonPath, currentPath))
+        os.system('{} {}/08-analyzeBreakData.py > /tmp/breaks-8M.log 2>&1'.format(pythonPath, currentPath))
     else:
-        os.system('{} {}/08-analyzeBreakData.py -d {} > /tmp/breaks-8M.log'.format(pythonPath, currentPath, tomorrow))
+        os.system('{} {}/08-analyzeBreakData.py -d {} > /tmp/breaks-8M.log 2>&1'.format(pythonPath, currentPath, tomorrow))
 
 if __name__ == '__main__':
     getBreakDataFromSofaScore()
