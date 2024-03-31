@@ -93,6 +93,8 @@ def analyzeBreakData(day, sex):
                     profitable = True
                 else:
                     profitable = False
+                
+                print(type(opponent['tennisExplorerName']))
 
                 gameDocument = {'sex': sex, 'tournament': game['tournament'], 'gameDay': day, 'player1ID': player['_id'], 'FS-player1': player['flashScoreName'], 'TE-player1': player['tennisExplorerName'], 'player2ID': opponent['_id'], 'FS-player2': opponent['flashScoreName'], 'TE-player2': opponent['tennisExplorerName'], 'playerData': playerData, 'opponentData': opponentData, 'probability': avgProbability, 'profitable': profitable}
                 gamesObj.create(gameDocument)
