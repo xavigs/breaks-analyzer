@@ -27,7 +27,7 @@ def getITFGames(day):
 
     for game in games:
         if game['tournament'][0] == "M" and "/" not in game['home']:
-            print(u"{} vs {}".format(game['home'], game['away']))
+            print(u"{} vs {}".format(game['home'], game['away']).encode('utf-8'))
             gameDB = gamesObj.find([{'gameDay': gameDay, 'TE-player1': game['home'], 'TE-player2': game['away']}])
 
             if gameDB is not None:
@@ -49,7 +49,7 @@ def getITFGames(day):
                 else:
                     print("NONE!!!")
 
-            print(u"{} vs {}".format(game['away'], game['home']))
+            print(u"{} vs {}".format(game['away'], game['home']).encode('utf-8'))
             gameDB = gamesObj.find([{'gameDay': gameDay, 'TE-player1': game['away'], 'TE-player2': game['home']}])
 
             if gameDB is not None:
