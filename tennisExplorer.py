@@ -13,6 +13,7 @@ COMPETITIONS_TO_SKIP = (
     "Adria Tour 3", # 20/06/2020
     "Adria Tour 4", # 27/06/2020
     "Adriatic Tennis Series", # 08/06/2020
+    "African Games",
     "Altec Styslinger Tennis Exhibition", # 29/06/2020
     "AllAmerican Team Cup", # 03/07/2020
     "Asian Games", # 24/09/2023
