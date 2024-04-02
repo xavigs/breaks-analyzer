@@ -42,7 +42,7 @@ async def send(imageURL, message):
 # Get Tipsterland picks
 picksTelegramDB = picksTelegramObj.find_all()
 numPublishedPicks = len(list(picksTelegramDB))
-url = 'https://www.tipsterland.com/api/picks/cards?tipster_id={}&month=3&year=2024&pending=false&requestId=1&page=1'.format(TIPSTERLAND_ID)
+url = 'https://www.tipsterland.com/api/picks/cards?tipster_id={}&month=4&year=2024&pending=false&requestId=1&page=1'.format(TIPSTERLAND_ID)
 jsonContent = json.loads(requests.get(url).text)
 soup = BeautifulSoup(jsonContent['data'], 'lxml')
 picks = soup.select('div[class*=x-pick-card]')
