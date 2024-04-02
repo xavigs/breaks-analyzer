@@ -55,7 +55,7 @@ for pick in picks:
     pickDateParts = pickDate.split(' ')
     pickDateParts[0] = pickDateParts[0].zfill(2)
     pickDateParts[1] = pickDateParts[1].title()
-    pickDate = ' '.join(pickDateParts).replace('29 Feb', '1 Mar')
+    pickDate = ' '.join(pickDateParts).replace('29 Feb', '1 Mar').replace('Abr', 'Apr')
     pickDate = datetime.strptime(pickDate, '%d %b. %H:%M') + timedelta(hours=1)
     pickDate = pickDate.replace(year=today.year)
 
