@@ -24,6 +24,7 @@ SURFACES = {'I': 'Pista dura indoor', 'D': 'Pista dura outdoor', 'T': 'Tierra ba
 FLAGS = {
     'australia': '🇦🇺',
     'dominican-republic': '🇩🇴',
+    'egypt': '🇪🇬',
     'france': '🇫🇷',
     'germany': '🇩🇪',
     'greece': '🇬🇷',
