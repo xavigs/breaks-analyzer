@@ -32,6 +32,7 @@ FLAGS = {
     'qatar': '🇶🇦',
     'rwanda': '🇷🇼',
     'south-korea': '🇰🇷',
+    'spain': '🇪🇸',
     'switzerland': '🇨🇭',
     'tunisia': '🇹🇳',
     'uae': '🇦🇪',
