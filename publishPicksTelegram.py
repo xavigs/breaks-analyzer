@@ -23,6 +23,7 @@ weekdays = ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Do
 SURFACES = {'I': 'Pista dura indoor', 'D': 'Pista dura outdoor', 'T': 'Tierra batida', 'H': 'Hierba', 'M': 'Moqueta'}
 FLAGS = {
     'australia': '🇦🇺',
+    'china': '🇨🇳',
     'dominican-republic': '🇩🇴',
     'egypt': '🇪🇬',
     'france': '🇫🇷',
