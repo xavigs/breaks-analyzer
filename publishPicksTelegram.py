@@ -28,6 +28,7 @@ FLAGS = {
     'egypt': '🇪🇬',
     'france': '🇫🇷',
     'germany': '🇩🇪',
+    'great-britain': '🇬🇧',
     'greece': '🇬🇷',
     'mexico': '🇲🇽',
     'qatar': '🇶🇦',
