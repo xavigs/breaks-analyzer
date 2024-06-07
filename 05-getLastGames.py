@@ -2,6 +2,7 @@
 from datetime import date, datetime, timedelta
 import click
 from utils import *
+import tennisExplorer
 from models import db, objects
 
 dbConnection = db.Database()
@@ -192,124 +193,131 @@ shownCompetitions = []
 
 def getLastGames(limit_date, tomorrow, sex, from_player, limit_player):
     playersMissingObj.empty()
+    playersObj.unsetAllToModify()
+    playersToModify = tennisExplorer.getLastDaysPlayers()
 
-    if tomorrow == "Y":
+    if tomorrow == 'Y':
         limit_date = str(date.today() + timedelta(1))
 
-    currentYear = datetime.strptime(limit_date, "%Y-%m-%d").year
+    currentYear = datetime.strptime(limit_date, '%Y-%m-%d').year
     limitYear = currentYear - 4
 
     if from_player == 0 and limit_player == 999999:
-        if sex == "M":
+        if sex == 'M':
             players = playersObj.getMenWithSofaScoreID()
         else:
             players = playersObj.getWomenWithSofaScoreID()
     elif from_player > 0 and limit_player == 999999:
-        if sex == "M":
+        if sex == 'M':
             players = playersObj.getMenWithSofaScoreID(from_player)
         else:
             players = playersObj.getWomenWithSofaScoreID(from_player)
     elif from_player > 0 and limit_player < 999999:
-        if sex == "M":
+        if sex == 'M':
             players = playersObj.getMenWithSofaScoreID(from_player, limit_player)
         else:
             players = playersObj.getWomenWithSofaScoreID(from_player, limit_player)
 
-    print("{} players are going to be analyzed.".format(len(list(players))))
+    print("{} players with SofaScore ID found in the database.".format(len(list(players))))
+    print("{} players are going to be analyzed.".format(len(playersToModify)))
     players.rewind()
 
     for player in players:
-        rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
-        print("\n" + "-" * (rankingNameLength + 25))
-        print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].encode('utf-8').upper()))
-        print("-" * (rankingNameLength + 25))
-        year = currentYear
-        lastGames = []
+        if player['_id'] not in playersToModify:
+            continue
+        else:
+            rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
+            print("\n" + "-" * (rankingNameLength + 25))
+            print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].encode('utf-8').upper()))
+            print("-" * (rankingNameLength + 25))
+            year = currentYear
+            lastGames = []
 
-        while len(lastGames) < 8 and year > limitYear:
-            url = "https://www.tennisexplorer.com/player/" + player['tennisExplorerKeyword'] + "?annual=" + str(year)
-            print(url)
-            soup = getSoup(url)
-            table = soup.select("div[id=matches-" + str(year) + "-1-data]")
+            while len(lastGames) < 8 and year > limitYear:
+                url = "https://www.tennisexplorer.com/player/" + player['tennisExplorerKeyword'] + "?annual=" + str(year)
+                print(url)
+                soup = getSoup(url)
+                table = soup.select("div[id=matches-" + str(year) + "-1-data]")
 
-            if len(table) > 0:
-                schedule = table[0].select("tr")
-                noMatches = schedule[0].select("td.first.tl")
+                if len(table) > 0:
+                    schedule = table[0].select("tr")
+                    noMatches = schedule[0].select("td.first.tl")
 
-                if len(noMatches) == 0:
-                    for game in schedule:
-                        if "head" in game['class']:
-                            # Competition
-                            competitionLinks = game.select("a")
+                    if len(noMatches) == 0:
+                        for game in schedule:
+                            if "head" in game['class']:
+                                # Competition
+                                competitionLinks = game.select("a")
 
-                            if len(competitionLinks) > 0:
-                                competition = game.select("a")[0].text.strip()
+                                if len(competitionLinks) > 0:
+                                    competition = game.select("a")[0].text.strip()
+                                else:
+                                    competition = game.select("span")[0].text.strip()
+
+                                validCompetition = competition not in invalidCompetitions
                             else:
-                                competition = game.select("span")[0].text.strip()
+                                # Game
+                                if validCompetition:
+                                    if competition not in shownCompetitions:
+                                        try:
+                                            print("\t-> {}".format(competition.encode('utf-8')))
+                                        except Exception as e:
+                                            print("Exception with the competition {}".format(competition))
+                                        shownCompetitions.append(competition)
+                                    previousGame = {}
+                                    time = game.select("td")[0].text.split(".")
+                                    day = "{}-{}-{}".format(year, time[1], time[0])
 
-                            validCompetition = competition not in invalidCompetitions
-                        else:
-                            # Game
-                            if validCompetition:
-                                if competition not in shownCompetitions:
-                                    try:
-                                        print("\t-> {}".format(competition.encode('utf-8')))
-                                    except Exception as e:
-                                        print("Exception with the competition {}".format(competition))
-                                    shownCompetitions.append(competition)
-                                previousGame = {}
-                                time = game.select("td")[0].text.split(".")
-                                day = "{}-{}-{}".format(year, time[1], time[0])
+                                    if day > limit_date:
+                                        continue
 
-                                if day > limit_date:
-                                    continue
+                                    previousGame['time'] = day
+                                    player1 = game.select("td")[2].select("a")[0]['href'].split("/")[-2]
+                                    player2 = game.select("td")[2].select("a")[1]['href'].split("/")[-2]
+                                    numPlayer = player1 == player['tennisExplorerKeyword'] and 1 or 2
+                                    previousGame['opponent'] = numPlayer == 1 and player2 or player1
+                                    score = game.select("td")[4].select("a")[0].text.split(", ")
 
-                                previousGame['time'] = day
-                                player1 = game.select("td")[2].select("a")[0]['href'].split("/")[-2]
-                                player2 = game.select("td")[2].select("a")[1]['href'].split("/")[-2]
-                                numPlayer = player1 == player['tennisExplorerKeyword'] and 1 or 2
-                                previousGame['opponent'] = numPlayer == 1 and player2 or player1
-                                score = game.select("td")[4].select("a")[0].text.split(", ")
+                                    if score[0] != "":
+                                        set1 = score[0].split("-")
+                                        playerGames = numPlayer == 1 and int(set1[0]) or int(set1[1])
+                                        opponentGames = numPlayer == 1 and int(set1[1]) or int(set1[0])
 
-                                if score[0] != "":
-                                    set1 = score[0].split("-")
-                                    playerGames = numPlayer == 1 and int(set1[0]) or int(set1[1])
-                                    opponentGames = numPlayer == 1 and int(set1[1]) or int(set1[0])
+                                        if playerGames > 10:
+                                            numGames = playerGames // 10
+                                            playerGames = numGames
+                                        elif opponentGames > 10:
+                                            numGames = opponentGames // 10
+                                            opponentGames = numGames
 
-                                    if playerGames > 10:
-                                        numGames = playerGames // 10
-                                        playerGames = numGames
-                                    elif opponentGames > 10:
-                                        numGames = opponentGames // 10
-                                        opponentGames = numGames
+                                        if playerGames - opponentGames >= 2:
+                                            previousGame['breakDone'] = 1
+                                            previousGame['breakReceived'] = -1
+                                        elif opponentGames - playerGames >= 2:
+                                            previousGame['breakDone'] = -1
+                                            previousGame['breakReceived'] = 1
+                                        elif playerGames == 0:
+                                            previousGame['breakDone'] = 0
+                                            previousGame['breakReceived'] = -1
+                                        elif opponentGames == 0:
+                                            previousGame['breakDone'] = -1
+                                            previousGame['breakReceived'] = 0
+                                        else:
+                                            previousGame['breakDone'] = -1
+                                            previousGame['breakReceived'] = -1
 
-                                    if playerGames - opponentGames >= 2:
-                                        previousGame['breakDone'] = 1
-                                        previousGame['breakReceived'] = -1
-                                    elif opponentGames - playerGames >= 2:
-                                        previousGame['breakDone'] = -1
-                                        previousGame['breakReceived'] = 1
-                                    elif playerGames == 0:
-                                        previousGame['breakDone'] = 0
-                                        previousGame['breakReceived'] = -1
-                                    elif opponentGames == 0:
-                                        previousGame['breakDone'] = -1
-                                        previousGame['breakReceived'] = 0
-                                    else:
-                                        previousGame['breakDone'] = -1
-                                        previousGame['breakReceived'] = -1
+                                        lastGames.append(previousGame)
 
-                                    lastGames.append(previousGame)
+                                        if len(lastGames) == 8:
+                                            break
 
-                                    if len(lastGames) == 8:
-                                        break
+                year -= 1
 
-            year -= 1
-
-        updatedPlayer = {}
-        updatedPlayer['lastGames'] = lastGames
-        updatedPlayer['definedGames'] = 0
-        playersObj.update(updatedPlayer, [{'_id': player['_id']}])
+            updatedPlayer = {}
+            updatedPlayer['lastGames'] = lastGames
+            updatedPlayer['definedGames'] = 0
+            updatedPlayer['toModify'] = True
+            playersObj.update(updatedPlayer, [{'_id': player['_id']}])
 
 if __name__ == '__main__':
     getLastGames()

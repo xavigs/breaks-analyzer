@@ -44,45 +44,48 @@ def checkBreaks(sex, from_player, limit_player):
             players = playersObj.getWomenWithLastGames(from_player, limit_player)
 
     for player in players:
-        rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
-        print("\n" + "-" * (rankingNameLength + 25))
-        print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].encode('utf-8').upper()))
-        print("-" * (rankingNameLength + 25))
-        lastGames = []
-        error = False
+        if 'toModify' not in player or not player['toModify']:
+            continue
+        else:
+            rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
+            print("\n" + "-" * (rankingNameLength + 25))
+            print("|          ({}) {}          |".format(player['startingRanking'], player['tennisExplorerName'].encode('utf-8').upper()))
+            print("-" * (rankingNameLength + 25))
+            lastGames = []
+            error = False
 
-        for game in player['lastGames']:
-            previousGame = {}
-            opponent = playersObj.find([{'_id': game['opponent']}])
+            for game in player['lastGames']:
+                previousGame = {}
+                opponent = playersObj.find([{'_id': game['opponent']}])
 
-            if opponent is None:
-                playerMissing = {
-                    'sex': sex,
-                    'opponent': game['opponent'],
-                    'player': player['tennisExplorerName'],
-                    'playerRanking': player['startingRanking']
-                }
-                playersMissingObj.create(playerMissing)
-                error = True
-            elif "flashScoreId" in opponent:
-                previousGame['opponent'] = opponent['flashScoreId']
-                previousGame['date'] = game['time']
-                lastGames.append(previousGame)
-            else:
-                playerMissing = {
-                    'sex': sex,
-                    'opponent': game['opponent'],
-                    'player': player['tennisExplorerName'],
-                    'playerRanking': player['startingRanking']
-                }
-                playersMissingObj.create(playerMissing)
-                error = True
+                if opponent is None:
+                    playerMissing = {
+                        'sex': sex,
+                        'opponent': game['opponent'],
+                        'player': player['tennisExplorerName'],
+                        'playerRanking': player['startingRanking']
+                    }
+                    playersMissingObj.create(playerMissing)
+                    error = True
+                elif "flashScoreId" in opponent:
+                    previousGame['opponent'] = opponent['flashScoreId']
+                    previousGame['date'] = game['time']
+                    lastGames.append(previousGame)
+                else:
+                    playerMissing = {
+                        'sex': sex,
+                        'opponent': game['opponent'],
+                        'player': player['tennisExplorerName'],
+                        'playerRanking': player['startingRanking']
+                    }
+                    playersMissingObj.create(playerMissing)
+                    error = True
 
-        if not error and player['flashScoreId'] != "" and len(lastGames):
-            lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
-            #lastGamesBreaks = flashScore.newCheckBreaksLastGamesByPlayer(player['flashScoreId'], lastGames)
-            playersObj.updateBreakData(player['_id'], lastGamesBreaks)
-            playersObj.printBreakData(player['_id'])
+            if not error and player['flashScoreId'] != "" and len(lastGames):
+                lastGamesBreaks = flashScore.checkBreaksLastGamesByPlayer(player['flashScoreId'], player['flashScoreName'], lastGames)
+                #lastGamesBreaks = flashScore.newCheckBreaksLastGamesByPlayer(player['flashScoreId'], lastGames)
+                playersObj.updateBreakData(player['_id'], lastGamesBreaks)
+                playersObj.printBreakData(player['_id'])
 
 if __name__ == '__main__':
     checkBreaks()

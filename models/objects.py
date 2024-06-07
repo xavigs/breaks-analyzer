@@ -45,6 +45,9 @@ class MongoObject:
     def update(self, modifiedFields, conditions):
         document = self.collection.find_one({"$and": conditions})
         self.collection.update_one({'_id': document['_id']}, {'$set': modifiedFields})
+    
+    def update_all(self, modifiedFields):
+        self.collection.update_many({}, {'$set': modifiedFields})
 
     def delete(self, conditions):
         return self.collection.delete_many({'$and': conditions})
@@ -188,6 +191,9 @@ class Players(MongoObject):
         for game in player['lastGames']:
             numSpaces = 21 - len(game['opponent'])
             print("\t📌 Opponent: {}".format(game['opponent']) + " " * numSpaces + "| Break done: {} • Break received: {}".format(game['breakDone'], game['breakReceived']))
+    
+    def unsetAllToModify(self):
+        self.update_all({'toModify': False})
 
 class PlayersMissing(MongoObject):
 

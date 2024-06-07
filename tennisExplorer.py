@@ -2,7 +2,7 @@
 import requests
 from bs4 import BeautifulSoup
 from utils import *
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 BASE_URL = "https://www.tennisexplorer.com/"
 COMPETITIONS_TO_SKIP = (
@@ -402,3 +402,93 @@ def getTournaments(sex, year):
                     tournaments.append(tournament)
 
     return tournaments
+
+def getPlayedDailyGames(day = date.today().strftime("%Y-%m-%d"), sex = "men"):
+    gamesDay = datetime.strptime(day, "%Y-%m-%d")
+
+    if sex == "men":
+        url = BASE_URL + "next/?type=atp-single&year={}&month={}&day={}".format(gamesDay.year, '{:02d}'.format(gamesDay.month), '{:02d}'.format(gamesDay.day))
+    else:
+        url = BASE_URL + "next/?type=wta-single&year={}&month={}&day={}".format(gamesDay.year, '{:02d}'.format(gamesDay.month), '{:02d}'.format(gamesDay.day))
+
+    r = requests.get(url)
+    data = r.text
+    soup = BeautifulSoup(data, "lxml")
+    tables = soup.select("table[class=result]")
+    dottedDate = "{}. {}. {}".format('{:02d}'.format(gamesDay.day), '{:02d}'.format(gamesDay.month), gamesDay.year)
+    tournament = None
+    tournaments = []
+    games = []
+
+    for table in tables:
+        liSet = table.parent.select("li[class=set]")
+
+        if len(liSet) > 0 and liSet[0].text == dottedDate:
+            rows = table.select("tr")
+            break
+
+    for row in rows:
+        rowClasses = row['class']
+
+        if "head" in rowClasses:
+            # Competition
+            tournament = None
+            links = row.select("td[class=t-name] a")
+
+            if len(links) > 0:
+                tournamentName = row.select("td[class=t-name] a")[0].text.strip()
+
+                if tournamentName not in COMPETITIONS_TO_SKIP:
+                    if tournamentName not in tournaments:
+                        tournaments.append(tournamentName)
+
+                    href = row.select("td[class=t-name] a")[0]['href'].split("/")
+                    tournament = href[1]
+            else:
+                tournament = "itf"
+        else:
+            id = row['id']
+
+            if id[-1] != "b":
+                # Home player
+                thirdColumn = row.select("td")[2]
+
+                if tournament is not None:
+                    game1 = {
+                        'tournament': tournament,
+                        'time': row.select("td")[0].text[0:5]
+                    }
+                    game2 = game1.copy()
+                    game1['player1'] = row.select("td")[1].select("a")[0]['href'].split("/")[2]
+                    game2['player2'] = row.select("td")[1].select("a")[0]['href'].split("/")[2]
+            else:
+                # Away player
+                if tournament is not None:
+                    game1['player2'] = row.select("td")[0].select("a")[0]['href'].split("/")[2]
+                    game2['player1'] = row.select("td")[0].select("a")[0]['href'].split("/")[2]
+
+                    #if game1['tournament'] != "itf" and "itf" not in game1['tournament']:
+                    games.append(game1)
+                    games.append(game2)
+
+    return games
+
+def getLastDaysPlayers(sex = 'men', numDays = 2):
+    players = []
+    numDay = 1
+
+    while numDay <= (numDays + 1):
+        day = (datetime.now() - timedelta(days=(numDay - 1))).strftime('%Y-%m-%d')
+        print('Getting players from {}...'.format(day))
+        dailyGames = getPlayedDailyGames(day, sex)
+
+        for game in dailyGames:
+            if game['player1'] not in players:
+                players.append(game['player1'])
+            
+            if game['player2'] not in players:
+                players.append(game['player2'])
+        
+        numDay += 1
+
+    return players

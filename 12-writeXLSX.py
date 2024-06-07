@@ -262,6 +262,7 @@ def writeXLSX(day):
     server = smtplib.SMTP('smtp-mail.outlook.com', 587)
     #server.ehlo()  # send the extended hello to our server
     server.starttls()  # tell server we want to communicate with TLS encryption
+    #server.ehlo()  # send the extended hello to our server
     server.login(sender_email, 'juxtedev1984')
     response = server.sendmail(sender_email, receiver_email, text)
     print(response)

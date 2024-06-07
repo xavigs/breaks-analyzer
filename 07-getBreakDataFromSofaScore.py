@@ -37,57 +37,60 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
     players = [playerDB for playerDB in playersDB]
 
     for player in players:
-        playerMissingDB = playersMissingObj.find([{'sex': sex}, {'playerRanking': player['startingRanking']}])
+        if 'toModify' not in player or not player['toModify']:
+            continue
+        else:
+            playerMissingDB = playersMissingObj.find([{'sex': sex}, {'playerRanking': player['startingRanking']}])
 
-        if playerMissingDB is None:
-            rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
-            print("\n" + "-" * (rankingNameLength + 25))
+            if playerMissingDB is None:
+                rankingNameLength = len(str(player['startingRanking'])) + len(player['tennisExplorerName'])
+                print("\n" + "-" * (rankingNameLength + 25))
 
-            if "flashScoreName" in player and player['flashScoreName'] != "":
-                playerName = player['flashScoreName']
-            else:
-                playerName = player['tennisExplorerName']
-
-            print(u"|          ({}) {}          |".format(player['startingRanking'], playerName.upper()).encode('utf-8'))
-            print("-" * (rankingNameLength + 25))
-            lastGames = {'definedGames': player['definedGames'], 'games': []}
-            error = False
-
-            for game in player['lastGames']:
-                previousGame = {}
-                opponent = playersObj.find([{'_id': game['opponent']}])
-
-                if opponent is None:
-                    playerMissing = {
-                        'sex': sex,
-                        'opponent': game['opponent'],
-                        'player': player['tennisExplorerName'],
-                        'playerRanking': player['startingRanking']
-                    }
-                    playersMissingObj.create(playerMissing)
-                    error = True
-                elif "sofaScoreID" in opponent:
-                    previousGame['opponent'] = opponent['sofaScoreID']
+                if "flashScoreName" in player and player['flashScoreName'] != "":
+                    playerName = player['flashScoreName']
                 else:
-                    playerMissing = {
-                        'sex': sex,
-                        'opponent': game['opponent'],
-                        'player': player['tennisExplorerName'],
-                        'playerRanking': player['startingRanking'],
-                        'sofaScoreID': opponent['startingRanking']
-                    }
-                    playersMissingObj.create(playerMissing)
-                    print("⚠️  The opponent {} does not have sofaScoreID.".format(game['opponent']))
+                    playerName = player['tennisExplorerName']
 
-                previousGame['date'] = game['time']
-                previousGame['breakDone'] = game['breakDone']
-                previousGame['breakReceived'] = game['breakReceived']
-                lastGames['games'].append(previousGame)
+                print(u"|          ({}) {}          |".format(player['startingRanking'], playerName.upper()).encode('utf-8'))
+                print("-" * (rankingNameLength + 25))
+                lastGames = {'definedGames': player['definedGames'], 'games': []}
+                error = False
 
-            if not error:
-                lastGamesBreaks = sofaScore.checkBreaksUndefinedGamesByPlayer(player['sofaScoreID'], lastGames)
-                playersObj.updateBreakData(player['_id'], lastGamesBreaks)
-                playersObj.printBreakData(player['_id'])
+                for game in player['lastGames']:
+                    previousGame = {}
+                    opponent = playersObj.find([{'_id': game['opponent']}])
+
+                    if opponent is None:
+                        playerMissing = {
+                            'sex': sex,
+                            'opponent': game['opponent'],
+                            'player': player['tennisExplorerName'],
+                            'playerRanking': player['startingRanking']
+                        }
+                        playersMissingObj.create(playerMissing)
+                        error = True
+                    elif "sofaScoreID" in opponent:
+                        previousGame['opponent'] = opponent['sofaScoreID']
+                    else:
+                        playerMissing = {
+                            'sex': sex,
+                            'opponent': game['opponent'],
+                            'player': player['tennisExplorerName'],
+                            'playerRanking': player['startingRanking'],
+                            'sofaScoreID': opponent['startingRanking']
+                        }
+                        playersMissingObj.create(playerMissing)
+                        print("⚠️  The opponent {} does not have sofaScoreID.".format(game['opponent']))
+
+                    previousGame['date'] = game['time']
+                    previousGame['breakDone'] = game['breakDone']
+                    previousGame['breakReceived'] = game['breakReceived']
+                    lastGames['games'].append(previousGame)
+
+                if not error:
+                    lastGamesBreaks = sofaScore.checkBreaksUndefinedGamesByPlayer(player['sofaScoreID'], lastGames)
+                    playersObj.updateBreakData(player['_id'], lastGamesBreaks)
+                    playersObj.printBreakData(player['_id'])
 
     currentTime = datetime.now().strftime('%H:%M')
     tomorrow = (datetime.now() + timedelta(days=1)).strftime('%Y-%m-%d')
