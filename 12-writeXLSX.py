@@ -211,7 +211,7 @@ def writeXLSX(day):
         worksheet['N{}'.format(numRow)].alignment = alignmentCenter
         worksheet['N{}'.format(numRow)].number_format = "#,##0.00"
 
-        if game['odd'] > 2.20 and game['opponentWinOdd'] < 1.20:
+        if game['odd'] > 2.20 and game['opponentWinOdd'] < 1.60 and game['probability'] >= 0.8:
             picksToBet.append({
                 'player': game['FS-player1'],
                 'opponent': game['FS-player2'],
