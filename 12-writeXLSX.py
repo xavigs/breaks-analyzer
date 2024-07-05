@@ -221,21 +221,15 @@ def writeXLSX(day):
     worksheet.merge_cells('A1:A{}'.format(numRow))
     workbook.save(filepath)
 
-    # Send e-mail
+    # Prepare message
     print('Let\'s go to send e-mail')
-    subject = 'Breaks {}'.format(dayString)
-    body = json.dumps(picksToBet)
-    sender_email = 'd_masterweb@hotmail.com'
-    receiver_email = 'xaviergs1984@gmail.com'
+    body = body = json.dumps(picksToBet)
 
-    # Create a multipart message and set headers
-    message = MIMEMultipart()
-    message['From'] = sender_email
-    message['To'] = receiver_email
-    message['Subject'] = subject
-
-    # Add body to email
-    message.attach(MIMEText(body, 'plain'))
+    # Send e-mail
+    msg = MIMEMultipart()
+    msg['Subject'] = 'Breaks {}'.format(dayString)
+    msg['From'] = 'Juxte Breaks <labestia@gmail.com>'
+    msg.attach(MIMEText(body, 'plain'))
 
     # Open XLSX file in binary mode
     with open(filepath, 'rb') as attachment:
@@ -254,19 +248,16 @@ def writeXLSX(day):
     )
 
     # Add attachment to message and convert message to string
-    message.attach(part)
-    text = message.as_string()
+    msg.attach(part)
 
     # Log in to server using secure context and send email
-    context = ssl.create_default_context()
-    server = smtplib.SMTP('smtp-mail.outlook.com', 587)
-    #server.ehlo()  # send the extended hello to our server
-    server.starttls()  # tell server we want to communicate with TLS encryption
-    #server.ehlo()  # send the extended hello to our server
-    server.login(sender_email, 'juxtedev1984')
-    response = server.sendmail(sender_email, receiver_email, text)
-    print(response)
-    server.quit()
+    conn = SMTP('mail.basketball-stats.com')
+    conn.set_debuglevel(False)
+    conn.login('info@basketball-stats.com', 'Jurisproduccio_84*')
+    try:
+        conn.sendmail('info@basketball-stats.com', 'xaviergs1984@gmail.com', msg.as_string())
+    finally:
+        conn.quit()
 
     '''
         # TODO
