@@ -8,6 +8,7 @@ import json
 import click
 import email, smtplib, ssl
 from email import encoders
+from smtplib import SMTP_SSL as SMTP
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
