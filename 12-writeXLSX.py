@@ -224,7 +224,7 @@ def writeXLSX(day):
 
     # Prepare message
     print('Let\'s go to send e-mail')
-    body = body = json.dumps(picksToBet)
+    body = json.dumps(picksToBet)
 
     # Send e-mail
     msg = MIMEMultipart()
@@ -257,6 +257,8 @@ def writeXLSX(day):
     conn.login('info@basketball-stats.com', 'Jurisproduccio_84*')
     try:
         conn.sendmail('info@basketball-stats.com', 'xaviergs1984@gmail.com', msg.as_string())
+    except Exception as e:
+        print(e)
     finally:
         conn.quit()
 
