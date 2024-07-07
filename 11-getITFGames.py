@@ -31,6 +31,7 @@ def getITFGames(day):
             gameDB = gamesObj.find([{'gameDay': gameDay, 'TE-player1': game['home'], 'TE-player2': game['away']}])
 
             if gameDB is not None:
+                print(game['tournament'])
                 tournamentDB = tournamentsObj.find([{'_id': game['tournament'].lower()}])
                 gamesObj.update({'tournament': tournamentDB['_id']}, [{'_id': gameDB['_id']}])
             else:
