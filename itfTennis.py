@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import sys
+import time
 import requests
 import json
 from utils import *
@@ -28,7 +30,7 @@ def getTournaments(sex, year):
         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
     }'''
     headers = {
-        'Cookie': 'incap_ses_1396_178373=FvBJZrVhXXMNqqhripdfE8UM8mUAAAAAKXeitxBg+nBvckscEewlEA==;'
+        'Cookie': 'incap_ses_511_178373=g7uXcwwhgS6YYPw54m8XB55FlGYAAAAAylCcW2/ncJZrwXkp4eFR4A=='
     }
 
     while skip < 600:
@@ -64,8 +66,21 @@ def getDailyGames(day):
 
     url = "https://ls.fn.sportradar.com/itf/en/Europe:Berlin/gismo/client_dayinfo/{}".format(day)
     print(url)
-    content = requests.request("GET", url, data = "", headers = headers).text
-    gamesData = json.loads(content)['doc'][0]['data']['matches']
+    numRetries = 0
+    gamesData = []
+
+    while numRetries < 3:
+        try:
+            content = requests.request("GET", url, data = "", headers = headers).text
+            gamesData = json.loads(content)['doc'][0]['data']['matches']
+            break
+        except:
+            time.sleep(1)
+            numRetries += 1
+    
+    if len(gamesData) == 0:
+        print("No hi siguis")
+        sys.exit(1)
 
     for gameID, gameData in gamesData.items():
         if "Davis Cup" not in gameData['param5']:
