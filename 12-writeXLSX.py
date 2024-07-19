@@ -199,8 +199,6 @@ def writeXLSX(day):
         worksheet['K{}'.format(numRow)].font = fontRegularBlack
         worksheet['K{}'.format(numRow)].alignment = alignmentCenter
         worksheet['K{}'.format(numRow)].number_format = "#,##0.00"
-        print(game['probability'])
-        print(type(game['probability']))
         worksheet['L{}'.format(numRow)].value = str(game['probability']).replace(".", ",") + "%"
         worksheet['L{}'.format(numRow)].number_format = "0.00%"
         worksheet['L{}'.format(numRow)].font = fontBoldBlack
@@ -227,6 +225,7 @@ def writeXLSX(day):
     # Prepare message
     print('Let\'s go to send e-mail')
     body = json.dumps(picksToBet)
+    print(body)
 
     # Send e-mail
     msg = MIMEMultipart()
