@@ -30,7 +30,7 @@ def getTournaments(sex, year):
         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36"
     }'''
     headers = {
-        'Cookie': 'incap_ses_511_178373=g7uXcwwhgS6YYPw54m8XB55FlGYAAAAAylCcW2/ncJZrwXkp4eFR4A=='
+        'Cookie': 'incap_ses_268_178373=h3PjHTxymRPVHri7qSC4A9rQnGYAAAAAqhBPQl399F8S2/vClM0AHA=='
     }
 
     while skip < 600:
@@ -60,7 +60,19 @@ def getDailyGames(day):
     games = []
 
     headers = {
-        'If-None-Match': '"eba15a1e003323ee2a9fc65246f428a17da87dfd"',
+        'Accept': '*/*',
+        'Accept-Encoding': 'gzip, deflate, br, zstd',
+        'Accept-Language': 'es-ES,es;q=0.9,ca;q=0.8',
+        'Sec-Ch-Ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+        'Sec-Ch-Ua-Mobile': '?0',
+        'Sec-Ch-Ua-Platform': '"Windows"',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'cross-site',
+        'If-None-Match': '"0ebe71f6b4291ffd8b0b61f6e2f119ad96444eff"',
+        'Origin': 'https://live.itftennis.com',
+        'Priority': 'u=1, i',
+        'Referer': 'https://live.itftennis.com/',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
 
@@ -69,13 +81,13 @@ def getDailyGames(day):
     numRetries = 0
     gamesData = []
 
-    while numRetries < 3:
+    while numRetries < 5:
         try:
             content = requests.request("GET", url, data = "", headers = headers).text
             gamesData = json.loads(content)['doc'][0]['data']['matches']
             break
         except:
-            time.sleep(1)
+            time.sleep(2)
             numRetries += 1
     
     if len(gamesData) == 0:
