@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import time
 import requests
 from bs4 import BeautifulSoup
 from utils import *
@@ -397,7 +398,14 @@ def getTournaments(sex, year):
                             tournament['subcategory'] = "250"
 
                     urlTournament = BASE_URL + "{}/{}/{}/".format(tournament['_id'], year, SEX_KEYWORDS[sex])
-                    soup = BeautifulSoup(requests.get(urlTournament).text, "lxml")
+                    
+                    for attempt in range(3):
+                        try:
+                            soup = BeautifulSoup(requests.get(urlTournament).text, "lxml")
+                            break
+                        except:
+                            time.sleep(1)
+
                     tournament['country'] = getKeywordFromString(soup.select("h1")[0].text.split(" (")[1].split(")")[0])
                     tournaments.append(tournament)
 

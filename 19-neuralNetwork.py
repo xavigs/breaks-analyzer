@@ -1,4 +1,3 @@
-from datetime import datetime
 import json
 import pandas as pd
 import numpy as np
@@ -30,7 +29,7 @@ def printCollection(collection, level = 0):
     print("{}{}".format(levelIdentation, endings[collectionType]))
 
 # Constants to normalize
-CATEGORIES = ['WTA', 'ATP-Next', 'Davis', 'United Cup', 'ITF', 'CH', 'ATP-250', 'ATP-500', 'ATP-1000', 'ATP-Finals', 'GS']
+CATEGORIES = ['WTA', 'ATP-Next', 'Davis', 'United Cup', 'ITF', 'CH', 'ATP-250', 'ATP-500', 'ATP-1000', 'ATP-Finals', 'GS', 'JJOO']
 CATEGORIES_VALUE = 1 / (len(CATEGORIES) - 1)
 SURFACES = ['T', 'D', 'I', 'H', 'M']
 SURFACES_VALUE = 1 / (len(SURFACES) - 1)
@@ -38,6 +37,7 @@ LAST = ['22', '21', '12', '20', '02', '11', '10', '01', 'OK']
 LAST_VALUE = 1 / (len(LAST) - 1)
 HOME = ['NS', 'SS', 'NN', 'SN']
 HOME_VALUE = 1 / (len(HOME) - 1)
+NUM_PICKS_TRAIN = 7000
 
 # Load parameters
 with open('parameters.json') as content:
@@ -210,19 +210,22 @@ class NeuralNetwork:
 # NEURAL NETWORK !!
 nn = NeuralNetwork([7, 4, 2, 1])
 results = ['L', 'W']
-picksForTrain = breaksDF.iloc[0:4500][['Category', 'Surface', 'Last Games', 'Opponent Odd', 'Home', 'Odd', 'Probability']].values.tolist()
-resultsForTrain = breaksDF.iloc[0:4500][['Result']].values.tolist()
-picksToPredict = breaksDF.iloc[4500:][['Category', 'Surface', 'Last Games', 'Opponent Odd', 'Home', 'Odd', 'Probability']].values.tolist()
+picksForTrain = breaksDF.iloc[0:NUM_PICKS_TRAIN][['Category', 'Surface', 'Last Games', 'Opponent Odd', 'Home', 'Odd', 'Probability']].values.tolist()
+resultsForTrain = breaksDF.iloc[0:NUM_PICKS_TRAIN][['Result']].values.tolist()
+picksToPredict = breaksDF.iloc[NUM_PICKS_TRAIN:][['Category', 'Surface', 'Last Games', 'Opponent Odd', 'Home', 'Odd', 'Probability']].values.tolist()
 
 X = np.array(picksForTrain)
 y = np.array(resultsForTrain)
 Z = np.array(picksToPredict)
 
-nn.fit(X, y, learning_rate=0.01,epochs=1000000)
+nn.fit(X, y, learning_rate=0.01, epochs=1000000)
 
 index = 0
-dfIndex = 4500
+dfIndex = NUM_PICKS_TRAIN
 currentMonth = '1900-01'
+periods = {}
+totalUnits = 0
+totalPicks = 0
 
 for e in Z:
     prediction = nn.predict(e)
@@ -230,6 +233,16 @@ for e in Z:
     month = day[0:7]
 
     if month != currentMonth:
+        if currentMonth != '1900-01':
+            profit = round(units * 100 / numPicks, 2)
+            totalUnits += units
+            totalPicks += numPicks
+            periods[currentMonth] = {
+                'units': round(units, 2),
+                'num-picks': numPicks,
+                'yield': f'{profit}%'
+            }
+
         currentMonth = month
         units = 0.0
         numPicks = 0
@@ -265,3 +278,21 @@ for e in Z:
         print('Yield: {}%\n'.format(profit))
 
     dfIndex += 1
+
+profit = round(units * 100 / numPicks, 2)
+totalUnits += units
+totalPicks += numPicks
+periods[currentMonth] = {
+    'units': round(units, 2),
+    'num-picks': numPicks,
+    'yield': f'{profit}%'
+}
+
+profit = round(totalUnits * 100 / totalPicks, 2)
+periods['total'] = {
+    'units': round(totalUnits, 2),
+    'num-picks': totalPicks,
+    'yield': f'{profit}%'
+}
+print(json.dumps(periods, sort_keys=True, indent=4))
+nn.print_weights()

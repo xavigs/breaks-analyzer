@@ -1,5 +1,5 @@
 {
-	"last-row": 9402,
+	"last-row": 7703,
 	"formula":
 		[
 			{
@@ -327,48 +327,6 @@
 				"first-row": 7321,
 				"last-row": 7703,
 				"type": 1
-			},
-			{
-				"keyword": "2024-07",
-				"name": "Jul-24",
-				"first-row": 7704,
-				"last-row": 8075,
-				"type": 1
-			},
-			{
-				"keyword": "2024-08",
-				"name": "Ago-24",
-				"first-row": 8076,
-				"last-row": 8413,
-				"type": 1
-			},
-			{
-				"keyword": "2024-09",
-				"name": "Set-24",
-				"first-row": 8414,
-				"last-row": 8690,
-				"type": 1
-			},
-			{
-				"keyword": "2024-10",
-				"name": "Oct-24",
-				"first-row": 8691,
-				"last-row": 9126,
-				"type": 1
-			},
-			{
-				"keyword": "2024-11",
-				"name": "Nov-24",
-				"first-row": 9127,
-				"last-row": 9383,
-				"type": 1
-			},
-			{
-				"keyword": "2024-12",
-				"name": "Des-24",
-				"first-row": 9384,
-				"last-row": 9402,
-				"type": 1
 			}
 		],
 	"dismiss":
@@ -376,12 +334,12 @@
 			{
 				"col": "B",
 				"operator": "=",
-				"value": "GS"
+				"value": "nas"
 			},
 			{
 				"col": "C",
 				"operator": "=",
-				"value": "GS"
+				"value": "nas"
 			}
 		],
 	"jump": [37, 162, 1352],
@@ -2006,70 +1964,70 @@
 								"value": "ITF"
 							},
 							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.00
-							}
+                    						"col": "K",
+                    						"operator": ">",
+                    						"value": 2.00
+                					}
 						],
 						[
-							{
-								"col": "C",
-								"operator": "=",
-								"value": "ITF"
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.00
-							}
+								{
+										"col": "C",
+										"operator": "=",
+										"value": "ITF"
+								},
+								{
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.00
+                }
 						],
 						[
-							{
-								"col": "B",
-								"operator": "=",
-								"value": "ATP"
-							},
-							{
-								"col": "C",
-								"operator": "=",
-								"value": 250
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.00
-							}
+								{
+										"col": "B",
+										"operator": "=",
+										"value": "ATP"
+								},
+								{
+										"col": "C",
+										"operator": "=",
+										"value": 250
+								},
+								{
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.00
+                }
 						],
 						[
-							{
-								"col": "H",
-								"operator": "<",
-								"value": 1.20
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							}
-						],
+                {
+                    "col": "H",
+                    "operator": "<",
+                    "value": 1.20
+                },
+                {
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.20
+                }
+            ],
 						[
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							},
-							{
-								"col": "I",
-								"operator": "=",
-								"value": "S"
-							},
-							{
-								"col": "J",
-								"operator": "=",
-								"value": "N"
-							}
-						]
-					]
+                {
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.20
+                },
+								{
+										"col": "I",
+										"operator": "=",
+										"value": "S"
+								},
+								{
+										"col": "J",
+										"operator": "=",
+										"value": "N"
+								}
+            ]
+        ]
 			},
 			{
 				"name": "19-Sistema Experimental XV",
@@ -2080,42 +2038,42 @@
 				"conditions":
 					[
 						[
-							{
-								"col": "B",
-								"operator": "=",
-								"value": "ITF"
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.00
-							}
+								{
+										"col": "B",
+										"operator": "=",
+										"value": "ITF"
+								},
+								{
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.00
+                }
 						],
 						[
-							{
-								"col": "C",
-								"operator": "=",
-								"value": "ITF"
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.00
-							}
+								{
+										"col": "C",
+										"operator": "=",
+										"value": "ITF"
+								},
+								{
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.00
+                }
 						],
 						[
-							{
-								"col": "H",
-								"operator": "<",
-								"value": 1.20
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							}
-						]
-					]
+                {
+                    "col": "H",
+                    "operator": "<",
+                    "value": 1.20
+                },
+                {
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.20
+                }
+            ]
+        ]
 			},
 			{
 				"name": "20-Sistema Experimental XVI",
@@ -2125,291 +2083,24 @@
 				"start-bank": "Abr-24",
 				"conditions":
 					[
-						[
-							{
-								"col": "H",
-								"operator": "<",
-								"value": 1.60
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							},
-							{
-								"col": "L",
-								"operator": ">=",
-								"value": 0.8
-							}
-						]
-        			]
-			},
-			{
-				"name": "21-Sistema New Age I",
-				"future": 8414,
-				"start-date": "2024-09-01",
-				"start-text": "Set-24",
-				"start-bank": "Ago-24",
-				"conditions":
-					[
-						[
-							{
-								"col": "B",
-								"operator": "=",
-								"value": "ATP"
-							},
-							{
-								"col": "C",
-								"operator": "=",
-								"value": 250
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.00
-							}
-						],
-						[
-							{
-								"col": "B",
-								"operator": "=",
-								"value": "ITF"
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.00
-							}
-						],
-						[
-							{
-								"col": "C",
-								"operator": "=",
-								"value": "ITF"
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.00
-							}
-						],
-						[
-							{
-								"col": "H",
-								"operator": "<",
-								"value": 1.20
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							}
-						],
-						[
-							{
-								"col": "H",
-								"operator": "<",
-								"value": 1.60
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							},
+				          	[
+			                		{
+                    						"col": "H",
+                    						"operator": "<",
+	                    					"value": 1.60
+                					},
+                					{
+                    						"col": "K",
+                    						"operator": ">",
+                    						"value": 2.20
+                					},
 							{
 								"col": "L",
 								"operator": ">=",
 								"value": 0.8
 							}
-						]
-        			]
-			},
-			{
-				"name": "22-Sistema New Age II",
-				"future": 8414,
-				"start-date": "2024-09-01",
-				"start-text": "Set-24",
-				"start-bank": "Ago-24",
-				"conditions":
-					[
-						[
-							{
-								"col": "H",
-								"operator": "<",
-								"value": 1.60
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							},
-							{
-								"col": "L",
-								"operator": ">=",
-								"value": 0.8
-							}
-						],
-						[
-							{
-								"col": "B",
-								"operator": "=",
-								"value": "ITF"
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							}
-						],
-						[
-							{
-								"col": "C",
-								"operator": "=",
-								"value": "ITF"
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							}
-						]
-        			]
-			},
-			{
-				"name": "23-Sistema New Age III",
-				"future": 8414,
-				"start-date": "2024-09-01",
-				"start-text": "Set-24",
-				"start-bank": "Ago-24",
-				"conditions":
-					[
-						[
-							{
-								"col": "B",
-								"operator": "=",
-								"value": "ATP"
-							},
-							{
-								"col": "C",
-								"operator": "=",
-								"value": 250
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.00
-							}
-						],
-						[
-							{
-								"col": "H",
-								"operator": "<",
-								"value": 1.60
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							},
-							{
-								"col": "L",
-								"operator": ">=",
-								"value": 0.8
-							}
-						],
-						[
-							{
-								"col": "B",
-								"operator": "=",
-								"value": "ITF"
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							}
-						],
-						[
-							{
-								"col": "C",
-								"operator": "=",
-								"value": "ITF"
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							}
-						]
-        			]
-			},
-			{
-				"name": "24-Sistema New Age IV",
-				"future": 8414,
-				"start-date": "2024-09-01",
-				"start-text": "Set-24",
-				"start-bank": "Ago-24",
-				"conditions":
-					[
-						[
-							{
-								"col": "B",
-								"operator": "=",
-								"value": "ATP"
-							},
-							{
-								"col": "C",
-								"operator": "=",
-								"value": 250
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.00
-							}
-						],
-						[
-							{
-								"col": "B",
-								"operator": "=",
-								"value": "ITF"
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.00
-							}
-						],
-						[
-							{
-								"col": "C",
-								"operator": "=",
-								"value": "ITF"
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.00
-							}
-						],
-						[
-							{
-								"col": "H",
-								"operator": "<",
-								"value": 1.60
-							},
-							{
-								"col": "K",
-								"operator": ">",
-								"value": 2.20
-							},
-							{
-								"col": "L",
-								"operator": ">=",
-								"value": 0.8
-							}
-						]
-        			]
+            					]
+        				]
 			},
 			{
 				"name": "Valor >= 1,60 + Quota > 2,00",

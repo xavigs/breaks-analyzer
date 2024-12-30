@@ -22,22 +22,18 @@ def analyzeSystems(num_picks):
 
     # Variables
     SYSTEMS_TO_SHOW = (
-        "Sistema 3",
-        "Sistema NAS",
-        "Sistema D1SITIS",
-        "Sistema Experimental",
-        "Sistema Experimental I",
-        "Sistema Experimental II",
-        "Sistema Experimental IV",
         "Sistema Experimental V",
         "Sistema Experimental VI",
         "Sistema Experimental VII",
-        "Sistema Experimental IX",
-        "Sistema Experimental X",
-        "Sistema Experimental XI",
-        "Sistema Experimental XII",
+        "Sistema Experimental VIII",
         "Sistema Experimental XIII",
-        "Sistema Experimental XIV"
+        "Sistema Experimental XIV",
+        "Sistema Experimental XV",
+        "Sistema Experimental XVI",
+        "Sistema New Age I",
+        "Sistema New Age II",
+        "Sistema New Age III",
+        "Sistema New Age IV"
     )
     systems = {}
 
@@ -53,7 +49,7 @@ def analyzeSystems(num_picks):
         systems[system['name']]['temp-num-picks'] = 0
 
     # Open Workbook
-    workbook = openpyxl.load_workbook(filename = "Breaks 1r set.xlsx", read_only = True)
+    workbook = openpyxl.load_workbook(filename = "Breaks 1r set.xlsx", read_only = True, data_only = True)
 
     # Get Sheet Object by names
     sheet = workbook['Break']
@@ -167,7 +163,6 @@ def analyzeSystems(num_picks):
                     'num-picks': systems[systemName]['temp-num-picks'],
                     'yield': round(systems[systemName]['temp-units'] * 100 / systems[systemName]['temp-num-picks'], 2)
                 }
-                systems[systemName]['total-periods'] += 1
 
             origSystemName = systemName
             systemName = systemName.split("-")[1]
@@ -179,7 +174,7 @@ def analyzeSystems(num_picks):
             plusPeriods = 0
 
             for period in systemData['periods']:
-                if systemData['periods'][period]['units'] > 0:
+                if systemData['periods'][period]['units'] > 0 and systemData['periods'][period]['num-picks'] == num_picks:
                     positivePeriods += 1
 
                     if systemData['periods'][period]['yield'] >= 10:
@@ -199,11 +194,6 @@ def analyzeSystems(num_picks):
                     new_bank = bank + profit
                     print("\t\t-> " + periodKeyword + "\t" + str(round(periodData['units'], 2)) + " uts.\t" + str(periodData['num-picks']) + " picks \tYield: " + str(periodData['yield']) + " %\t\tBank final: " + str(new_bank) + u" \u20ac")
                     bank = new_bank
-
-                    if periodData['name'] == systemData['start-bank']:
-                        systems[origSystemName]['initial-bank'] = bank
-
-                    stake = round(bank / 40, 2)
                 except Exception as e:
                     print("\t\t-> " + periodKeyword + "\t" + str(round(periodData['units'], 2)) + " uts.\t" + str(periodData['num-picks']) + " picks \tYield: 0.00 %")
 

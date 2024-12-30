@@ -14,7 +14,7 @@ systemsObj = objects.Systems(breaksDB)
 @click.command()
 @click.option(
     '-s', '--system',
-    help = "System to get games", type = str, default = "Experimental XIII", show_default = True
+    help = "System to get games", type = str, default = "New Age IV", show_default = True
 )
 @click.option(
     '-m', '--month',

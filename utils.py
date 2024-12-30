@@ -9,11 +9,7 @@ def printCollectionContent(openings, level, levelIdentation, identation, key, va
     print(u"{}{}[{}] =>".format(levelIdentation, identation, key), end=" ")
 
     if type(value).__name__ not in openings:
-        try:
-            print(u"{}".format(value).encode('utf-8'))
-        except Exception as e:
-            print(e)
-            exit()
+        print(u"{}".format(value).encode('utf-8'))
     else:
         printCollection(value, level + 1)
 

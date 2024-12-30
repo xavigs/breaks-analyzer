@@ -70,7 +70,7 @@ def printDailyGames(games_day, sex):
                             else:
                                 breakDoneChar = "?"
 
-                    print u" {}   {}".format(playerGame['time'], opponentName) + " " * numSpacesAfterPlayer1 + breakDoneChar + " " * 6 + "|",
+                    print(u" {}   {}".format(playerGame['time'], opponentName) + " " * numSpacesAfterPlayer1 + breakDoneChar + " " * 6 + "|", end='')
                 else:
                     print(" " * 50)
 

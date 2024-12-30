@@ -29,22 +29,18 @@ with open("parameters.json") as content:
 
 # Variables
 SYSTEMS_TO_SHOW = (
-    "Sistema 3",
-    "Sistema NAS",
-    "Sistema D1SITIS",
-    "Sistema Experimental",
-    "Sistema Experimental I",
-    "Sistema Experimental II",
-    "Sistema Experimental IV",
     "Sistema Experimental V",
     "Sistema Experimental VI",
     "Sistema Experimental VII",
-    "Sistema Experimental IX",
-    "Sistema Experimental X",
-    "Sistema Experimental XI",
-    "Sistema Experimental XII",
+    "Sistema Experimental VIII",
     "Sistema Experimental XIII",
-    "Sistema Experimental XIV"
+    "Sistema Experimental XIV",
+    "Sistema Experimental XV",
+    "Sistema Experimental XVI",
+    "Sistema New Age I",
+    "Sistema New Age II",
+    "Sistema New Age III",
+    "Sistema New Age IV"
 )
 systems = {}
 formula = {}
@@ -71,6 +67,8 @@ for system in parameters['systems']:
     systems[system['name']]['500'] = 0.0
     systems[system['name']]['550'] = 0.0
     systems[system['name']]['600'] = 0.0
+    systems[system['name']]['650'] = 0.0
+    systems[system['name']]['700'] = 0.0
     systems[system['name']]['units'] = 0.0
     systems[system['name']]['num-picks'] = 0
     systems[system['name']]['total-months'] = 0
@@ -223,6 +221,10 @@ for row in sheet.iter_rows(min_row = 4, max_row = parameters['last-row']):
                         systems[system['name']]['550'] = systems[system['name']]['yield']
                     elif systems[system['name']]['num-picks'] == 600:
                         systems[system['name']]['600'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 650:
+                        systems[system['name']]['650'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 700:
+                        systems[system['name']]['700'] = systems[system['name']]['yield']
 
                     if "future" in system and rowNumber >= system['future']:
                         systems[system['name']]['future']['units'] += balance
@@ -865,6 +867,64 @@ for systemName, systemData in sorted(systems.items()):
             systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
             sys.stdout.write(" " + str(systemData['600']) + " %")
             leftChars = len(systemName) - len(str(systemData['600']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    650   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['650']) + " %")
+            leftChars = len(systemName) - len(str(systemData['650']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    700   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['700']) + " %")
+            leftChars = len(systemName) - len(str(systemData['700']))
 
             for i in range(1, leftChars):
                 sys.stdout.write(" ")

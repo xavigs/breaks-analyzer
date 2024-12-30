@@ -106,8 +106,8 @@ def writeXLSX(day):
     worksheet['A1'].alignment = alignmentCenter
     worksheet['A1'].border = rightBorder
     worksheet['A1'].fill = PatternFill(start_color = "ffd966", end_color = "ffd966", fill_type = "solid")
-    games = gamesObj.find_all([{'gameDay': dayString, 'odd': {"$exists": True, "$gte": 1.57}}])
-    print("Nº picks: {}".format(games.count()))
+    games = list(gamesObj.find_all([{'gameDay': dayString, 'odd': {"$exists": True, "$gte": 1.57}}]))
+    print("Nº picks: {}".format(len(games)))
 
     for gameIndex, game in enumerate(games):
         numRow = gameIndex + 1
