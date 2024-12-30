@@ -20,7 +20,7 @@ tournamentsObj = objects.Tournaments(breaksDB)
 
 def getITFGames(day):
     gameDay = day
-    day = day.replace('-', '')
+    #day = day.replace('-', '')
     games = itfTennis.getDailyGames(day)
     ORIGIN_NAMES = ["Alexander"]
     FINAL_NAMES = ["Alex"]

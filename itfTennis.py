@@ -93,31 +93,41 @@ def getDailyGames(day):
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     }
 
-    url = "https://ls.fn.sportradar.com/itf/en/Europe:Berlin/gismo/client_dayinfo/{}".format(day)
+    url = "https://api.itf-production.sports-data.stadion.io/custom/wttCompleteMatchList/{}".format(day)
+    #url = 'https://ls.fn.sportradar.com/itf/en/Europe:Berlin/gismo/client_dayinfo/20241229'
     print(url)
     numRetries = 0
-    gamesData = []
+    tournamentsData = []
 
     while numRetries < 5:
         try:
             content = requests.request("GET", url, data = "", headers = headers).text
-            gamesData = json.loads(content)['doc'][0]['data']['matches']
+            tournamentsData = json.loads(content)['data']
             break
         except:
             time.sleep(2)
             numRetries += 1
-    
-    if len(gamesData) == 0:
+
+    if len(tournamentsData) == 0:
         print("No hi siguis")
         sys.exit(1)
 
-    for gameID, gameData in gamesData.items():
-        if "Davis Cup" not in gameData['param5']:
+    for tournament, tournamentData  in tournamentsData.items():
+        tournamentID = tournamentData['tennisId']
+        '''if "Davis Cup" not in gameData['param5']:
             game = {
                 'home': gameData['match']['teams']['home']['name'].replace(", ", " ").replace(",", " ").replace("  ", " "),
                 'away': gameData['match']['teams']['away']['name'].replace(", ", " ").replace(",", " ").replace("  ", " "),
                 'tournament': gameData['param4']
             }
-            games.append(game)
+            games.append(game)'''
+        for courtName, courtData in tournamentData['courts'].items():
+            for gameData in courtData:
+                game = {
+                    'home': f"{gameData['sides'][0]['sidePlayer'][0]['player']['person']['lastName']} {gameData['sides'][0]['sidePlayer'][0]['player']['person']['firstName']}",
+                    'away': f"{gameData['sides'][1]['sidePlayer'][0]['player']['person']['lastName']} {gameData['sides'][1]['sidePlayer'][0]['player']['person']['firstName']}",
+                    'tournament': tournamentID
+                }
+                games.append(game)
 
     return games
