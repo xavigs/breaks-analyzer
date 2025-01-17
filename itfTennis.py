@@ -45,7 +45,7 @@ def getTournaments(sex, year):
             cookies = f'{cookie.name}={session.cookies[cookie.name]}'
     
     #headers = {'Cookie': cookies}'''
-    headers = {'Cookie': 'incap_ses_1773_178373=nZE+RbL1qm7zHXh1TvaaGDXJY2cAAAAAkvKsqKSx8Hi3YvZU6LbjKw=='}
+    headers = {'Cookie': 'incap_ses_1773_178373=XGw7GH1MpXWFtXXEUPaaGGe0gmcAAAAA9O/heJq62MJ0j1B5d8QMtA=='}
     #print(headers)
 
     while skip < 700:
@@ -123,11 +123,12 @@ def getDailyGames(day):
             games.append(game)'''
         for courtName, courtData in tournamentData['courts'].items():
             for gameData in courtData:
-                game = {
-                    'home': f"{gameData['sides'][0]['sidePlayer'][0]['player']['person']['lastName']} {gameData['sides'][0]['sidePlayer'][0]['player']['person']['firstName']}",
-                    'away': f"{gameData['sides'][1]['sidePlayer'][0]['player']['person']['lastName']} {gameData['sides'][1]['sidePlayer'][0]['player']['person']['firstName']}",
-                    'tournament': tournamentID
-                }
-                games.append(game)
+                if len(gameData['sides']) == 2 and len(gameData['sides'][0]['sidePlayer']) > 0 and len(gameData['sides'][1]['sidePlayer']) > 0 and gameData['sides'][0]['sidePlayer'][0]['player']['person'] is not None and gameData['sides'][1]['sidePlayer'][0]['player']['person'] is not None:
+                    game = {
+                        'home': f"{gameData['sides'][0]['sidePlayer'][0]['player']['person']['lastName']} {gameData['sides'][0]['sidePlayer'][0]['player']['person']['firstName']}",
+                        'away': f"{gameData['sides'][1]['sidePlayer'][0]['player']['person']['lastName']} {gameData['sides'][1]['sidePlayer'][0]['player']['person']['firstName']}",
+                        'tournament': tournamentID
+                    }
+                    games.append(game)
 
     return games
