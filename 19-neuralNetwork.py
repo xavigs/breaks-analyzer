@@ -37,7 +37,7 @@ LAST = ['22', '21', '12', '20', '02', '11', '10', '01', 'OK']
 LAST_VALUE = 1 / (len(LAST) - 1)
 HOME = ['NS', 'SS', 'NN', 'SN']
 HOME_VALUE = 1 / (len(HOME) - 1)
-NUM_PICKS_TRAIN = 7000
+NUM_PICKS_TRAIN = 7500
 
 # Load parameters
 with open('parameters.json') as content:

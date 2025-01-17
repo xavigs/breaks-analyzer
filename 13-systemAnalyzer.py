@@ -69,6 +69,12 @@ for system in parameters['systems']:
     systems[system['name']]['600'] = 0.0
     systems[system['name']]['650'] = 0.0
     systems[system['name']]['700'] = 0.0
+    systems[system['name']]['750'] = 0.0
+    systems[system['name']]['800'] = 0.0
+    systems[system['name']]['850'] = 0.0
+    systems[system['name']]['900'] = 0.0
+    systems[system['name']]['950'] = 0.0
+    systems[system['name']]['1000'] = 0.0
     systems[system['name']]['units'] = 0.0
     systems[system['name']]['num-picks'] = 0
     systems[system['name']]['total-months'] = 0
@@ -225,6 +231,18 @@ for row in sheet.iter_rows(min_row = 4, max_row = parameters['last-row']):
                         systems[system['name']]['650'] = systems[system['name']]['yield']
                     elif systems[system['name']]['num-picks'] == 700:
                         systems[system['name']]['700'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 750:
+                        systems[system['name']]['750'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 800:
+                        systems[system['name']]['800'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 850:
+                        systems[system['name']]['850'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 900:
+                        systems[system['name']]['900'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 950:
+                        systems[system['name']]['950'] = systems[system['name']]['yield']
+                    elif systems[system['name']]['num-picks'] == 1000:
+                        systems[system['name']]['1000'] = systems[system['name']]['yield']
 
                     if "future" in system and rowNumber >= system['future']:
                         systems[system['name']]['future']['units'] += balance
@@ -944,6 +962,181 @@ for systemName, systemData in sorted(systems.items()):
                 sys.stdout.write("-")
 
             sys.stdout.write("--")
+
+sys.stdout.write("\n|    750   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['750']) + " %")
+            leftChars = len(systemName) - len(str(systemData['750']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    800   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['800']) + " %")
+            leftChars = len(systemName) - len(str(systemData['800']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    850   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['850']) + " %")
+            leftChars = len(systemName) - len(str(systemData['850']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    900   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['900']) + " %")
+            leftChars = len(systemName) - len(str(systemData['900']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    950   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['950']) + " %")
+            leftChars = len(systemName) - len(str(systemData['950']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
+sys.stdout.write("\n|    1000   |")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write(" " + str(systemData['1000']) + " %")
+            leftChars = len(systemName) - len(str(systemData['1000']))
+
+            for i in range(1, leftChars):
+                sys.stdout.write(" ")
+
+            sys.stdout.write("|")
+
+sys.stdout.write("\n------------")
+
+for systemName, systemData in sorted(systems.items()):
+    if "Sistema" in systemName:
+        systemName = systemName.split("-")[1]
+        if systemName in SYSTEMS_TO_SHOW and "future" in systemData:
+            systemName = systemName.replace("Sistema ", "").replace("Experimental", "Exp.").center(7)
+            sys.stdout.write("-")
+
+            for char in systemName:
+                sys.stdout.write("-")
+
+            sys.stdout.write("--")
+
 sys.stdout.write("\n")
 exit()
 print("\n\n~~ Fórmula Actual ~~\n")
