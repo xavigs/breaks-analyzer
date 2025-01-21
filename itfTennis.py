@@ -45,7 +45,7 @@ def getTournaments(sex, year):
             cookies = f'{cookie.name}={session.cookies[cookie.name]}'
     
     #headers = {'Cookie': cookies}'''
-    headers = {'Cookie': 'incap_ses_1773_178373=XGw7GH1MpXWFtXXEUPaaGGe0gmcAAAAA9O/heJq62MJ0j1B5d8QMtA=='}
+    headers = {'Cookie': 'incap_ses_1773_178373=TK0EJvDRjUVO4XvLUPaaGPo4jWcAAAAALtYaccy/3liKX7xDJBQPog=='}
     #print(headers)
 
     while skip < 700:

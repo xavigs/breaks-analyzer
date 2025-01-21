@@ -26,7 +26,7 @@ def executeNextScript():
     if machineName == 'juxtelab-pc':
         pythonPath = 'python'
     else:
-        pythonPath = '/root/.virtualenvs/breaks/bin/python'
+        pythonPath = '/usr/local/bin/python3'
 
     if currentTime < '12:00':
         os.system('{} {}/11-getITFGames.py > /tmp/breaks-11M.log 2>&1'.format(pythonPath, currentPath))
