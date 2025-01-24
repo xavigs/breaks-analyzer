@@ -361,7 +361,7 @@ def parseStats(content):
     return False
 
 def getBreakData(game):
-    url = 'https://2.flashscore.ninja/2/x/feed/df_st_1_{}'.format(game['id'])
+    url = 'https://2.flashscore.ninja/2/x/feed/df_mh_1_{}'.format(game['id'])
     soup = getSoup(url)
     paragraphs = soup.select("p")
 
