@@ -134,11 +134,14 @@ def findBreakStats(gameDB, playerTEName, playerFSName):
                 for courtGame in enumerate(courtGames):
                     for gameData in courtGame:
                         if isinstance(gameData, dict):
-                            homePlayerName = '{} {}'.format(gameData['sides'][0]['sidePlayer'][0]['player']['person']['lastName'], gameData['sides'][0]['sidePlayer'][0]['player']['person']['firstName'])
-                            homePlayerSideId = gameData['sides'][0]['sidePlayer'][0]['sideId']
-                            awayPlayerName = '{} {}'.format(gameData['sides'][1]['sidePlayer'][0]['player']['person']['lastName'], gameData['sides'][1]['sidePlayer'][0]['player']['person']['firstName'])
-                            awayPlayerSideId = gameData['sides'][1]['sidePlayer'][0]['sideId']
-                            #print(homePlayerName, awayPlayerName)
+                            try:
+                                homePlayerName = '{} {}'.format(gameData['sides'][0]['sidePlayer'][0]['player']['person']['lastName'], gameData['sides'][0]['sidePlayer'][0]['player']['person']['firstName'])
+                                homePlayerSideId = gameData['sides'][0]['sidePlayer'][0]['sideId']
+                                awayPlayerName = '{} {}'.format(gameData['sides'][1]['sidePlayer'][0]['player']['person']['lastName'], gameData['sides'][1]['sidePlayer'][0]['player']['person']['firstName'])
+                                awayPlayerSideId = gameData['sides'][1]['sidePlayer'][0]['sideId']
+                                #print(homePlayerName, awayPlayerName)
+                            except:
+                                continue
 
                             if homePlayerName == playerTEName or homePlayerName == playerFSName:
                                 playerSideId = homePlayerSideId
