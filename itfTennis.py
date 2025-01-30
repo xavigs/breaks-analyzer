@@ -97,8 +97,8 @@ def getDailyGames(day):
             for gameData in courtData:
                 if len(gameData['sides']) == 2 and len(gameData['sides'][0]['sidePlayer']) > 0 and len(gameData['sides'][1]['sidePlayer']) > 0 and gameData['sides'][0]['sidePlayer'][0]['player']['person'] is not None and gameData['sides'][1]['sidePlayer'][0]['player']['person'] is not None:
                     game = {
-                        'home': f"{gameData['sides'][0]['sidePlayer'][0]['player']['person']['lastName']} {gameData['sides'][0]['sidePlayer'][0]['player']['person']['firstName']}",
-                        'away': f"{gameData['sides'][1]['sidePlayer'][0]['player']['person']['lastName']} {gameData['sides'][1]['sidePlayer'][0]['player']['person']['firstName']}",
+                        'home': '{} {}'.format(gameData['sides'][0]['sidePlayer'][0]['player']['person']['lastName'], gameData['sides'][0]['sidePlayer'][0]['player']['person']['firstName']),
+                        'away': '{} {}'.format(gameData['sides'][1]['sidePlayer'][0]['player']['person']['lastName'], gameData['sides'][1]['sidePlayer'][0]['player']['person']['firstName']),
                         'tournament': tournamentID
                     }
                     games.append(game)
@@ -107,7 +107,7 @@ def getDailyGames(day):
 
 def findBreakStats(gameDB, playerTEName, playerFSName):
     breaksData = {}
-    matchListURL = f"https://api.itf-production.sports-data.stadion.io/custom/wttCompleteMatchList/{gameDB['gameDay']}"
+    matchListURL = 'https://api.itf-production.sports-data.stadion.io/custom/wttCompleteMatchList/{}'.format(gameDB['gameDay'])
     numRetries = 0
     tournamentsData = []
 
@@ -134,9 +134,9 @@ def findBreakStats(gameDB, playerTEName, playerFSName):
                 for courtGame in enumerate(courtGames):
                     for gameData in courtGame:
                         if isinstance(gameData, dict):
-                            homePlayerName = f"{gameData['sides'][0]['sidePlayer'][0]['player']['person']['lastName']} {gameData['sides'][0]['sidePlayer'][0]['player']['person']['firstName']}"
+                            homePlayerName = '{} {}'.format(gameData['sides'][0]['sidePlayer'][0]['player']['person']['lastName'], gameData['sides'][0]['sidePlayer'][0]['player']['person']['firstName'])
                             homePlayerSideId = gameData['sides'][0]['sidePlayer'][0]['sideId']
-                            awayPlayerName = f"{gameData['sides'][1]['sidePlayer'][0]['player']['person']['lastName']} {gameData['sides'][1]['sidePlayer'][0]['player']['person']['firstName']}"
+                            awayPlayerName = '{} {}'.format(gameData['sides'][1]['sidePlayer'][0]['player']['person']['lastName'], gameData['sides'][1]['sidePlayer'][0]['player']['person']['firstName'])
                             awayPlayerSideId = gameData['sides'][1]['sidePlayer'][0]['sideId']
                             #print(homePlayerName, awayPlayerName)
 
@@ -153,7 +153,7 @@ def findBreakStats(gameDB, playerTEName, playerFSName):
                             if (homePlayerName == gameDB['TE-player1'] or homePlayerName == gameDB['FS-player1']) and (awayPlayerName == gameDB['TE-player2'] or awayPlayerName == gameDB['FS-player2']) or (homePlayerName == gameDB['TE-player2'] or homePlayerName == gameDB['FS-player2']) and (awayPlayerName == gameDB['TE-player1'] or awayPlayerName == gameDB['FS-player1']):
                                 # Game found
                                 print(playerSideId, opponentSideId)
-                                gameStatsURL = f"https://api.itf-production.sports-data.stadion.io/custom/widgetMatchStats/{gameData['id']}"
+                                gameStatsURL = 'https://api.itf-production.sports-data.stadion.io/custom/widgetMatchStats/{}'.format(gameData['id'])
                                 print(gameStatsURL)
                                 numRetries = 0
 
