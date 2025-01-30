@@ -86,8 +86,8 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                     if definedGame:
                         break
 
-                    gameDate = f'{year}-{monthDay}'
-                    url = f"{BASE_URL}sport/tennis/scheduled-events/{gameDate}"
+                    gameDate = '{}-{}'.format(year, monthDay)
+                    url = '{}sport/tennis/scheduled-events/{}'.format(BASE_URL, gameDate)
                     print(url)
                     dataJSON = getJSONFromURL(url)
 
@@ -98,7 +98,7 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
 
                             if homePlayer == playerID and awayPlayer == game['opponent'] or homePlayer == game['opponent'] and awayPlayer == playerID:
                                 found = True
-                                urlGame = f"{BASE_URL}event/{dailyGame['id']}"
+                                urlGame = '{}event/{}'.format(BASE_URL, dailyGame['id'])
                                 print(urlGame)
                                 gameJSON = getJSONFromURL(urlGame)
 
@@ -111,7 +111,7 @@ def checkBreaksUndefinedGamesByPlayer(playerID, lastGames):
                                     else:
                                         setFinished = False
 
-                                    urlStats = f"{BASE_URL}event/{dailyGame['id']}/statistics"
+                                    urlStats = '{}event/{}/statistics'.format(BASE_URL, dailyGame['id'])
                                     print(urlStats)
                                     statsJSON = getJSONFromURL(urlStats)
 
