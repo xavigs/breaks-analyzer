@@ -89,6 +89,7 @@ COMPETITIONS_TO_SKIP = (
     "Liga MAPFRE de Tenis 5", # 29/07/2020
     "Liverpool - exhibition", # 16/06/2022
     "London - seniors", # 25/11/2021
+    "Macau Tennis Masters", # 24/12/2024
     "Macha Lake Open", # 24/06/2020
     "Marbello Exhibition Series", # 06/05/2020
     "Merko Cup", # 29/07/2020
@@ -112,6 +113,7 @@ COMPETITIONS_TO_SKIP = (
     "Polish National Tour 5", # 15/08/2020
     "Polish National Tour 6", # 20/08/2020
     "Privatbanka Open", # 09/07/2020
+    "Riyadh - exhibition", # 10/2024
     "Securitas Pro Cup", # 24/07/2020
     "SK Soccer Cup", # 23/05/2020
     "Svijany Open", # 29/07/2020
