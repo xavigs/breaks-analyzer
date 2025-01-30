@@ -82,7 +82,7 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
                             'sofaScoreID': opponent['startingRanking']
                         }
                         playersMissingObj.create(playerMissing)
-                        print(f"⚠️  The opponent {game['opponent']} does not have sofaScoreID")
+                        print('⚠️  The opponent {} does not have sofaScoreID'.format(game['opponent']))
                         error = True
 
                     previousGame['date'] = game['time']
@@ -104,7 +104,7 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
 
                     if opponent is not None and (gameData['breakDone'] == -1 or gameData['breakReceived'] == -1):
                         # Breaks not defined yet; verify if the game is ITF
-                        print(f"ITF: {gameData['time']} - {gameData['opponent']}")
+                        print('ITF: {} - {}'.format(gameData['time'], gameData['opponent']))
                         gameDB = gamesObj.find([{'gameDay': gameData['time'], 'player1ID': player['_id'], 'player2ID': gameData['opponent']}])
 
                         if gameDB is None:
@@ -112,7 +112,7 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
                         
                         if gameDB is None:
                             nextYear = int(gameData['time'][:4]) + 1
-                            gameData['time'] = f"{nextYear}-{gameData['time'][5:10]}"
+                            gameData['time'] = '{}-{}'.format(nextYear, gameData['time'][5:10])
                             gameDB = gamesObj.find([{'gameDay': gameData['time'], 'player1ID': player['_id'], 'player2ID': gameData['opponent']}])
                         
                         if gameDB is None:
