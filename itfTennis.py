@@ -13,39 +13,29 @@ SURFACES = {
     'G': 'H',
     'A': 'M'
 }
+headers = {
+    'Accept': '*/*',
+    'Accept-Encoding': 'gzip, deflate, br, zstd',
+    'Accept-Language': 'es-ES,es;q=0.9,ca;q=0.8',
+    'Sec-Ch-Ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
+    'Sec-Ch-Ua-Mobile': '?0',
+    'Sec-Ch-Ua-Platform': '"Windows"',
+    'Sec-Fetch-Dest': 'empty',
+    'Sec-Fetch-Mode': 'cors',
+    'Sec-Fetch-Site': 'cross-site',
+    'If-None-Match': '"0ebe71f6b4291ffd8b0b61f6e2f119ad96444eff"',
+    'Origin': 'https://live.itftennis.com',
+    'Priority': 'u=1, i',
+    'Referer': 'https://live.itftennis.com/',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+}
 
 def getTournaments(sex, year):
     tournaments = []
     skip = 0
 
     # Get cookie from a random URL
-    '''headers = {
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Encoding': 'gzip, deflate, br, zstd',
-        'Accept-Language': 'es-ES,es;q=0.9,ca;q=0.8',
-        'Cache-Control': 'max-age=0',
-        'If-None-Match': '"d0a8a31d"',
-        'Priority': "u=0, i",
-        'Sec-Ch-Ua': '"Google Chrome";v="117", "Not;A=Brand";v="8", "Chromium";v="117"',
-        'Sec-Ch-Ua-Mobile': '?0',
-        'Sec-Ch-Ua-Platform': '"Windows"',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'same-origin',
-        'Sec-Fetch-User': '?1',
-        'Upgrade-Insecure-Requests': '1',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
-    }
-    randomURL = 'https://www.itftennis.com/en/tournament-calendar/mens-world-tennis-tour-calendar'
-    session = requests.Session()
-    session.get(randomURL, headers=headers)
-
-    for cookie in session.cookies:
-        if 'incap_ses_' in cookie.name:
-            cookies = f'{cookie.name}={session.cookies[cookie.name]}'
-    
-    #headers = {'Cookie': cookies}'''
-    headers = {'Cookie': 'incap_ses_1773_178373=TK0EJvDRjUVO4XvLUPaaGPo4jWcAAAAALtYaccy/3liKX7xDJBQPog=='}
+    headers = {'Cookie': 'incap_ses_1773_178373=bJqFVApaPHori4/RUPaaGD2MlmcAAAAA2DpPvFoTxvGj+LJ5esYJyg=='}
     #print(headers)
 
     while skip < 700:
@@ -75,24 +65,6 @@ def getTournaments(sex, year):
 
 def getDailyGames(day):
     games = []
-
-    headers = {
-        'Accept': '*/*',
-        'Accept-Encoding': 'gzip, deflate, br, zstd',
-        'Accept-Language': 'es-ES,es;q=0.9,ca;q=0.8',
-        'Sec-Ch-Ua': '"Not/A)Brand";v="8", "Chromium";v="126", "Google Chrome";v="126"',
-        'Sec-Ch-Ua-Mobile': '?0',
-        'Sec-Ch-Ua-Platform': '"Windows"',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'cross-site',
-        'If-None-Match': '"0ebe71f6b4291ffd8b0b61f6e2f119ad96444eff"',
-        'Origin': 'https://live.itftennis.com',
-        'Priority': 'u=1, i',
-        'Referer': 'https://live.itftennis.com/',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-    }
-
     url = "https://api.itf-production.sports-data.stadion.io/custom/wttCompleteMatchList/{}".format(day)
     #url = 'https://ls.fn.sportradar.com/itf/en/Europe:Berlin/gismo/client_dayinfo/20241229'
     print(url)
@@ -132,3 +104,76 @@ def getDailyGames(day):
                     games.append(game)
 
     return games
+
+def findBreakStats(gameDB, playerTEName, playerFSName):
+    breaksData = {}
+    matchListURL = f"https://api.itf-production.sports-data.stadion.io/custom/wttCompleteMatchList/{gameDB['gameDay']}"
+    numRetries = 0
+    tournamentsData = []
+
+    while numRetries < 5:
+        try:
+            content = requests.request('GET', matchListURL, data = '', headers = headers).text
+            tournamentsData = json.loads(content)['data']
+            break
+        except:
+            time.sleep(2)
+            numRetries += 1
+    
+    if len(tournamentsData) == 0:
+        print('No hi siguis')
+        return False
+
+    for tournament, tournamentData  in tournamentsData.items():
+        if tournamentData['tennisId'].lower() == gameDB['tournament']:
+            # We have found the game tournament
+            #print(tournamentData['_name'])
+            for courtName, courtGames in tournamentData['courts'].items():
+                #print(f'Court {courtName} ({len(courtGames)} games)')
+
+                for courtGame in enumerate(courtGames):
+                    for gameData in courtGame:
+                        if isinstance(gameData, dict):
+                            homePlayerName = f"{gameData['sides'][0]['sidePlayer'][0]['player']['person']['lastName']} {gameData['sides'][0]['sidePlayer'][0]['player']['person']['firstName']}"
+                            homePlayerSideId = gameData['sides'][0]['sidePlayer'][0]['sideId']
+                            awayPlayerName = f"{gameData['sides'][1]['sidePlayer'][0]['player']['person']['lastName']} {gameData['sides'][1]['sidePlayer'][0]['player']['person']['firstName']}"
+                            awayPlayerSideId = gameData['sides'][1]['sidePlayer'][0]['sideId']
+                            #print(homePlayerName, awayPlayerName)
+
+                            if homePlayerName == playerTEName or homePlayerName == playerFSName:
+                                playerSideId = homePlayerSideId
+                                opponentSideId = awayPlayerSideId
+                            elif awayPlayerName == playerTEName or awayPlayerName == playerFSName:
+                                playerSideId = awayPlayerSideId
+                                opponentSideId = homePlayerSideId
+                            else:
+                                #print('The player names are different; bye byesos')
+                                break
+
+                            if (homePlayerName == gameDB['TE-player1'] or homePlayerName == gameDB['FS-player1']) and (awayPlayerName == gameDB['TE-player2'] or awayPlayerName == gameDB['FS-player2']) or (homePlayerName == gameDB['TE-player2'] or homePlayerName == gameDB['FS-player2']) and (awayPlayerName == gameDB['TE-player1'] or awayPlayerName == gameDB['FS-player1']):
+                                # Game found
+                                print(playerSideId, opponentSideId)
+                                gameStatsURL = f"https://api.itf-production.sports-data.stadion.io/custom/widgetMatchStats/{gameData['id']}"
+                                print(gameStatsURL)
+                                numRetries = 0
+
+                                while numRetries < 5:
+                                    try:
+                                        content = requests.request('GET', gameStatsURL, data = '', headers = headers).text
+                                        gameStats = json.loads(content)['data']
+                                        break
+                                    except:
+                                        time.sleep(2)
+                                        numRetries += 1
+
+                                for gameStat in gameStats:
+                                    if gameStat['setNumber'] == 1 and gameStat['_name'] == 'Break Points Conversions':
+                                        if gameStat['sideId'] == playerSideId:
+                                            breaksData['player'] = gameStat['value']
+                                        elif gameStat['sideId'] == opponentSideId:
+                                            breaksData['opponent'] = gameStat['value']
+                                        #print(json.dumps(gameStat, sort_keys=True, indent=4))
+
+                                return breaksData
+
+    return breaksData
