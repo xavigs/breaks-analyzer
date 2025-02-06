@@ -121,7 +121,7 @@ def getBreakDataFromSofaScore(sex, from_player, limit_player):
                         if gameDB is not None and '-itf-' in gameDB['tournament']:
                             breakStats = itfTennis.findBreakStats(gameDB, player['tennisExplorerName'], player['flashScoreName'])
 
-                            if 'player' in breakStats and 'opponent' in breakStats:
+                            if breakStats and 'player' in breakStats and 'opponent' in breakStats:
                                 print('Breaks stats found!')
                                 if breakStats['player'] > 0:
                                     previousGame['breakDone'] = 1
