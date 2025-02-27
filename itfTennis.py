@@ -3,9 +3,26 @@ import sys
 import time
 import requests
 import json
+import undetected_chromedriver as uc
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.proxy import Proxy, ProxyType
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from utils import *
 
 # Constants
+PROXY_LIST_HOME = 'https://www.geonode.com/free-proxy-list'
+PROXY_LIST_API = 'https://proxylist.geonode.com/api/proxy-list'
+PROXY_LIST_PARAMS = {
+    'protocols': 'http, https',
+    'limit': 500,
+    'page': 1,
+    'sort_by': 'lastChecked',
+    'sort_type': 'desc'
+}
+ITF_HOME_URL = 'https://www.itftennis.com/'
 SURFACES = {
     'H': 'D',
     'C': 'T',
@@ -32,11 +49,79 @@ headers = {
 
 def getTournaments(sex, year):
     tournaments = []
+    proxiesPool = []
     skip = 0
 
+    # Pre-connection to proxy list home
+    print('Connecting to proxy list URL...')
+    chromeService = Service('./chromedriver.exe')
+    browser = webdriver.Chrome(service=chromeService)
+    browser.get(PROXY_LIST_HOME)
+    WebDriverWait(browser, 20).until(EC.element_to_be_clickable((By.XPATH, '//button[@title="Accept all cookies"]'))).click()
+    time.sleep(10)
+
+    # Transfer cookies from Selenium to Requests Session
+    print('Transferring cookies from Selenium to Session...')
+    session = requests.Session()
+
+    for cookie in browser.get_cookies():
+        c = {cookie['name']: cookie['value']}
+        session.cookies.update(c)
+
+    browser.close()
+
+    # Get proxy list
+    print('Getting proxy list...')
+    proxiesResponse = session.get(PROXY_LIST_API, params=PROXY_LIST_PARAMS)
+    proxiesJSON = json.loads(proxiesResponse.content.decode('utf-8'))
+    proxiesData = proxiesJSON['data']
+
+    for proxyData in proxiesData:
+        proxy = {
+            'protocol': proxyData['protocols'][0],
+            'ip': proxyData['ip'],
+            'port': proxyData['port']
+        }
+        proxiesPool.append(proxy)
+
+    '''print(json.dumps(proxiesPool, sort_keys=True, indent=4))
+    exit()'''
+
     # Get cookie from a random URL
-    headers = {'Cookie': 'incap_ses_1773_178373=bJqFVApaPHori4/RUPaaGD2MlmcAAAAA2DpPvFoTxvGj+LJ5esYJyg=='}
-    #print(headers)
+    proxyData = proxiesPool.pop()
+    #proxy = {f'{proxyData['protocol']}' : f'{proxyData['protocol']}://{proxyData['ip']}:{proxyData['port']}'}
+    prox = Proxy()
+    prox.proxy_type = ProxyType.MANUAL
+    prox.http_proxy = f"{proxyData['ip']}:{proxyData['port']}"
+    '''prox.socks_proxy = f"{proxyData['ip']}:{proxyData['port']}"
+    prox.ssl_proxy = f"{proxyData['ip']}:{proxyData['port']}"'''
+
+    capabilities = webdriver.DesiredCapabilities.CHROME
+    prox.add_to_capabilities(capabilities)
+
+    print(f'Connecting to proxy {proxy}...')
+    options = uc.ChromeOptions()
+    options.add_argument("--headless=new")
+    browser = uc.Chrome(options=options, desired_capabilities=capabilities)
+    script = "Object.defineProperty(navigator, 'webdriver', {get: () => false})"
+    browser.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {'source': script})
+    browser.get(ITF_HOME_URL)
+
+    try:
+        WebDriverWait(browser, 20).until(EC.presence_of_element_located((By.ID, 'sign-up-form')))
+    except:
+        print(browser.page_source)
+        exit()
+
+    print('Getting cookies...')
+
+    for cookie in browser.get_cookies():
+        if 'incap_ses_' in cookie['name']:
+            headers = {'Cookie': f"{cookie['name']}={cookie['value']}"}
+            break
+
+    browser.close()
+    print(headers)
 
     while skip < 700:
         url = "https://www.itftennis.com/tennis/api/TournamentApi/GetCalendar?circuitCode={}T&searchString=&skip={}&take=100&nationCodes=&zoneCodes=&dateFrom={}-01-01&dateTo={}-12-31&indoorOutdoor=&categories=&isOrderAscending=true&orderField=startDate&surfaceCodes=".format(sex, skip, year, year)
@@ -125,7 +210,7 @@ def findBreakStats(gameDB, playerTEName, playerFSName):
         return False
 
     for tournament, tournamentData  in tournamentsData.items():
-        if tournamentData['tennisId'].lower() == gameDB['tournament']:
+        if 'tennisId' in tournamentData and tournamentData['tennisId'] is not None and tournamentData['tennisId'].lower() == gameDB['tournament']:
             # We have found the game tournament
             #print(tournamentData['_name'])
             for courtName, courtGames in tournamentData['courts'].items():
