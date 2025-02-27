@@ -26,7 +26,7 @@ def getITFGames(day):
     FINAL_NAMES = ["Alex"]
 
     for game in games:
-        if game['tournament'][0] == "M" and "/" not in game['home']:
+        if game['tournament'] is not None and game['tournament'][0] == "M" and "/" not in game['home']:
             print(u"{} vs {}".format(game['home'], game['away']).encode('utf-8'))
             gameDB = gamesObj.find([{'gameDay': gameDay, 'TE-player1': game['home'], 'TE-player2': game['away']}])
 
