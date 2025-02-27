@@ -1,0 +1,3115 @@
+{
+	"last-row": 10132,
+	"formula":
+		[
+			{
+				"system": "Sistema NAS",
+				"stake": 1
+			},
+			{
+				"system": "Sistema JUAS",
+				"stake": 1
+			}
+		],
+	"periods":
+		[
+			{
+				"keyword": "00-week1",
+				"name": "1 setmana",
+				"first-row": 4,
+				"last-row": 30,
+				"type": 0
+			},
+			{
+				"keyword": "00-week2",
+				"name": "2 setmanes",
+				"first-row": 4,
+				"last-row": 58,
+				"type": 0
+			},
+			{
+				"keyword": "2020-02",
+				"name": "Feb-20",
+				"first-row": 4,
+				"last-row": 125,
+				"type": 1
+			},
+			{
+				"keyword": "01-20-mar",
+				"name": "Mar-20 (PRE-COVID)",
+				"first-row": 126,
+				"last-row": 161,
+				"type": 0
+			},
+			{
+				"keyword": "01-20-set",
+				"name": "Set-20 (POST-COVID)",
+				"first-row": 163,
+				"last-row": 196,
+				"type": 0
+			},
+			{
+				"keyword": "2020-03",
+				"name": "Mar+Set-20",
+				"first-row": 126,
+				"last-row": 196,
+				"type": 1
+			},
+			{
+				"keyword": "2020-10",
+				"name": "Oct-20",
+				"first-row": 197,
+				"last-row": 314,
+				"type": 1
+			},
+			{
+				"keyword": "2020-11",
+				"name": "Nov-20",
+				"first-row": 315,
+				"last-row": 413,
+				"type": 1
+			},
+			{
+				"keyword": "2020-12",
+				"name": "Des-20",
+				"first-row": 414,
+				"last-row": 438,
+				"type": 1
+			},
+			{
+				"keyword": "2021-01",
+				"name": "Gen-21",
+				"first-row": 439,
+				"last-row": 506,
+				"type": 1
+			},
+			{
+				"keyword": "2021-02",
+				"name": "Feb-21",
+				"first-row": 507,
+				"last-row": 635,
+				"type": 1
+			},
+			{
+				"keyword": "2021-03",
+				"name": "Mar-21",
+				"first-row": 636,
+				"last-row": 790,
+				"type": 1
+			},
+			{
+				"keyword": "2021-04",
+				"name": "Abr-21",
+				"first-row": 791,
+				"last-row": 866,
+				"type": 1
+			},
+			{
+				"keyword": "2021-05",
+				"name": "Mai-21",
+				"first-row": 867,
+				"last-row": 1017,
+				"type": 1
+			},
+			{
+				"keyword": "2021-06",
+				"name": "Jun-21",
+				"first-row": 1018,
+				"last-row": 1297,
+				"type": 1
+			},
+			{
+				"keyword": "2021-07",
+				"name": "Jul+Ago-21",
+				"first-row": 1298,
+				"last-row": 1351,
+				"type": 1
+			},
+			{
+				"keyword": "2022-02",
+				"name": "Feb-22",
+				"first-row": 1353,
+				"last-row": 1415,
+				"type": 1
+			},
+			{
+				"keyword": "2022-03",
+				"name": "Mar-22",
+				"first-row": 1416,
+				"last-row": 1510,
+				"type": 1
+			},
+			{
+				"keyword": "2022-04",
+				"name": "Abr-22",
+				"first-row": 1511,
+				"last-row": 1605,
+				"type": 1
+			},
+			{
+				"keyword": "2022-05",
+				"name": "Mai-22",
+				"first-row": 1606,
+				"last-row": 1756,
+				"type": 1
+			},
+			{
+				"keyword": "2022-06",
+				"name": "Jun-22",
+				"first-row": 1757,
+				"last-row": 1921,
+				"type": 1
+			},
+			{
+				"keyword": "2022-07",
+				"name": "Jul-22",
+				"first-row": 1922,
+				"last-row": 2050,
+				"type": 1
+			},
+			{
+				"keyword": "2022-08",
+				"name": "Ago-22",
+				"first-row": 2051,
+				"last-row": 2187,
+				"type": 1
+			},
+			{
+				"keyword": "2022-09",
+				"name": "Set-22",
+				"first-row": 2188,
+				"last-row": 2340,
+				"type": 1
+			},
+			{
+				"keyword": "2022-10",
+				"name": "Oct-22",
+				"first-row": 2341,
+				"last-row": 2554,
+				"type": 1
+			},
+			{
+				"keyword": "2022-11",
+				"name": "Nov-22",
+				"first-row": 2555,
+				"last-row": 2728,
+				"type": 1
+			},
+			{
+				"keyword": "2022-12",
+				"name": "Des-22",
+				"first-row": 2729,
+				"last-row": 2777,
+				"type": 1
+			},
+			{
+				"keyword": "2023-01",
+				"name": "Gen-23",
+				"first-row": 2778,
+				"last-row": 3004,
+				"type": 1
+			},
+			{
+				"keyword": "2023-02",
+				"name": "Feb-23",
+				"first-row": 3005,
+				"last-row": 3195,
+				"type": 1
+			},
+			{
+				"keyword": "2023-03",
+				"name": "Mar-23",
+				"first-row": 3196,
+				"last-row": 3362,
+				"type": 1
+			},
+			{
+				"keyword": "2023-04",
+				"name": "Abr-23",
+				"first-row": 3363,
+				"last-row": 3559,
+				"type": 1
+			},
+			{
+				"keyword": "2023-05",
+				"name": "Mai-23",
+				"first-row": 3560,
+				"last-row": 3801,
+				"type": 1
+			},
+			{
+				"keyword": "2023-06",
+				"name": "Jun-23",
+				"first-row": 3802,
+				"last-row": 4176,
+				"type": 1
+			},
+			{
+				"keyword": "2023-07",
+				"name": "Jul-23",
+				"first-row": 4177,
+				"last-row": 4378,
+				"type": 1
+			},
+			{
+				"keyword": "2023-08",
+				"name": "Ago-23",
+				"first-row": 4379,
+				"last-row": 4692,
+				"type": 1
+			},
+			{
+				"keyword": "2023-09",
+				"name": "Set-23",
+				"first-row": 4693,
+				"last-row": 4928,
+				"type": 1
+			},
+			{
+				"keyword": "2023-10",
+				"name": "Oct-23",
+				"first-row": 4929,
+				"last-row": 5258,
+				"type": 1
+			},
+			{
+				"keyword": "2023-11",
+				"name": "Nov-23",
+				"first-row": 5259,
+				"last-row": 5506,
+				"type": 1
+			},
+			{
+				"keyword": "2023-12",
+				"name": "Des-23",
+				"first-row": 5507,
+				"last-row": 5580,
+				"type": 1
+			},
+			{
+				"keyword": "2024-01",
+				"name": "Gen-24",
+				"first-row": 5581,
+				"last-row": 5953,
+				"type": 1
+			},
+			{
+				"keyword": "2024-02",
+				"name": "Feb-24",
+				"first-row": 5954,
+				"last-row": 6380,
+				"type": 1
+			},
+			{
+				"keyword": "2024-03",
+				"name": "Mar-24",
+				"first-row": 6381,
+				"last-row": 6683,
+				"type": 1
+			},
+			{
+				"keyword": "2024-04",
+				"name": "Abr-24",
+				"first-row": 6684,
+				"last-row": 7023,
+				"type": 1
+			},
+			{
+				"keyword": "2024-05",
+				"name": "Mai-24",
+				"first-row": 7024,
+				"last-row": 7320,
+				"type": 1
+			},
+			{
+				"keyword": "2024-06",
+				"name": "Jun-24",
+				"first-row": 7321,
+				"last-row": 7703,
+				"type": 1
+			},
+			{
+				"keyword": "2024-07",
+				"name": "Jul-24",
+				"first-row": 7704,
+				"last-row": 8075,
+				"type": 1
+			},
+			{
+				"keyword": "2024-08",
+				"name": "Ago-24",
+				"first-row": 8076,
+				"last-row": 8413,
+				"type": 1
+			},
+			{
+				"keyword": "2024-09",
+				"name": "Set-24",
+				"first-row": 8414,
+				"last-row": 8690,
+				"type": 1
+			},
+			{
+				"keyword": "2024-10",
+				"name": "Oct-24",
+				"first-row": 8691,
+				"last-row": 9126,
+				"type": 1
+			},
+			{
+				"keyword": "2024-11",
+				"name": "Nov-24",
+				"first-row": 9127,
+				"last-row": 9383,
+				"type": 1
+			},
+			{
+				"keyword": "2024-12",
+				"name": "Des-24",
+				"first-row": 9384,
+				"last-row": 9461,
+				"type": 1
+			},
+			{
+				"keyword": "2025-01",
+				"name": "Gen-25",
+				"first-row": 9462,
+				"last-row": 9837,
+				"type": 1
+			},
+			{
+				"keyword": "2025-02",
+				"name": "Feb-25",
+				"first-row": 9838,
+				"last-row": 10132,
+				"type": 1
+			}
+		],
+	"dismiss":
+		[
+			{
+				"col": "B",
+				"operator": "=",
+				"value": "GS"
+			},
+			{
+				"col": "C",
+				"operator": "=",
+				"value": "GS"
+			}
+		],
+	"jump": [37, 162, 1352],
+	"systems":
+		[
+			{
+				"name": "03-Sistema 1",
+				"future": 304,
+				"start-date": "2020-10-28",
+				"start-text": "Nov-20",
+				"start-bank": "Oct-20",
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						]
+					]
+			},
+			{
+				"name": "04-Sistema 3",
+				"future": 304,
+				"start-date": "2020-10-28",
+				"start-text": "Nov-20",
+				"start-bank": "Oct-20",
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">=",
+								"value": 2.20
+							}
+						]
+					]
+			},
+			{
+				"name": "01-Sistema NAS",
+				"future": 191,
+				"start-date": "2020-09-30",
+				"start-text": "Oct-20",
+				"start-bank": "Mar+Set-20",
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							}
+						],
+						[
+							{
+								"col": "K",
+								"operator": ">=",
+								"value": 2.20
+							}
+						]
+					]
+			},
+			{
+				"name": "02-Sistema JUAS",
+				"future": 229,
+				"start-date": "2020-10-13",
+				"start-text": "Oct-20 (1/2)",
+				"start-bank": "Mar+Set-20",
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "05-Sistema JIXTA",
+				"future": 497,
+				"start-date": "2021-01-21",
+				"start-text": "Gen-21 (1/3)",
+				"start-bank": "Des-20",
+				"conditions":
+					[
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						],
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						]
+					]
+			},
+			{
+				"name": "06-Sistema D1SITIS",
+				"future": 497,
+				"start-date": "2021-01-21",
+				"start-text": "Gen-21 (1/3)",
+				"start-bank": "Des-20",
+				"conditions":
+					[
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						],
+						[
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						]
+					]
+			},
+			{
+				"name": "07-Sistema Experimental",
+				"future": 635,
+				"start-date": "2021-02-28",
+				"start-text": "Mar-21",
+				"start-bank": "Feb-21",
+				"conditions":
+					[
+						[
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						]
+					]
+			},
+			{
+				"name": "08-Sistema Experimental I",
+				"future": 635,
+				"start-date": "2021-02-28",
+				"start-text": "Mar-21",
+				"start-bank": "Feb-21",
+				"conditions":
+					[
+						[
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "09-Sistema Experimental II",
+				"future": 736,
+				"start-date": "2021-03-19",
+				"start-text": "Mar-21 (1/2)",
+				"start-bank": "Feb-21",
+				"conditions":
+					[
+						[
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 500
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 1000
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 500
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 1000
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						]
+					]
+			},
+			{
+				"name": "10-Sistema Experimental III",
+				"future": 791,
+				"start-date": "2021-04-01",
+				"start-text": "Abr-21",
+				"start-bank": "Mar-21",
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "B",
+								"operator": "<>",
+								"value": "GS"
+							},
+							{
+								"col": "B",
+								"operator": "<>",
+								"value": "ITF"
+							},
+							{
+								"col": "C",
+								"operator": "<>",
+								"value": "ITF"
+							},
+							{
+								"col": "B",
+								"operator": "<>",
+								"value": "CH"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 500
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 1000
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "11-Sistema Experimental IV",
+				"future": 1018,
+				"start-date": "2021-06-01",
+				"start-text": "Jun-21",
+				"start-bank": "Mai-21",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+                        ],
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "12-Sistema Experimental V",
+				"future": 1484,
+				"start-date": "2022-03-27",
+				"start-text": "Abr-22",
+				"start-bank": "Mar-22",
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "L",
+                                "operator": ">=",
+                                "value": 0.9
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "13-Sistema Experimental VI",
+				"future": 1484,
+				"start-date": "2022-03-27",
+				"start-text": "Abr-22",
+				"start-bank": "Mar-22",
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "L",
+                                "operator": ">=",
+                                "value": 0.9
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "N",
+                                "operator": ">=",
+                                "value": 1.60
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "14-Sistema Experimental VII",
+				"future": 1484,
+				"start-date": "2022-03-27",
+				"start-text": "Abr-22",
+				"start-bank": "Mar-22",
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "L",
+                                "operator": ">=",
+                                "value": 0.9
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ATP"
+                            },
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": 500
+                            },
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            }
+                        ],
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "15-Sistema Experimental VIII",
+				"future": 1484,
+				"start-date": "2022-03-27",
+				"start-text": "Abr-22",
+				"start-bank": "Mar-22",
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "L",
+                                "operator": ">=",
+                                "value": 0.9
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "N",
+                                "operator": ">=",
+                                "value": 1.60
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ATP"
+                            },
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": 250
+                            },
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            }
+                        ],
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ATP"
+                            },
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": 500
+                            },
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            }
+                        ],
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "16-Sistema Experimental IX",
+				"future": 1580,
+				"start-date": "2022-04-26",
+				"start-text": "Mai-22",
+				"start-bank": "Abr-22",
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "N",
+                                "operator": ">=",
+                                "value": 1.60
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "17-Sistema Experimental X",
+				"future": 1618,
+				"start-date": "2022-05-03",
+				"start-text": "Mai-22",
+				"start-bank": "Abr-22",
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "17-Sistema Experimental XI",
+				"future": 2362,
+				"start-date": "2022-10-04",
+				"start-text": "Oct-22",
+				"start-bank": "Set-22",
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "N",
+                                "operator": ">=",
+                                "value": 1.60
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            }
+                        ]
+                    ]
+			},
+			{
+				"name": "17-Sistema Experimental XII",
+				"future": 3560,
+				"start-date": "2023-05-01",
+				"start-text": "Mai-23",
+				"start-bank": "Abr-23",
+				"conditions":
+					[
+                        [
+                            {
+                                "col": "B",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "C",
+                                "operator": "=",
+                                "value": "ITF"
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ],
+                        [
+                            {
+                                "col": "H",
+                                "operator": "<",
+                                "value": 1.20
+                            },
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.20
+                            }
+                        ],
+                        [
+                            {
+                                "col": "K",
+                                "operator": ">",
+                                "value": 2.00
+                            },
+                            {
+                                "col": "I",
+                                "operator": "=",
+                                "value": "S"
+                            },
+                            {
+                                "col": "J",
+                                "operator": "=",
+                                "value": "N"
+                            }
+                        ]
+
+                    ]
+			},
+			{
+				"name": "18-Sistema Experimental XIII",
+				"future": 4379,
+				"start-date": "2023-08-01",
+				"start-text": "Ago-23",
+				"start-bank": "Jul-23",
+				"conditions":
+					[
+          	[
+                {
+                    "col": "H",
+                    "operator": "<",
+                    "value": 1.20
+                },
+                {
+                    "col": "K",
+                    "operator": ">",
+                    "value": 2.20
+                }
+            ]
+        ]
+			},
+			{
+				"name": "19-Sistema Experimental XIV",
+				"future": 5119,
+				"start-date": "2023-10-21",
+				"start-text": "Nov-23",
+				"start-bank": "Oct-23",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							}
+						],
+						[
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "19-Sistema Experimental XV",
+				"future": 6381,
+				"start-date": "2024-03-01",
+				"start-text": "Mar-24",
+				"start-bank": "Feb-24",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							}
+						]
+					]
+			},
+			{
+				"name": "20-Sistema Experimental XVI",
+				"future": 7024,
+				"start-date": "2024-05-01",
+				"start-text": "Mai-24",
+				"start-bank": "Abr-24",
+				"conditions":
+					[
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							},
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.8
+							}
+						]
+        			]
+			},
+			{
+				"name": "21-Sistema New Age I",
+				"future": 8414,
+				"start-date": "2024-09-01",
+				"start-text": "Set-24",
+				"start-bank": "Ago-24",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							}
+						],
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							},
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.8
+							}
+						]
+        			]
+			},
+			{
+				"name": "22-Sistema New Age II",
+				"future": 8414,
+				"start-date": "2024-09-01",
+				"start-text": "Set-24",
+				"start-bank": "Ago-24",
+				"conditions":
+					[
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							},
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.8
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							}
+						]
+        			]
+			},
+			{
+				"name": "23-Sistema New Age III",
+				"future": 8414,
+				"start-date": "2024-09-01",
+				"start-text": "Set-24",
+				"start-bank": "Ago-24",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							},
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.8
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							}
+						]
+        			]
+			},
+			{
+				"name": "24-Sistema New Age IV",
+				"future": 8414,
+				"start-date": "2024-09-01",
+				"start-text": "Set-24",
+				"start-bank": "Ago-24",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							},
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.8
+							}
+						]
+        			]
+			},
+			{
+				"name": "Valor >= 1,60 + Quota > 2,00",
+				"conditions":
+					[
+						[
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "Valor >= 1,60 + Rival < 1,20",
+				"conditions":
+					[
+						[
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							},
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							}
+						]
+					]
+			},
+			{
+				"name": "OK + Quota > 2,00",
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "Rival < 1,20 + SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "OK + Quota >= 2,20",
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">=",
+								"value": 2.20
+							}
+						]
+					]
+			},
+			{
+				"name": "OK + Quota > 2,20",
+				"conditions":
+					[
+						[
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.20
+							}
+						]
+					]
+			},
+			{
+				"name": "Terra + SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "Terra (excepte Grand Slams, ITFs i Challengers)",
+				"conditions":
+					[
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "B",
+								"operator": "<>",
+								"value": "GS"
+							},
+							{
+								"col": "B",
+								"operator": "<>",
+								"value": "ITF"
+							},
+							{
+								"col": "C",
+								"operator": "<>",
+								"value": "ITF"
+							},
+							{
+								"col": "B",
+								"operator": "<>",
+								"value": "CH"
+							}
+						]
+					]
+			},
+			{
+				"name": "ITF + SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "WTA",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							}
+						]
+					]
+			},
+			{
+				"name": "Terra + OK + SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							},
+							{
+								"col": "G",
+								"operator": "=",
+								"value": "OK"
+							},
+							{
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+							{
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "ITF + Valor >= 1,60",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						],
+						[
+							{
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+							{
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							}
+						]
+					]
+			},
+			{
+				"name": "ATP-250 + Terra",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						]
+					]
+			},
+			{
+				"name": "ATP-500 + Quota > 2,00",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 500
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "Challengers + Rival < 1,20",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "CH"
+							},
+							{
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							}
+						]
+					]
+			},
+			{
+				"name": "(ATP o WTA) + Terra",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 500
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 1000
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							},
+							{
+								"col": "D",
+								"operator": "=",
+								"value": "T"
+							}
+						]
+					]
+			},
+			{
+				"name": "(ATP o WTA) + Quota > 2,00",
+				"conditions":
+					[
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 250
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 500
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "ATP"
+							},
+							{
+								"col": "C",
+								"operator": "=",
+								"value": 1000
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+							{
+								"col": "B",
+								"operator": "=",
+								"value": "WTA"
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "Probabilitat >= 90% + Quota > 2,00 ó Valor >= 1,60 + Local SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.9
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+                            {
+								"col": "N",
+								"operator": ">=",
+								"value": 1.60
+							},
+                            {
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+                            {
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "Probabilitat >= 90% + Quota > 2,00 ó Rival < 1,20 + Local SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.9
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+                            {
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+                            {
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+                            {
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "Probabilitat >= 90% + Quota > 2,00 ó ITF + Local SN",
+				"conditions":
+					[
+						[
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.9
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+                            {
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+                            {
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+                            {
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+                            {
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+                            {
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+                            {
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			},
+			{
+				"name": "Probabilitat >= 90% + Quota > 2,00 ó Rival < 1,20 + Quota > 2,00",
+				"conditions":
+					[
+						[
+							{
+								"col": "L",
+								"operator": ">=",
+								"value": 0.9
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+                            {
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						]
+					]
+			},
+			{
+				"name": "ITF + Local SN ó Rival < 1,20 + Quota > 2,00",
+				"conditions":
+					[
+						[
+                            {
+								"col": "H",
+								"operator": "<",
+								"value": 1.20
+							},
+							{
+								"col": "K",
+								"operator": ">",
+								"value": 2.00
+							}
+						],
+						[
+                            {
+								"col": "B",
+								"operator": "=",
+								"value": "ITF"
+							},
+                            {
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+                            {
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						],
+						[
+                            {
+								"col": "C",
+								"operator": "=",
+								"value": "ITF"
+							},
+                            {
+								"col": "I",
+								"operator": "=",
+								"value": "S"
+							},
+                            {
+								"col": "J",
+								"operator": "=",
+								"value": "N"
+							}
+						]
+					]
+			}
+		]
+}

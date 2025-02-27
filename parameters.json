@@ -1,5 +1,5 @@
 {
-	"last-row": 9742,
+	"last-row": 10132,
 	"formula":
 		[
 			{
@@ -374,7 +374,14 @@
 				"keyword": "2025-01",
 				"name": "Gen-25",
 				"first-row": 9462,
-				"last-row": 9742,
+				"last-row": 9837,
+				"type": 1
+			},
+			{
+				"keyword": "2025-02",
+				"name": "Feb-25",
+				"first-row": 9838,
+				"last-row": 10132,
 				"type": 1
 			}
 		],
@@ -383,12 +390,12 @@
 			{
 				"col": "B",
 				"operator": "=",
-				"value": "GS"
+				"value": "Nas"
 			},
 			{
 				"col": "C",
 				"operator": "=",
-				"value": "GS"
+				"value": "Nas"
 			}
 		],
 	"jump": [37, 162, 1352],
