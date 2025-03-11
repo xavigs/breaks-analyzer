@@ -99,7 +99,7 @@ def getTournaments(sex, year):
     capabilities = webdriver.DesiredCapabilities.CHROME
     prox.add_to_capabilities(capabilities)
 
-    print(f'Connecting to proxy {proxy}...')
+    print('Connecting to proxy {}...'.format(proxy))
     options = uc.ChromeOptions()
     options.add_argument("--headless=new")
     browser = uc.Chrome(options=options, desired_capabilities=capabilities)
