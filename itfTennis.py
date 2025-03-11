@@ -138,7 +138,7 @@ def getTournaments(sex, year):
                 '_id': tournamentData['tournamentKey'].lower(),
                 'category': 'ITF',
                 'name': tournamentData['tournamentName'],
-                'country': getKeywordFromString(tournamentData['hostNation']).replace(",", "").replace(".", ""),
+                'country': getKeywordFromString(tournamentData['hostNation']).replace(",", "").replace(".", "").replace('turkiye', 'turkey').replace('china-pr', 'china'),
                 'surface': SURFACES[tournamentData['surfaceCode']],
                 'sex': sex,
                 'year': year
