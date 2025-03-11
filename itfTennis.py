@@ -92,7 +92,7 @@ def getTournaments(sex, year):
     #proxy = {f'{proxyData['protocol']}' : f'{proxyData['protocol']}://{proxyData['ip']}:{proxyData['port']}'}
     prox = Proxy()
     prox.proxy_type = ProxyType.MANUAL
-    prox.http_proxy = f"{proxyData['ip']}:{proxyData['port']}"
+    prox.http_proxy = '{}:{}'.format(proxyData['ip'], proxyData['port'])
     '''prox.socks_proxy = f"{proxyData['ip']}:{proxyData['port']}"
     prox.ssl_proxy = f"{proxyData['ip']}:{proxyData['port']}"'''
 
