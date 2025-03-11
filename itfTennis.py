@@ -117,7 +117,7 @@ def getTournaments(sex, year):
 
     for cookie in browser.get_cookies():
         if 'incap_ses_' in cookie['name']:
-            headers = {'Cookie': f"{cookie['name']}={cookie['value']}"}
+            headers = {'Cookie': '{}={}'.format(cookie['name'], cookie['value'])}
             break
 
     browser.close()
