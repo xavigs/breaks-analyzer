@@ -458,7 +458,7 @@ def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
         req = urllib2.Request(url, data)
         req.add_header("Content-type", "application/x-www-form-urlencoded")
         page = urllib2.urlopen(req).read()'''
-        print(f'Wrong URL: {playerID} - {playerName}')
+        print("Wrong URL: {} - {}".format(playerID, playerName))
 
     for event in games:
         if event['game']:
