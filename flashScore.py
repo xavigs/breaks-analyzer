@@ -452,12 +452,13 @@ def checkBreaksLastGamesByPlayer(playerID, playerName, lastGames):
         games = parseGames(content.encode('utf-8'), False, lastGames = lastGames)
     except:
         games = []
-        url = 'https://www.basketme.com/crawlers/tipster/sendFlashScoreWrongURL.php'
+        '''url = 'https://www.basketme.com/crawlers/tipster/sendFlashScoreWrongURL.php'
         data = [('player', "{} - {}".format(playerID, playerName))]
         data = urllib.urlencode(data)
         req = urllib2.Request(url, data)
         req.add_header("Content-type", "application/x-www-form-urlencoded")
-        page = urllib2.urlopen(req).read()
+        page = urllib2.urlopen(req).read()'''
+        print(f'Wrong URL: {playerID} - {playerName}')
 
     for event in games:
         if event['game']:
